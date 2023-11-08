@@ -1,0 +1,18 @@
+{
+  "_comment1": "Esse arquivo é gerado automaticamente pelo Shadcn CLI, ele manipula as configurações dos componentes gerados por ele na pasta components/ui de acordo com tailwindCss e o css main/geral/index. ex: o button, e através dele você pode criar outros componentes, como o button-primary, button-secondary, button-tertiary, etc..",
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "default",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "src/main.css",
+    "baseColor": "zinc",
+    "cssVariables": true
+  },
+  "_comment2": "Você pode criar aliases para os componentes, para que eles sejam importados de forma mais fácil, com base no que você colocou em tsconfig.paths.json e vite.config.ts. Nesse caso o components e o lib esta sem o @, pois o @ é o alias do src.",
+  "aliases": {
+    "components": "components",
+    "utils": "lib/utils"
+  }
+}

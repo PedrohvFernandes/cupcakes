@@ -1,6 +1,9 @@
+// Aqui vai ficar todas as configurações de paths do projeto, para que não precise ficar importando com ../../../../
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    // "baseUrl": "./src/", pode usar esse ou:
+    // "baseUrl": "src", pode usar esse ou:
+    "baseUrl": "./src",
     "paths": {
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
@@ -9,6 +12,7 @@
       "@pages/*": ["pages/*"],
       "@routes/*": ["routes/*"],
       "@utils/*": ["utils/*"],
+      "@lib/*": ["lib/*"],
     }
   }
 }
