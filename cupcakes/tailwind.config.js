@@ -17,6 +17,8 @@ module.exports = {
       },
     },
     extend: {
+      // Cores configuradas aqui pela dev/pela propria lib usando as variaveis do main.css. Se quiser um texto com a cor do background basta colocar className = "text-background" ou se quiser nativo do tailwind className = "text-gray-900". Daria para colocar mais coisas na cor background, ex: background: { "primary": "var(--primary)" }, com isso eu poderia usar dessa forma: className = "text-background-primary" mas como o shadcn/ui ja tem um background configurado, eu deixei assim
+      // Entao se a gente usar as config daqui, vai ser com base nas cores configuradas no main.css
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

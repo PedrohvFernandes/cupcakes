@@ -17,14 +17,18 @@ export const Router = createBrowserRouter([
     element: <DefaultLayoutCheckout />,
     children: [{}]
   },
+  // {
+  //   path: ConfigRoutes.cupcakes.default.notFound,
+  //   element: <DefaultLayout />,
+  //   children: [
+  //     {
+  //       path: ConfigRoutes.cupcakes.default.notFound,
+  //       element: <NotFound />
+  //     }
+  //   ]
+  // }
   {
     path: ConfigRoutes.cupcakes.default.notFound,
-    element: <DefaultLayout />,
-    children: [
-      {
-        path: ConfigRoutes.cupcakes.default.notFound,
-        element: <NotFound />
-      }
-    ]
+    element: <NotFound />
   }
 ])

@@ -3,15 +3,23 @@
 @tailwind utilities;
 
 @layer base {
+  /* Variaveis css criada pela lib shadcn/ui que são usadas no tailwind, que tambem foi configurado pela lib shadcn/ui */
+  /* Variaveis de cores usadas no tailwind */
   :root {
-    --background: 240 10% 3.9%;
+    /* Alterado */
+    /* --background:  240 10% 3.9%; */
+    --background: 28 29% 53%;
+    /* --primary: 0 0% 98%; */
+    --primary: 	16, 88%, 55%;
+    /* --primary-foreground: 240 5.9% 10%; */
+    --primary-foreground:	26, 28%, 35%;
+    
+    /* Padrao da lib */
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
@@ -30,9 +38,11 @@
 
 @layer base {
   * {
+    /* Variavel border vinda do tailwind */
     @apply border-border;
   }
   body {
+    /* variaveis vindas do tailwind, ex: bg-red nativo do tailwind ou o bg-background feito no tailwind pelo dev/lib no arquivo de config tailwind.config.js usando as variaveis do css root(desse arquivo main), no caso a cor background seria uma cor configurada pelo dev, e nela é usada a variavel feito aqui no css main */
     @apply bg-background text-foreground;
   }
 }
