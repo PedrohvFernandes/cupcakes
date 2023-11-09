@@ -2,7 +2,7 @@ import { CupcakesLogo } from "@assets/index";
 
 export function HeaderDefaultCheckout () {
   return (
-    <header>
+    <header className="container">
       <CupcakesLogo/>
 
     </header>

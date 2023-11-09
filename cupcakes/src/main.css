@@ -5,16 +5,9 @@
 @layer base {
   /* Variaveis css criada pela lib shadcn/ui que são usadas no tailwind, que tambem foi configurado pela lib shadcn/ui */
   /* Variaveis de cores usadas no tailwind */
+  /* Criar a variavel de cor aqui e usar no tailwind.config.js, para conseguir usar no componentes */
   :root {
-    /* Alterado */
-    /* --background:  240 10% 3.9%; */
-    --background: 28 29% 53%;
-    /* --primary: 0 0% 98%; */
-    --primary: 	16, 88%, 55%;
-    /* --primary-foreground: 240 5.9% 10%; */
-    --primary-foreground:	26, 28%, 35%;
-    
-    /* Padrao da lib */
+    /* Cores que vieram por padrão da lib */
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -32,7 +25,25 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
 
+    /* Tamanho */
     --radius: 0.5rem;
+
+    /* Alterado */
+
+    /* Nome de variáveis Padrão */
+    /* --background:  240 10% 3.9%; */
+    --background: 28 29% 53%;
+
+    /* Cores padrão */
+
+    /* --primary: 0 0% 98%; */
+    /* --primary: 16, 88%, 55%; */
+    --primary: 28 29% 53%;
+    /* --primary-foreground: 240 5.9% 10%; */
+    --primary-foreground: 26, 28%, 35%;
+
+    /* Criadas por mim */
+    --primary-background-icons: 34 81% 67%;
   }
 }
 

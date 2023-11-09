@@ -1,6 +1,5 @@
 // Tem que colocar essa configuração aqui também, porque o Vite não reconhece o arquivo custom.d.ts, e por isso da erro de importação de arquivos com alias, como por exemplo: import { ReactComponent as Logo } from '@assets/logo.svg';
 // SVG no vite 4.0 é configurado agora no vite.config.ts e aqui tambem ou qualquer d.ts
-
 /// <reference types="vite-plugin-svgr/client" />
 
 
