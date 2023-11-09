@@ -1,10 +1,8 @@
-import { ImageLogotipo } from "@assets/index";
-
-export function HeaderDefault () {
+import { CupcakesLogo } from '@assets/index'
+export function HeaderDefault() {
   return (
-    <header>
-      <ImageLogotipo/>
-
+    <header className="fixed">
+      <CupcakesLogo  />
     </header>
   )
 }

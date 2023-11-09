@@ -1,9 +1,9 @@
-import { ImageLogotipo } from "@assets/index";
+import { CupcakesLogo } from "@assets/index";
 
 export function HeaderDefaultCheckout () {
   return (
     <header>
-      <ImageLogotipo/>
+      <CupcakesLogo/>
 
     </header>
   )
