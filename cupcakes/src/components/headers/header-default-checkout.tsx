@@ -1,5 +1,5 @@
 import { Header } from './header'
-import { CupcakesLogo } from '@components/CupcakesLogo'
+import { CupcakesLogo } from '@components/cupcakes-logo'
 
 export function HeaderDefaultCheckout() {
   return (
