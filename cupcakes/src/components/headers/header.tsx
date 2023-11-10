@@ -8,7 +8,7 @@ export function Header({ children, className, ...rest }: IHeaderProps) {
   return (
     <header
       className={cn(
-        'fixed z-auto w-full bg-primary-foreground px-2 py-2 top-0 left-0 flex items-center justify-between shadow-lg drop-shadow-lg',
+        'fixed z-50 w-full bg-primary-foreground px-2 py-2 top-0 left-0 flex items-center justify-between shadow-lg drop-shadow-lg',
         className
       )}
       {...rest}

@@ -1,5 +1,8 @@
 export default {
   cupcakes: {
+    baseUrls: {
+      
+    },
     gitHub: {
       baseUrls: {
         perfil: 'https://github.com/PedrohvFernandes',
