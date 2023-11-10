@@ -1,11 +1,29 @@
+import { useLocation } from 'react-router-dom'
+
+import { cn } from '@lib/utils'
+
 import { Button, ButtonProps } from '@components/ui/button'
 
-export function ButtonDefaultOutline({ ...rest }: ButtonProps) {
+interface IButtonDefaultOutlineProps extends ButtonProps {
+  path?: string
+}
+
+export function ButtonDefaultOutline({
+  className,
+  path,
+  ...rest
+}: IButtonDefaultOutlineProps) {
+  const location = useLocation()
+
   return (
     <Button
       {...rest}
       variant={'outline'}
-      className="bg-primary-foreground"
+      className={cn(
+        'bg-primary-foreground',
+        className,
+        path === location.pathname && 'bg-accent'
+      )}
     />
   )
 }

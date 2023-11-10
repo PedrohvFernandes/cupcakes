@@ -8,6 +8,8 @@ import { DefaultLayoutCheckout } from './layouts/default-layout-checkout'
 import { NotFound } from './pages/exception/NotFound'
 import { Home } from '@pages/Home'
 import { Checkout } from '@pages/Checkout'
+import { Location } from '@pages/Location'
+import { ShoppingCart } from '@pages/ShoppingCart'
 
 export const Router = createBrowserRouter([
   {
@@ -17,6 +19,14 @@ export const Router = createBrowserRouter([
       {
         path: ConfigRoutes.cupcakes.default.source,
         element: <Home/>
+      },
+      {
+        path: ConfigRoutes.cupcakes.location.path,
+        element: <Location/>
+      },
+      {
+        path: ConfigRoutes.cupcakes.shoppingCart.path,
+        element: <ShoppingCart/>
       }
     ]
   },

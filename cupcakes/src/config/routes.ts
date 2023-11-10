@@ -22,5 +22,15 @@ export default {
       }
       // exact: true,
     },
+    location: {
+      path: '/location',
+      routeFragment: '/location',
+      next: {}
+    },
+    shoppingCart: {
+      path: '/shopping-cart',
+      routeFragment: '/shopping-cart',
+      next: {}
+    },
   }
 }
