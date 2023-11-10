@@ -1,7 +1,10 @@
 export function Home () {
   return (
-    <>
-     <p>Estamos na home</p>
-    </>
+    <section>
+     <p>Estamos na home1</p>
+
+ 
+
+    </section>
   );
 }

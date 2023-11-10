@@ -4,12 +4,13 @@ import { Outlet } from 'react-router-dom'
 
 export function DefaultLayoutCheckout() {
   return (
-    <div className='relative'>
-      <div className="w-full max-w-[70rem] mx-auto min-h-screen">
+    // <div className='relative'>
+    <>
+      <div className="container min-h-screen pt-20">
         <HeaderDefaultCheckout />
         <Outlet />
       </div>
       <Footer />
-    </div>
+    </>
   )
 }

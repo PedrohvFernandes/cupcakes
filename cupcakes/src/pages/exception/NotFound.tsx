@@ -12,7 +12,7 @@ export function NotFound() {
         <img src="https://i.ibb.co/G9DC8S0/404-2.png" />
       </div>
       <div className="xl:pt-24 w-full xl:w-1/2  pb-12 lg:pb-0">
-        <div className=" flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center text-center">
           <h1 className="my-2 text-foreground font-bold text-2xl">
             Oops! Página não encontrada
           </h1>

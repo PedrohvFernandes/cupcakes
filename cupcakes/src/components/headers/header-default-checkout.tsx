@@ -1,10 +1,12 @@
-import { CupcakesLogo } from "@assets/index";
+import { Header } from './header'
 
-export function HeaderDefaultCheckout () {
+import { CupcakesLogo } from '@assets/index'
+
+export function HeaderDefaultCheckout() {
   return (
-    <header className="container">
-      <CupcakesLogo/>
-
-    </header>
+    <Header>
+      <CupcakesLogo />
+      <span className="font-bold">Finalizar a compra (1 item)</span>
+    </Header>
   )
 }
