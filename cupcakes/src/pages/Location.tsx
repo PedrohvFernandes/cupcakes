@@ -111,7 +111,7 @@ export function Location() {
               location.reload()
             }}
           >
-            Refresh
+            RE-PESQUISAR
           </ButtonDefaultOutline>
         </div>
       ) : (
