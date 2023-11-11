@@ -12,7 +12,7 @@ export function ButtonDefaultOutline({
   className,
   path,
   ...rest
-}: IButtonDefaultOutlineProps) {
+}: Readonly<IButtonDefaultOutlineProps>) {
   const location = useLocation()
 
   return (
