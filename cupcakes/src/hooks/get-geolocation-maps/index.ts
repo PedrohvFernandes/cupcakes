@@ -97,7 +97,7 @@ const getLocation = () => {
     // Verifica se a permissão já foi dada para o navegador sobre a geolocalização: 'granted' = concedido, 'prompt' = solicitado, 'denied' = negado
     const responseState = navigator.permissions
       .query({ name: 'geolocation' })
-      .then(function (response) {
+      .then(response => {
         //Se concedido, você pode chamar diretamente sua função aqui 'granted'  e  Se solicitado, o usuário será solicitado a dar permissão  'prompt' e Se negado, você deverá mostrar instruções para ativar a localização no navegador 'denied'
         navigator.geolocation.getCurrentPosition(success, errors, OPTIONS)
         return {

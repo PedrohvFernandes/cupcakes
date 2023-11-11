@@ -5,8 +5,8 @@ import { ConfigAuth } from '@config/index'
 
 import useGetGeolocationMaps from '@hooks/get-geolocation-maps'
 
-import { LoaderSpin } from '@components/components-svg/loader-spin'
 import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
+import { LoaderSpin } from '@components/components-svg/loader-spin'
 
 import { UserProfileIconUrl } from '@assets/icons'
 
@@ -28,6 +28,20 @@ export function Location() {
 
   // Evitar memory leak, olhar video do dev junior
   useEffect(() => {
+    // const state = async () => {
+    //   const state = await getLocation().responseState?.then(response => {
+    //     return response.responseState
+    //   })
+
+    //   if (state !== loadingGetLocationResponseState.responseState) {
+    //     setLoadingGetLocationResponseState({
+    //       responseState: state as IResponseState['responseState']
+    //     })
+    //   }
+    // }
+
+    // state()
+
     getLocation().responseState?.then(response => {
       setLoadingGetLocationResponseState({
         responseState: response.responseState
@@ -38,6 +52,16 @@ export function Location() {
   let stateGeoLocation: JSX.Element
 
   switch (loadingGetLocationResponseState.responseState) {
+    case 'prompt':
+      stateGeoLocation = (
+        <>
+          {/* 2 slides */}
+          {/* Colocar um slide de imagens com  tutorial para ativar a localização e pedir para o usuario recarregar a pagina apos aceitar  clicando no botão abaixo e ja deixar o tutorial caso ele bloquear: no caso clicar novamente no icone do maps e limpar e pedir para recarregar para ter novamente as opções de permissão */}
+          {/* Deixar um link de ajuda da google para ativar */}
+          {/* Deixar uma notificação toda hora aparecendo na tela de 30 em 30 segundos pedindo para ativar e fazer um baraulho de alert */}
+        </>
+      )
+      break
     case 'granted':
       stateGeoLocation = (
         <>
@@ -62,19 +86,18 @@ export function Location() {
                   label: {
                     text: 'Localização mais proxima!',
                     color: '#fff',
-                    fontSize: '16px',
                     className:
-                      'text-1xl font-bold mt-16 bg-background p-3 rounded-lg text-center'
+                      'text-1xl font-bold mt-16 bg-background p-2 rounded-lg text-center'
                   },
                   icon: {
                     url: `${UserProfileIconUrl}`,
-                    scaledSize: new google.maps.Size(50, 50)
+                    scaledSize: new google.maps.Size(40, 40)
                   }
                 }}
-                icon={{
-                  url: `${UserProfileIconUrl}`,
-                  scaledSize: new google.maps.Size(50, 50)
-                }}
+                // icon={{
+                //   url: `${UserProfileIconUrl}`,
+                //   scaledSize: new google.maps.Size(35, 35)
+                // }}
                 animation={google.maps.Animation.BOUNCE}
               />
             </GoogleMap>
@@ -83,10 +106,14 @@ export function Location() {
       )
       break
     case 'denied':
-      stateGeoLocation = <>recusado</>
-      break
-    case 'prompt':
-      stateGeoLocation = <>aceite as infos</>
+      stateGeoLocation = (
+        <>
+          {/* 1 slide */}
+          {/* Colocar um slide de imagens com  tutorial ensinando a limpar as permissões apos ele bloquear e recerregar a pagina:  no caso ele vai ter negado e recarregou a pagina, dessa forma vai vim denied, e explicar que ele deve clicar novamente no icone do maps e limpar e pedir para recarregar para ter novamente as opções de permissão, e pedir para recarregar a pagina  para ter novamente as opções de permissão*/}
+          {/* Deixar um link de ajuda da google para ativar */}
+          {/* Deixar uma notificação toda hora aparecendo na tela de 30 em 30 segundos em vermelho dizendo que ele negou e tem que ativar */}
+        </>
+      )
       break
     case '':
       stateGeoLocation = <></>
@@ -98,10 +125,9 @@ export function Location() {
   return (
     <section className="flex items-center justify-center min-h-screen mx-auto py-2">
       {isLoaded && loadingGetLocationResponseState.responseState !== '' ? (
-        // O 'denied' irá renderizar um alert com a msg de erro e cod vindo da funçao errors(Ficar repetindo esse alert a cada 30 segundos)  e ensinar o usuário a como ativar a localização do navegador e pedir para recarregar a página com o botão que eu criar para recarregar a página do tipo "Apos realizar as alterações, clique aqui para recarregar a página!"(Deixar o tutorial na tela), so o prompt que ao ativar a localização irá recarregar a página automaticamente, fazer tambem uma comparação quando o navegador não tem suporte usando a messageGeolocationNotSupportedBrowser
+        // O 'denied' irá renderizar um alert com a msg de erro e cod vindo da funçao errors(Ficar repetindo esse alert a cada 30 segundos)  e dizendo que ele negou aceitar o rastreio e ensinar o usuário como ativar a localização do navegador apos negar e pedir para recarregar a página com o botão que eu criar para recarregar a página do tipo "Apos realizar as alterações, clique aqui para recarregar a página! e novamente sera solicitado, dessa vez aceite(Emoji furioso)"(Deixar o tutorial na tela) e um link para o tutorial da google https://support.google.com/accounts/answer/3467281?hl=pt-BR, se for prompt colocar um alert na tela de 30 em 30 segundos tambem para avisar que o usuario tem que aceitar e  recarregar a pagina, deixar um tutorial em tela mostrando como faz para ativar sem estar negado,  fazer tambem uma comparação quando o navegador não tem suporte usando a messageGeolocationNotSupportedBrowser
         // Outra trativa é direto com a mensagem de error do errors
-        // Mostrar os cafes mais proximos da localização do usuário, caso não tenha nenhum, mostrar uma mensagem de erro(NÃO ACHAMOS NEM UMA CAFETERIA PROXIMA) e um botão para recarregar a página, e se tiver, o mais proximo dele ira ficar amarelo e os demais azuis
-        // Botão para recarregar a requisição da localização ou recarregar a página
+        // Mostrar os cafes mais proximos da localização do usuário, caso não tenha nenhum, mostrar uma mensagem de erro(NÃO ACHAMOS NEM UMA CAFETERIA PROXIMA) e um botão para recarregar a página, e se tiver, o mais proximo dele ira ficar amarelo e os demais azuis. Pode colocar lanchonete tambem
         // Mostrar a rota do usuário até a cafeteria mais proxima ou naquele que ele clicar
         <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
           {stateGeoLocation}
@@ -109,7 +135,9 @@ export function Location() {
           <ButtonDefaultOutline
             size={'xl'}
             onClick={() => {
-              location.reload()
+              setLoadingGetLocationResponseState({
+                responseState: ''
+              })
             }}
           >
             RE-PESQUISAR
