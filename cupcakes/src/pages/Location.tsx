@@ -61,18 +61,19 @@ export function Location() {
                 options={{
                   label: {
                     text: 'Localização mais proxima!',
-                    // color: '#fff',
-                    // fontSize: '16px',
-                    // fontWeight: 'bold'
+                    color: '#fff',
+                    fontSize: '16px',
                     className:
                       'text-1xl font-bold mt-16 bg-background p-3 rounded-lg text-center'
                   },
                   icon: {
-                    url: `${UserProfileIconUrl}`
+                    url: `${UserProfileIconUrl}`,
+                    scaledSize: new google.maps.Size(50, 50)
                   }
                 }}
                 icon={{
-                  url: `${UserProfileIconUrl}`
+                  url: `${UserProfileIconUrl}`,
+                  scaledSize: new google.maps.Size(50, 50)
                 }}
                 animation={google.maps.Animation.BOUNCE}
               />
@@ -95,7 +96,7 @@ export function Location() {
   }
 
   return (
-    <section className="flex items-center justify-center min-h-screen mx-auto py-2 ">
+    <section className="flex items-center justify-center min-h-screen mx-auto py-2">
       {isLoaded && loadingGetLocationResponseState.responseState !== '' ? (
         // O 'denied' irá renderizar um alert com a msg de erro e cod vindo da funçao errors(Ficar repetindo esse alert a cada 30 segundos)  e ensinar o usuário a como ativar a localização do navegador e pedir para recarregar a página com o botão que eu criar para recarregar a página do tipo "Apos realizar as alterações, clique aqui para recarregar a página!"(Deixar o tutorial na tela), so o prompt que ao ativar a localização irá recarregar a página automaticamente, fazer tambem uma comparação quando o navegador não tem suporte usando a messageGeolocationNotSupportedBrowser
         // Outra trativa é direto com a mensagem de error do errors
