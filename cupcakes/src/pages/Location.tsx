@@ -1,98 +1,87 @@
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
+import { useEffect, useState } from 'react'
+import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api'
 
 import { ConfigAuth } from '@config/index'
 
 import useGetGeolocationMaps from '@hooks/get-geolocation-maps'
 
-const containerStyle = {
-  width: '400px',
-  height: '400px'
-}
+import { LoaderSpin } from '@components/components-svg/loader-spin'
 
-const center = {
-  lat: -3.7989,
-  lng: -38.456
-}
+import { UserProfileIconUrl } from '@assets/icons'
 
-// const OPTIONS = { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+interface IResponseState {
+  responseState: '' | 'granted' | 'prompt' | 'denied'
+}
 
 export function Location() {
+  const [loadingGetLocationResponseState, setLoadingGetLocationResponseState] =
+    useState<IResponseState>({
+      responseState: ''
+    })
+  const { OPTIONS_MAP, getLocation } = useGetGeolocationMaps()
+
   const { isLoaded } = useJsApiLoader({
     id: ConfigAuth.cupcakes.google.keys.maps.id,
     googleMapsApiKey: ConfigAuth.cupcakes.google.keys.maps.key
   })
 
-  const {getLocation} = useGetGeolocationMaps()
-  console.log(getLocation())
-
-  // useEffect(() => {
-  //   if (navigator.geolocation) {
-  //     navigator.permissions
-  //       .query({ name: 'geolocation' })
-  //       .then(function (result) {
-  //         console.log(result)
-  //       })
-  //   } else {
-  //     console.log('Geolocation is not supported by this browser.')
-  //   }
-  // }, [])
-
-  // function success(pos: GeolocationPosition) {
-  //   // O CRD é um objeto que contém informações de localização
-  //   let coords = pos.coords
-  //   console.log('Your current position is:')
-  //   console.log(`Latitude : ${coords.latitude}`)
-  //   console.log(`Longitude: ${coords.longitude}`)
-  //   console.log(`More or less ${coords.accuracy} meters.`)
-  // }
-
-  // function errors(err: GeolocationPositionError) {
-  //   console.warn(`ERROR(${err.code}): ${err.message}`)
-  // }
-
-  // useEffect(() => {
-  //   // Verifica se o navegador tem suporte a geolocalização
-  //   if (navigator.geolocation) {
-  //     // Verifica se a permissão já foi dada para o navegador sobre a geolocalização
-  //     navigator.permissions
-  //       .query({ name: 'geolocation' })
-  //       .then(function (response) {
-  //         if (response.state === 'granted') {
-  //           //Se concedido, você pode chamar diretamente sua função aqui
-  //           navigator.geolocation.getCurrentPosition(success, errors, OPTIONS)
-  //         } else if (response.state === 'prompt') {
-  //           //Se solicitado, o usuário será solicitado a dar permissão
-  //           navigator.geolocation.getCurrentPosition(success, errors, OPTIONS)
-  //         } else if (response.state === 'denied') {
-  //           //Se negado, você deverá mostrar instruções para ativar a localização
-  //         }
-  //       })
-  //   } else {
-  //     // Se não for suportado, você pode mostrar uma mensagem para o usuário
-  //     console.log('Geolocation is not supported by this browser.')
-  //   }
-  // }, [])
+  // Evitar memory leak, olhar video do dev junior
+  useEffect(() => {
+    getLocation().responseState?.then(response => {
+      setLoadingGetLocationResponseState({
+        responseState: response.responseState
+      })
+    })
+  }, [])
 
   return (
-    <section>
-      {isLoaded ? (
-        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
+    <section className="flex items-center justify-center min-h-screen mx-auto">
+      {isLoaded && loadingGetLocationResponseState.responseState !== '' ? (
+        // Fazer as comparações de acordo com o retorno do responseState, somente com granted irá renderizar o mapa, o 'denied' irá renderizar um alert de erro e cod vindo da funçao errors(Ficar repetindo esse alert a cada 30 segundos)  e ensinar o usuário a como ativar a localização do navegador e pedir para recarregar a página com o botão que eu criar para recarregar a página do tipo "Apos realizar as alterações, clique aqui para recarregar a página!"(Deixar o tutorial na tela), so o prompt que ao ativar a localização irá recarregar a página automaticamente, fazer tambem uma comparação quando o navegador não tem suporte usando a messageGeolocationNotSupportedBrowser
+        // Outra trativa é direto com a mensagem de error do errors
+        // Mostrar os cafes mais proximos da localização do usuário, caso não tenha nenhum, mostrar uma mensagem de erro(NÃO ACHAMOS NEM UMA CAFETERIA PROXIMA) e um botão para recarregar a página, e se tiver, o mais proximo dele ira ficar amarelo e os demais azuis
+        // Botão para recarregar a requisição da localização ou recarregar a página
+        // Mostrar a rota do usuário até a cafeteria mais proxima ou naquele que ele clicar
+        <GoogleMap
+          mapContainerStyle={OPTIONS_MAP.CONTAINER_STYLE}
+          center={
+            getLocation().responseDataMap?.center as google.maps.LatLngLiteral
+          }
+          zoom={15}
+          clickableIcons={true}
+        >
           {/* Child components, such as markers, info windows, etc. */}
-          <Marker
-            position={center}
+
+          <MarkerF
+            position={
+              getLocation().responseDataMap?.center as google.maps.LatLngLiteral
+            }
             options={{
               label: {
-                text: 'Cupcakes',
+                text: 'Localização mais proxima!',
                 // color: '#fff',
                 // fontSize: '16px',
                 // fontWeight: 'bold'
-                className: 'text-2xl text-white font-bold mb-10'
+                className:
+                  'text-1xl font-bold mt-16 bg-background p-3 rounded-lg text-center'
+              },
+              icon: {
+                url: `${UserProfileIconUrl}`
               }
             }}
+            icon={{
+              url: `${UserProfileIconUrl}`
+            }}
+            animation={google.maps.Animation.BOUNCE}
           />
         </GoogleMap>
       ) : (
-        <></>
+        <div className="flex flex-col items-center justify-center gap-4">
+          <strong className="text-center text-2xl lg:text-5xl animate-pulse">
+            Carregando Mapa e suas informações...
+          </strong>
+          <LoaderSpin />
+        </div>
       )}
     </section>
   )

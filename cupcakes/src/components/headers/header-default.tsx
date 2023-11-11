@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Header } from './header'
 import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
 import { BottomLine } from '@components/bottom-line'
-import { CupcakesLogo } from '@components/cupcakes-logo'
+import { CupcakesLogo } from '@components/components-svg/cupcakes-logo'
 
 import { Map, ShoppingCart } from '@assets/icons'
 

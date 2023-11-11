@@ -1,5 +1,5 @@
 import { Header } from './header'
-import { CupcakesLogo } from '@components/cupcakes-logo'
+import { CupcakesLogo } from '@components/components-svg/cupcakes-logo'
 
 export function HeaderDefaultCheckout() {
   return (
