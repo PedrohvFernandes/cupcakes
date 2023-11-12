@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom'
 
 // O css em si do span + a variante de estilo, e por padrao a variante de estilo é a default
 const spanVariants = cva(
-  "transition-all duration-500 ease-in-out before:content-[''] before:w-0 before:h-[3px] before:bg-primary before:relative before:-left-0 before:block before:transition-width before:duration-500 before:ease-in-out before:hover:w-full",
+  "transition-all duration-500 ease-in-out before:content-[''] before:w-0 before:h-[3px] before:relative before:-left-0 before:block before:transition-width before:duration-500 before:ease-in-out before:hover:w-full",
   {
     variants: {
       variantOpacity: {
@@ -16,11 +16,17 @@ const spanVariants = cva(
       variantBottom: {
         default: 'before:-bottom-6',
         bottom10: 'before:-bottom-10'
+      },
+      variantColorBottom: {
+        default: 'before:bg-primary',
+        colorBottomPrimaryForeground: 'before:bg-primary-foreground',
+        colorForeground: 'before:bg-foreground',
       }
     },
     defaultVariants: {
       variantOpacity: 'default',
-      variantBottom: 'default'
+      variantBottom: 'default',
+      variantColorBottom: 'default'
     }
   }
 )
@@ -39,6 +45,7 @@ export function BottomLine({
   className,
   variantOpacity,
   variantBottom,
+  variantColorBottom,
   path,
   ...rest
 }: Readonly<ISpanProps>) {
@@ -48,7 +55,12 @@ export function BottomLine({
     // O cn é uma função que junta as classes de estilo e se quiser passar mais classes quando colocar o componente em outro lugar ele pega a prop className e agrupa nas demais classes e obvio substitui por exemplo uma cor de um bg pelo o outro, e o spanVariants é uma função(cva) que retorna as classes de estilo do span juntamente com a variante de estilo passada
     <span
       className={cn(
-        spanVariants({ variantOpacity, variantBottom, className }),
+        spanVariants({
+          variantOpacity,
+          variantBottom,
+          variantColorBottom,
+          className
+        }),
         path === location.pathname && 'opacity-100 before:w-full'
       )}
       {...rest}
