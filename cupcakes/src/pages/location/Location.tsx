@@ -135,10 +135,14 @@ export function Location() {
       break
     case 'granted':
       stateGeoLocationComponent = (
-        <Granted
-          setResponseState={setLoadingGetLocationState}
-          responseState={loadingGetLocationResponseState}
-        />
+        <>
+          {isLoaded && (
+            <Granted
+              setResponseState={setLoadingGetLocationState}
+              responseState={loadingGetLocationResponseState}
+            />
+          )}
+        </>
       )
       break
     case 'denied':
