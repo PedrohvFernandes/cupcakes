@@ -9,24 +9,19 @@ import useGetGeolocationMaps from '@hooks/get-geolocation-maps'
 import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
 import { useToast } from '@components/ui/use-toast'
 import { LoaderDefault } from '@components/loaders/loader-default'
-
-import { UserProfileIconUrl } from '@assets/icons'
 import { BottomLine } from '@components/bottom-line'
-import { TutorialPrompt } from './tutorial-prompt'
-import { TutorialBlocked } from './tutorial-blocked'
-import { TutorialForcedBlock } from './tutorial-forced-blocked'
-import { TutorialLinks } from './tutorial-links'
+import { Prompt } from './type-state-geo-location/prompt'
+import { Denied } from './type-state-geo-location/denied'
+import { Granted } from './type-state-geo-location/granted'
 
-interface IResponseState {
-  responseState: '' | 'granted' | 'prompt' | 'denied'
-}
+import { IResponseState } from './type-state-geo-location/typings'
 
 export function Location() {
   const [loadingGetLocationResponseState, setLoadingGetLocationResponseState] =
     useState<IResponseState>({
       responseState: ''
     })
-  const { OPTIONS_MAP, getLocation } = useGetGeolocationMaps()
+  const { getLocation } = useGetGeolocationMaps()
 
   const { toast } = useToast()
 
@@ -55,6 +50,12 @@ export function Location() {
     func()
     const interval = setInterval(func, 3000 * 10)
     return () => clearInterval(interval)
+  }
+
+  const setLoadingGetLocationState = (
+    loadingGetLocationResponseState: IResponseState
+  ) => {
+    setLoadingGetLocationResponseState(loadingGetLocationResponseState)
   }
 
   useEffect(() => {
@@ -112,7 +113,6 @@ export function Location() {
         return response
       })
       if (stateGeoLocationType === 'granted') {
-        console.log(loadingGetLocationResponseState)
         toast({
           title: 'Localização encontrada!',
           description:
@@ -126,137 +126,23 @@ export function Location() {
   }, [])
 
   let stateGeoLocationComponent: JSX.Element
-
-  // Tentar separar os cases em componentes isolados, talvez o maps eu nao consiga, mas o prompt e o denied sim
   switch (
     loadingGetLocationResponseState.responseState ||
     getLocation().messageGeolocationNotSupportedBrowser?.error
   ) {
     case 'prompt':
-      stateGeoLocationComponent = (
-        <>
-          {/* 2 slides */}
-          {/* Colocar um slide de imagens com  tutorial para ativar a localização e pedir para o usuario recarregar a pagina apos aceitar  clicando no botão abaixo e ja deixar o tutorial caso ele bloquear/clicar no x: no caso clicar novamente no icone do maps e limpar e pedir para recarregar para ter novamente as opções de permissão */}
-          {/* Deixar um link de ajuda da google para ativar */}
-          {/* Deixar uma notificação toda hora aparecendo na tela de 30 em 30 segundos pedindo para ativar e fazer um baraulho de alert, a notificação é amarela */}
-
-          {/* fazer o componente Navigation Menu do shadcn/ui para essas opções e mostrar o tutorial */}
-          <h2>Tutorial para permitir</h2>
-          <TutorialPrompt />
-
-          <h2>
-            Tutorial caso tenha bloqueado/negado a permissão, mas não reiniciou
-            a pagina
-          </h2>
-          <TutorialBlocked />
-
-          {/* Colocar aqui links de ajuda, usar o Scroll Area */}
-          <TutorialLinks />
-
-          <ButtonDefaultOutline
-            size={'xl'}
-            onClick={() => {
-              window.location.reload()
-            }}
-          >
-            Recarregar
-          </ButtonDefaultOutline>
-        </>
-      )
+      stateGeoLocationComponent = <Prompt />
       break
     case 'granted':
       stateGeoLocationComponent = (
-        <>
-          {isLoaded && (
-            <GoogleMap
-              mapContainerStyle={OPTIONS_MAP.CONTAINER_STYLE}
-              center={
-                getLocation().responseDataMap
-                  ?.center as google.maps.LatLngLiteral
-              }
-              zoom={15}
-              clickableIcons={true}
-            >
-              {/* Child components, such as markers, info windows, etc. */}
-
-              <MarkerF
-                position={
-                  getLocation().responseDataMap
-                    ?.center as google.maps.LatLngLiteral
-                }
-                options={{
-                  label: {
-                    text: 'Localização mais proxima!',
-                    color: '#fff',
-                    className:
-                      'text-1xl font-bold mt-16 bg-background p-2 rounded-lg text-center'
-                  },
-                  icon: {
-                    url: `${UserProfileIconUrl}`,
-                    scaledSize: new google.maps.Size(40, 40)
-                  }
-                }}
-                // icon={{
-                //   url: `${UserProfileIconUrl}`,
-                //   scaledSize: new google.maps.Size(35, 35)
-                // }}
-                animation={google.maps.Animation.BOUNCE}
-              />
-            </GoogleMap>
-          )}
-
-          <ButtonDefaultOutline
-            size={'xl'}
-            onClick={() => {
-              setLoadingGetLocationResponseState({
-                responseState: ''
-              })
-              toast({
-                title: 'Recarregando o mapa...',
-                duration: 2000
-              })
-            }}
-          >
-            Recarregar o mapa
-          </ButtonDefaultOutline>
-        </>
+        <Granted
+          setResponseState={setLoadingGetLocationState}
+          responseState={loadingGetLocationResponseState}
+        />
       )
       break
     case 'denied':
-      stateGeoLocationComponent = (
-        <>
-          {/* 2 slide */}
-          {/* Colocar um slide de imagens com  tutorial ensinando a limpar as permissões apos ele bloquear/clicar no X e recerregar a pagina:  no caso ele vai ter negado e recarregou a pagina, dessa forma vai vim denied, e explicar que ele deve clicar novamente no icone do maps e limpar e pedir para recarregar para ter novamente as opções de permissão, e pedir para recarregar a pagina  para ter novamente as opções de permissão*/}
-          {/* Deixar um link de ajuda da google para ativar */}
-          {/* Deixar uma notificação toda hora aparecendo na tela de 30 em 30 segundos em vermelho dizendo que ele negou e tem que ativar */}
-
-          {/* fazer o componente Navigation Menu do shadcn/ui para essas opções e mostrar o tutorial */}
-          <h2>
-            Tutorial caso tenha bloqueado/negado a permissão, mas reiniciou a
-            pagina
-          </h2>
-          <TutorialBlocked />
-
-          <h2>
-            Tutorial caso tenha reiniciando a pagina varias vezes quando estava
-            dando a chance de permitir e agora não aparece mais a opção de
-            permitir e nem de "limpar esta configuração" ou "Repor autorização"
-          </h2>
-          <TutorialForcedBlock />
-
-          {/* Colocar aqui links de ajuda, usar o Scroll Area */}
-          <TutorialLinks />
-
-          <ButtonDefaultOutline
-            size={'xl'}
-            onClick={() => {
-              window.location.reload()
-            }}
-          >
-            Recarregar
-          </ButtonDefaultOutline>
-        </>
-      )
+      stateGeoLocationComponent = <Denied />
       break
     case 'A geolocalização não é suportada por este navegador.':
       stateGeoLocationComponent = (
@@ -274,9 +160,6 @@ export function Location() {
           </ButtonDefaultOutline>
         </BottomLine>
       )
-      break
-    case '':
-      stateGeoLocationComponent = <></>
       break
     default:
       return null
