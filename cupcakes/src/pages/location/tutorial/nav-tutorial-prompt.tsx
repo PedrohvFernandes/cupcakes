@@ -1,20 +1,47 @@
-import { TutorialBlocked } from "./tutorial-blocked";
-import { TutorialLinks } from "./tutorial-links";
-import { TutorialPrompt } from "./tutorial-prompt";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport
+} from '@components/ui/navigation-menu'
+
+import { TutorialPrompt } from './tutorial-prompt'
+import { TutorialBlocked } from './tutorial-blocked'
+import { TutorialLinks } from './tutorial-links'
 
 export function NavTutorialPrompt() {
   return (
-    <>
-      {/* fazer o componente Navigation Menu do shadcn/ui para essas opções e mostrar o tutorial */}
-      <h2>Tutorial para permitir</h2>
-      <TutorialPrompt />
-      <h2>
-        Tutorial caso tenha bloqueado/negado a permissão, mas não reiniciou a
-        pagina
-      </h2>
-      <TutorialBlocked />
-      {/* Colocar aqui links de ajuda, usar o Scroll Area */}
-      <TutorialLinks />
-    </>
+    <NavigationMenu>
+      <NavigationMenuList className="flex-col md:flex-row gap-2">
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="bg-accent text-xs md:text-sm font-bold">
+            Tutorial para permitir
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <TutorialPrompt />
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="bg-accent text-xs md:text-sm font-bold">
+            Tutorial caso tenha bloqueado
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <TutorialBlocked />
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="bg-accent text-xs md:text-sm font-bold">
+            Links de autoajuda
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <TutorialLinks />
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   )
 }

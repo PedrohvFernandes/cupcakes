@@ -4,7 +4,11 @@ interface IHeaderProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode
 }
 
-export function Header({ children, className, ...rest }: IHeaderProps) {
+export function Header({
+  children,
+  className,
+  ...rest
+}: Readonly<IHeaderProps>) {
   return (
     <header
       className={cn(

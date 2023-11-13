@@ -10,10 +10,10 @@ export function Footer() {
 
   return (
     // <footer className="absolute bottom-0 w-full bg-primary-foreground px-2 py-2">
-    <footer className="w-full bg-primary-foreground px-2 py-2">
-      <div className="container flex items-center justify-between w-full">
+    <footer className="w-full bg-primary-foreground py-2 text-xs md:text-base">
+      <div className="container flex items-center justify-between gap-2 w-full">
         <div className="flex items-center opacity-70 gap-2">
-          <IconCoffee />
+          <IconCoffee className='w-10 md:w-auto' />
           <span className="font-bold">
             © {formattedCurrentYear().year} Cupcakes Inc.
           </span>
@@ -24,7 +24,7 @@ export function Footer() {
             target={ConfigBases.cupcakes.gitHub.target.blank}
             href={ConfigBases.cupcakes.gitHub.baseUrls.perfil}
           >
-            <GithubIcon />
+            <GithubIcon/>
             <span>Meu Github</span>
           </a>
         </BottomLine>

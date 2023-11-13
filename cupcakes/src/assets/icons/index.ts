@@ -7,13 +7,27 @@ import UserProfileIcon from './user-profile.svg?react'
 import UserProfileIconUrl from './user-profile.svg?url'
 
 // Icons de libs:
-import { GithubIcon, Loader, Map } from 'lucide-react'
-
-export {
+import {
+  AlertCircle,
   GithubIcon,
-  IconCoffee,
+  Globe,
+  Link,
   Loader,
   Map,
+  MapPin,
+  MapPinOff
+} from 'lucide-react'
+
+export {
+  AlertCircle,
+  GithubIcon,
+  Globe,
+  IconCoffee,
+  Link,
+  Loader,
+  Map,
+  MapPin,
+  MapPinOff,
   ShoppingCart,
   UserProfileIcon,
   UserProfileIconUrl
