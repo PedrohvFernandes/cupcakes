@@ -195,7 +195,7 @@ export function Location() {
   return (
     <section className="flex items-center justify-center min-h-screen mx-auto py-2">
       {isLoaded && loadingGetLocationResponseState.responseState !== '' ? (
-        // Mostrar os cafes mais proximos da localização do usuário, caso não tenha nenhum, mostrar uma mensagem de erro(NÃO ACHAMOS NEM UMA CAFETERIA PROXIMA) e um botão para recarregar a página, e se tiver, o mais proximo dele ira ficar amarelo e os demais azuis. Pode colocar lanchonete tambem
+        // Mostrar os cafes mais proximos da localização do usuário, caso não tenha nenhum, mostrar uma mensagem de erro(NÃO ACHAMOS NEM UMA CAFETERIA PROXIMA), e se tiver, o mais proximo dele ira ficar amarelo e os demais azuis. Pode colocar lanchonete tambem
         // Mostrar a rota do usuário até a cafeteria mais proxima ou naquele que ele clicar
         <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
           {stateGeoLocationComponent}
