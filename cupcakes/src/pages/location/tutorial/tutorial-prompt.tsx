@@ -6,7 +6,7 @@ import { Separator } from '@components/ui/separator'
 export function TutorialPrompt() {
   const steps = [
     {
-      tutorial: '1 -Se tiver uma opção de "Memorizar decisão" ou "Sempre permitir" clicar nela e depois clicar no botão Permitir do navegador.'
+      tutorial: '1 - Se tiver uma opção de "Memorizar decisão" ou "Sempre permitir" clicar nela e depois clicar no botão Permitir do navegador.'
     },
     {
       tutorial:
