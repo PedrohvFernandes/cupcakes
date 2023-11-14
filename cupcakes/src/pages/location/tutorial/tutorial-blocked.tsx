@@ -1,4 +1,7 @@
-import { AlertCircle, Globe, MapPin, MapPinOff } from '@assets/icons'
+import { MapPinOff } from '@assets/icons'
+
+
+import { icons } from '../type-state-geo-location/typings'
 
 import { ScrollArea } from '@components/ui/scroll-area'
 import { Separator } from '@components/ui/separator'
@@ -7,25 +10,8 @@ export function TutorialBlocked() {
   const steps = [
     {
       tutorial:
-        '1 - Clique no ícone no canto superior esquerdo do navegador(as vezes é um ícone de um pino ou um planeta ou uma exclamação).',
-      icons: [
-        {
-          title: 'Pino do mapa cortado',
-          icon: <MapPinOff />
-        },
-        {
-          title: 'Pino do mapa',
-          icon: <MapPin />
-        },
-        {
-          title: 'Circulo com um alerta(Exclamação)',
-          icon: <AlertCircle />
-        },
-        {
-          title: 'Planeta',
-          icon: <Globe />
-        }
-      ]
+        '1 - Clique no ícone no canto superior esquerdo do navegador(as vezes é um ícone de um pino ou um planeta ou uma exclamação) ou algo parecido.',
+        icons
     },
     {
       tutorial:
@@ -54,7 +40,7 @@ export function TutorialBlocked() {
             <p className="text-sm">{step.tutorial}</p>
             <div className="flex gap-2 items-center justify-center">
               {step.icons?.map(icon => (
-                <span key={icon.title}>{icon.icon}</span>
+                <span key={icon.title}>{<icon.icon/>}</span>
               ))}
             </div>
             <Separator className="my-2" />

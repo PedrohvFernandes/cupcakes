@@ -10,7 +10,7 @@ export function TutorialLinks() {
   //   (_, i, a) => `v1.2.0-beta.${a.length - i}`
   // )
 
-  const tags = [
+  const links = [
     {
       id: 1,
       title: 'Como ativar a localização no Android',
@@ -39,14 +39,14 @@ export function TutorialLinks() {
         <h4 className="mb-4 text-sm text-center flex gap-2 items-center justify-center font-medium leading-none">
           Tutoriais de ativação da localização <Link />
         </h4>
-        {tags.map(tag => (
-          <BottomLine key={tag.id}>
+        {links.map(link => (
+          <BottomLine key={link.id}>
             <a
-              href={tag.link}
+              href={link.link}
               target={ConfigBases.cupcakes.google.target.blank}
               className="text-sm"
             >
-              {tag.title}
+              {link.title}
             </a>
 
             <Separator className="my-2" />

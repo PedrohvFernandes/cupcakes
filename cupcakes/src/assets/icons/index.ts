@@ -16,6 +16,7 @@ import {
   Globe,
   Link,
   Loader,
+  Lock,
   Map,
   MapPin,
   MapPinOff
@@ -27,8 +28,7 @@ export {
   Globe,
   IconCoffee,
   Link,
-  Loader,
-  Map,
+  Loader, Lock, Map,
   MapPin,
   MapPinOff,
   ShoppingCart,
@@ -36,3 +36,4 @@ export {
   UserProfileIconUrl,
   pathProfileIcon
 }
+
