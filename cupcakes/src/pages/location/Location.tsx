@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useJsApiLoader } from '@react-google-maps/api'
 
@@ -34,19 +34,12 @@ export function Location() {
     googleMapsApiKey: ConfigAuth.cupcakes.google.keys.maps.key
   })
 
-  const stateGeoLocation = useCallback(async () => {
+  const stateGeoLocation = async () => {
     const state = await getLocation().responseState?.then(response => {
-      return response.responseState
+      return response.responseState as IResponseState['responseState']
     })
-
-    if (state !== loadingGetLocationResponseState.responseState) {
-      setLoadingGetLocationResponseState({
-        responseState: state as IResponseState['responseState']
-      })
-    }
-
     return state
-  }, [loadingGetLocationResponseState.responseState])
+  }
 
   const repeatNotification = ({
     func,
@@ -63,6 +56,9 @@ export function Location() {
       func,
       durationRepeatFixed + durationRepeatInfinity
     )
+    if (location.pathname === ConfigRoutes.cupcakes.location.path) {
+      clearInterval(interval)
+    }
     return () => clearInterval(interval)
   }
 
@@ -76,6 +72,7 @@ export function Location() {
           title: 'Você bloqueou a permissão de localização! 🤨',
           description:
             'Por favor faça o tutorial em tela para que possamos te mostrar as cafeterias mais próximas de você!',
+          // duration: Infinity,
           duration: durationRepeatFixed,
           variant: 'destructive'
         })
@@ -126,7 +123,19 @@ export function Location() {
   }
 
   useEffect(() => {
-    stateGeoLocation()
+    const stateGeoLocationPromise = async () => {
+      const stateGeoLocationType = await stateGeoLocation().then(response => {
+        return response
+      })
+      if (
+        stateGeoLocationType !== loadingGetLocationResponseState.responseState
+      ) {
+        setLoadingGetLocationResponseState({
+          responseState: stateGeoLocationType as IResponseState['responseState']
+        })
+      }
+    }
+    stateGeoLocationPromise()
     notifications()
     // getLocation().responseState?.then(response => {
     //   setLoadingGetLocationResponseState({
