@@ -16,6 +16,7 @@ import { Denied } from './type-state-geo-location/denied'
 import { Granted } from './type-state-geo-location/granted'
 
 import { IResponseState } from './type-state-geo-location/typings'
+import { Toaster } from '@components/ui/toaster'
 
 export function Location() {
   const [loadingGetLocationResponseState, setLoadingGetLocationResponseState] =
@@ -53,12 +54,15 @@ export function Location() {
     durationRepeatInfinity = 40000
   }: {
     func: Function
-    durationRepeatFixed: number,
+    durationRepeatFixed: number
     durationRepeatInfinity: number
   }) => {
     // No caso seria 20 segundos(para tirar a notificação) + 40 segundos(Para repetir) = 60 segundos
     func()
-    const interval = setInterval(func, durationRepeatFixed + durationRepeatInfinity)
+    const interval = setInterval(
+      func,
+      durationRepeatFixed + durationRepeatInfinity
+    )
     return () => clearInterval(interval)
   }
 
@@ -86,7 +90,8 @@ export function Location() {
     if (loadingGetLocationResponseState.responseState === 'prompt') {
       const toasts = () => {
         toast({
-          title: 'Você ainda não aceitou a permissão de localização ou bloqueou temporariamente!',
+          title:
+            'Você ainda não aceitou a permissão de localização ou bloqueou temporariamente!',
           description:
             'Por favor faça o tutorial em tela para que possamos te mostrar as cafeterias mais próximas de você! Caso você ja tenha aceitado basta reiniciar a pagina clicando no botão "RECARREGAR" 😊',
           duration: durationRepeatFixed,
@@ -193,16 +198,19 @@ export function Location() {
   }
 
   return (
-    <section className="flex items-center justify-center min-h-screen mx-auto py-2">
-      {isLoaded && loadingGetLocationResponseState.responseState !== '' ? (
-        // Mostrar os cafes mais proximos da localização do usuário, caso não tenha nenhum, mostrar uma mensagem de erro(NÃO ACHAMOS NEM UMA CAFETERIA PROXIMA), e se tiver, o mais proximo dele ira ficar amarelo e os demais azuis. Pode colocar lanchonete tambem
-        // Mostrar a rota do usuário até a cafeteria mais proxima ou naquele que ele clicar
-        <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
-          {stateGeoLocationComponent}
-        </div>
-      ) : (
-        <LoaderDefault>Carregando o Mapa e suas informações...</LoaderDefault>
-      )}
-    </section>
+    <>
+      <Toaster />
+      <section className="container flex items-center justify-center min-h-screen mx-auto py-2">
+        {isLoaded && loadingGetLocationResponseState.responseState !== '' ? (
+          // Mostrar os cafes mais proximos da localização do usuário, caso não tenha nenhum, mostrar uma mensagem de erro(NÃO ACHAMOS NEM UMA CAFETERIA PROXIMA), e se tiver, o mais proximo dele ira ficar amarelo e os demais azuis. Pode colocar lanchonete tambem
+          // Mostrar a rota do usuário até a cafeteria mais proxima ou naquele que ele clicar
+          <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
+            {stateGeoLocationComponent}
+          </div>
+        ) : (
+          <LoaderDefault>Carregando o Mapa e suas informações...</LoaderDefault>
+        )}
+      </section>
+    </>
   )
 }

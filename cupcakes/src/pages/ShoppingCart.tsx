@@ -1,6 +1,6 @@
 export function ShoppingCart() {
   return (
-    <div>
+    <div className="container">
       <h1>ShoppingCart</h1>
     </div>
   )

@@ -6,7 +6,7 @@ export function DefaultLayoutCheckout() {
   return (
     // <div className='relative'>
     <>
-      <div className="container min-h-screen pt-20">
+      <div className="min-h-screen pt-20">
         <HeaderDefaultCheckout />
         <Outlet />
       </div>

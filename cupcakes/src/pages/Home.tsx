@@ -1,6 +1,6 @@
 export function Home () {
   return (
-    <section>
+    <section className="container ">
      <p>Estamos na home1</p>
 
  

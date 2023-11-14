@@ -8,7 +8,7 @@ export function DefaultLayout() {
     <>
       {/* <div className="container"> */}
       {/* <div className="w-full max-w-[70rem] mx-auto min-h-screen pt-20"> */}
-      <div className="container min-h-screen pt-20">
+      <div className="min-h-screen pt-20">
         <HeaderDefault />
         <Outlet />
       </div>
