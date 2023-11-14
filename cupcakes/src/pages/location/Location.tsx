@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useJsApiLoader } from '@react-google-maps/api'
 
-import { ConfigAuth } from '@config/index'
+import { ConfigAuth, ConfigRoutes } from '@config/index'
 
 import useGetGeolocationMaps from '@hooks/get-geolocation-maps'
 
-// import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
+import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
 import { useToast } from '@components/ui/use-toast'
 import { LoaderDefault } from '@components/loaders/loader-default'
-// import { BottomLine } from '@components/bottom-line'
+import { BottomLine } from '@components/bottom-line'
 
-// import { Prompt } from './type-state-geo-location/prompt'
-// import { Denied } from './type-state-geo-location/denied'
+import { Prompt } from './type-state-geo-location/prompt'
+import { Denied } from './type-state-geo-location/denied'
 import { Granted } from './type-state-geo-location/granted'
 
 import { IResponseState } from './type-state-geo-location/typings'
@@ -27,7 +27,7 @@ export function Location() {
 
   const { toast } = useToast()
 
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const { isLoaded } = useJsApiLoader({
     id: ConfigAuth.cupcakes.google.keys.maps.id,
@@ -162,49 +162,49 @@ export function Location() {
     stateGeoLocationPromise()
   }, [])
 
-  // let stateGeoLocationComponent: JSX.Element
-  // switch (
-  //   loadingGetLocationResponseState.responseState ||
-  //   getLocation().messageGeolocationNotSupportedBrowser?.error
-  // ) {
-  //   case 'prompt':
-  //     stateGeoLocationComponent = <Prompt />
-  //     break
-  //   case 'granted':
-  //     stateGeoLocationComponent = (
-  //       <>
-  //         {isLoaded && (
-  //           <Granted
-  //             setResponseState={setLoadingGetLocationState}
-  //             // responseState={loadingGetLocationResponseState}
-  //           />
-  //         )}
-  //       </>
-  //     )
-  //     break
-  //   case 'denied':
-  //     stateGeoLocationComponent = <Denied />
-  //     break
-  //   case 'A geolocalização não é suportada por este navegador.':
-  //     stateGeoLocationComponent = (
-  //       <BottomLine
-  //         variantOpacity={'opacity100'}
-  //         variantBottom={'bottom10'}
-  //         variantColorBottom={'colorForeground'}
-  //       >
-  //         <ButtonDefaultOutline
-  //           onClick={() => {
-  //             navigate(ConfigRoutes.cupcakes.default.source)
-  //           }}
-  //         >
-  //           Voltar para a página inicial
-  //         </ButtonDefaultOutline>
-  //       </BottomLine>
-  //     )
-  //     break
-  //   default:
-  //     return null
-  // }
+  let stateGeoLocationComponent: JSX.Element
+  switch (
+    loadingGetLocationResponseState.responseState ||
+    getLocation().messageGeolocationNotSupportedBrowser?.error
+  ) {
+    case 'prompt':
+      stateGeoLocationComponent = <Prompt />
+      break
+    case 'granted':
+      stateGeoLocationComponent = (
+        <>
+          {isLoaded && (
+            <Granted
+              setResponseState={setLoadingGetLocationState}
+              // responseState={loadingGetLocationResponseState}
+            />
+          )}
+        </>
+      )
+      break
+    case 'denied':
+      stateGeoLocationComponent = <Denied />
+      break
+    case 'A geolocalização não é suportada por este navegador.':
+      stateGeoLocationComponent = (
+        <BottomLine
+          variantOpacity={'opacity100'}
+          variantBottom={'bottom10'}
+          variantColorBottom={'colorForeground'}
+        >
+          <ButtonDefaultOutline
+            onClick={() => {
+              navigate(ConfigRoutes.cupcakes.default.source)
+            }}
+          >
+            Voltar para a página inicial
+          </ButtonDefaultOutline>
+        </BottomLine>
+      )
+      break
+    default:
+      return null
+  }
 
   return (
     <>
@@ -214,12 +214,7 @@ export function Location() {
           // Mostrar os cafes mais proximos da localização do usuário, caso não tenha nenhum, mostrar uma mensagem de erro(NÃO ACHAMOS NEM UMA CAFETERIA PROXIMA), e se tiver, o mais proximo dele ira ficar amarelo e os demais azuis. Pode colocar lanchonete tambem
           // Mostrar a rota do usuário até a cafeteria mais proxima ou naquele que ele clicar
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
-                     {isLoaded && (
-            <Granted
-              setResponseState={setLoadingGetLocationState}
-              // responseState={loadingGetLocationResponseState}
-            />
-          )}
+            {stateGeoLocationComponent}
           </div>
         ) : (
           <LoaderDefault>Carregando o Mapa e suas informações...</LoaderDefault>
