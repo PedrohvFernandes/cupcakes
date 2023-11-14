@@ -21,6 +21,8 @@ export default {
         stepByStepToEnableLocation: 'https://www.ailos.coop.br/wp-content/uploads/2023/01/Passo-a-passo-HabilitacaoLocalizacaoCO-Ailos.pdf',
         clearCacheCookiesChrome: 'https://support.google.com/accounts/answer/32050?hl=pt-BR&co=GENIE.Platform%3DAndroid',
         clearCacheCookiesFirefox: 'https://support.mozilla.org/pt-BR/kb/limpe-cookies-e-dados-de-sites-no-firefox',
+        clearCacheCookiesFirefoxAndroid: 'https://support.mozilla.org/pt-BR/kb/limpe-historico-de-pesquisa-firefox-android',
+        clearCacheFirefox: 'https://support.mozilla.org/pt-BR/kb/como-limpar-cache-firefox'
       },
       target: {
         blank: '_blank',
