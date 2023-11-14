@@ -86,7 +86,7 @@ export function Location() {
     if (loadingGetLocationResponseState.responseState === 'prompt') {
       const toasts = () => {
         toast({
-          title: 'Você ainda não aceitou a permissão de localização!',
+          title: 'Você ainda não aceitou a permissão de localização ou bloqueou temporariamente!',
           description:
             'Por favor faça o tutorial em tela para que possamos te mostrar as cafeterias mais próximas de você! Caso você ja tenha aceitado basta reiniciar a pagina clicando no botão "RECARREGAR" 😊',
           duration: durationRepeatFixed,

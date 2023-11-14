@@ -15,7 +15,7 @@ export function TutorialBlocked() {
     },
     {
       tutorial:
-        '2 - Apos clicar no ícone, devera ter alguma dessas opções:  "limpar esta configuração" ou "Redefinir permissão" ou "Repor autorização" ou algo parecido, você deverá clicar em alguma delas.'
+        '2 - Apos clicar no ícone, devera ter alguma dessas opções: "limpar esta configuração" ou "Redefinir permissão" ou "Repor autorização" ou algum X para limpar ou algo parecido, você deverá clicar em uma delas.'
     },
     {
       tutorial:
