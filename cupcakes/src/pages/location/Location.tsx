@@ -56,49 +56,49 @@ export function Location() {
       func,
       durationRepeatFixed + durationRepeatInfinity
     )
-    if (location.pathname === ConfigRoutes.cupcakes.location.path) {
-      clearInterval(interval)
-    }
     return () => clearInterval(interval)
   }
 
   const notifications = () => {
-    let durationRepeatFixed = 20000
-    let durationRepeatInfinity = 40000
+    let durationRepeatFixed = 30000
+    // let durationRepeatInfinity = 40000
+
     let durationFixed = 60000
     if (loadingGetLocationResponseState.responseState === 'denied') {
-      const toasts = () => {
-        toast({
-          title: 'Você bloqueou a permissão de localização! 🤨',
-          description:
-            'Por favor faça o tutorial em tela para que possamos te mostrar as cafeterias mais próximas de você!',
-          // duration: Infinity,
-          duration: durationRepeatFixed,
-          variant: 'destructive'
-        })
-      }
-      repeatNotification({
-        func: toasts,
-        durationRepeatFixed,
-        durationRepeatInfinity
+      // const toasts = () => {
+      //   toast({
+      //     title: 'Você bloqueou a permissão de localização! 🤨',
+      //     description:
+      //       'Por favor faça o tutorial em tela para que possamos te mostrar as cafeterias mais próximas de você!',
+      //     // duration: Infinity,
+      //     duration: durationRepeatFixed,
+      //     variant: 'destructive'
+      //   })
+      // }
+      // repeatNotification({
+      //   func: toasts,
+      //   durationRepeatFixed,
+      //   durationRepeatInfinity
+      // })
+
+      toast({
+        title: 'Você bloqueou a permissão de localização! 🤨',
+        description:
+          'Por favor faça o tutorial em tela para que possamos te mostrar as cafeterias mais próximas de você!',
+        // duration: Infinity,
+        duration: durationRepeatFixed,
+        variant: 'destructive'
       })
     }
 
     if (loadingGetLocationResponseState.responseState === 'prompt') {
-      const toasts = () => {
-        toast({
-          title:
-            'Você ainda não aceitou a permissão de localização ou bloqueou temporariamente!',
-          description:
-            'Por favor faça o tutorial em tela para que possamos te mostrar as cafeterias mais próximas de você! Caso você ja tenha aceitado basta reiniciar a pagina clicando no botão "RECARREGAR" 😊',
-          duration: durationRepeatFixed,
-          variant: 'alert'
-        })
-      }
-      repeatNotification({
-        func: toasts,
-        durationRepeatFixed,
-        durationRepeatInfinity
+      toast({
+        title:
+          'Você ainda não aceitou a permissão de localização ou bloqueou temporariamente!',
+        description:
+          'Por favor faça o tutorial em tela para que possamos te mostrar as cafeterias mais próximas de você! Caso você ja tenha aceitado basta reiniciar a pagina clicando no botão "RECARREGAR" 😊',
+        duration: durationRepeatFixed,
+        variant: 'alert'
       })
     }
 
