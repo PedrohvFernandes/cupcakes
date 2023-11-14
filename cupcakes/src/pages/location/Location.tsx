@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { useJsApiLoader } from '@react-google-maps/api'
 
-import { ConfigAuth, ConfigRoutes } from '@config/index'
+import { ConfigAuth } from '@config/index'
 
 import useGetGeolocationMaps from '@hooks/get-geolocation-maps'
 
-import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
+// import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
 import { useToast } from '@components/ui/use-toast'
 import { LoaderDefault } from '@components/loaders/loader-default'
-import { BottomLine } from '@components/bottom-line'
+// import { BottomLine } from '@components/bottom-line'
 
-import { Prompt } from './type-state-geo-location/prompt'
-import { Denied } from './type-state-geo-location/denied'
+// import { Prompt } from './type-state-geo-location/prompt'
+// import { Denied } from './type-state-geo-location/denied'
 import { Granted } from './type-state-geo-location/granted'
 
 import { IResponseState } from './type-state-geo-location/typings'
