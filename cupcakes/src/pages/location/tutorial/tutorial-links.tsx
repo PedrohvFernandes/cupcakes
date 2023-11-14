@@ -30,6 +30,11 @@ export function TutorialLinks() {
       id: 4,
       title: 'Passo a passo para ativar a localização',
       link: ConfigBases.cupcakes.google.baseUrls.stepByStepToEnableLocation
+    },
+    {
+      id: 5,
+      title: 'Como limpar o cache/cookies do navegador pc/android/apple',
+      link: ConfigBases.cupcakes.google.baseUrls.clearCacheCookies
     }
   ]
 
