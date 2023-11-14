@@ -33,8 +33,13 @@ export function TutorialLinks() {
     },
     {
       id: 5,
-      title: 'Como limpar o cache/cookies do navegador pc/android/apple',
-      link: ConfigBases.cupcakes.google.baseUrls.clearCacheCookies
+      title: 'Como limpar o cache/cookies do navegador pc/android/apple Chrome',
+      link: ConfigBases.cupcakes.google.baseUrls.clearCacheCookiesChrome
+    },
+    {
+      id: 6,
+      title: 'Como limpar o cache/cookies do navegador pc/android/apple Mozilla Firefox',
+      link: ConfigBases.cupcakes.google.baseUrls.clearCacheCookiesFirefox
     }
   ]
 

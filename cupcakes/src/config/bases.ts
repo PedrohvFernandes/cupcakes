@@ -19,7 +19,8 @@ export default {
         appleDeviceLocationSettings: 'https://support.apple.com/pt-br/guide/iphone/iph3dd5f9be/ios#:~:text=Acesse%20Ajustes%20>%20Privacidade%20e%20Segurança%20>%20Serviços%20de%20Localização.',
         pcLocationSettings: 'https://support.google.com/chrome/answer/142065?co=GENIE.Platform%3DDesktop&hl=pt-BR',
         stepByStepToEnableLocation: 'https://www.ailos.coop.br/wp-content/uploads/2023/01/Passo-a-passo-HabilitacaoLocalizacaoCO-Ailos.pdf',
-        clearCacheCookies: 'https://support.google.com/accounts/answer/32050?hl=pt-BR&co=GENIE.Platform%3DAndroid'
+        clearCacheCookiesChrome: 'https://support.google.com/accounts/answer/32050?hl=pt-BR&co=GENIE.Platform%3DAndroid',
+        clearCacheCookiesFirefox: 'https://support.mozilla.org/pt-BR/kb/limpe-cookies-e-dados-de-sites-no-firefox',
       },
       target: {
         blank: '_blank',
