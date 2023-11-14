@@ -162,7 +162,7 @@ export function Location() {
           {isLoaded && (
             <Granted
               setResponseState={setLoadingGetLocationState}
-              responseState={loadingGetLocationResponseState}
+              // responseState={loadingGetLocationResponseState}
             />
           )}
         </>

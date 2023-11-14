@@ -11,13 +11,10 @@ import { IResponseState } from './typings'
 
 interface IResponseStateGranted {
   setResponseState: (state: IResponseState) => void
-  responseState: IResponseState
+  // responseState: IResponseState
 }
 
-export function Granted({
-  setResponseState,
-  responseState
-}: Readonly<IResponseStateGranted>) {
+export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
   const { toast } = useToast()
 
   const { OPTIONS_MAP, getLocation } = useGetGeolocationMaps()
