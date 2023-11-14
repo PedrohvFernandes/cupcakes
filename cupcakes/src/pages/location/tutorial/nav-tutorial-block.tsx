@@ -1,12 +1,12 @@
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
+  // NavigationMenuIndicator,
   NavigationMenuItem,
-  NavigationMenuLink,
+  // NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport
+  // NavigationMenuViewport
 } from '@components/ui/navigation-menu'
 
 import { TutorialBlocked } from './tutorial-blocked'

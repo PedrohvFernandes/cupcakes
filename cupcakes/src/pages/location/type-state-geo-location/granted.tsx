@@ -46,6 +46,14 @@ export function Granted({
                 'text-1xl font-bold mt-16 bg-background p-2 rounded-lg text-center'
             },
             icon: {
+              // path: pathProfileIcon,
+              // fillColor: '#fff',
+              // fillOpacity: 0.5,
+              // strokeColor: '#000',
+              // strokeWeight: 2,
+              // scale: 2,
+              // rotation: 90,
+
               url: `${UserProfileIconUrl}`,
               scaledSize: new google.maps.Size(40, 40)
             }
