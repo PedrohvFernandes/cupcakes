@@ -10,7 +10,7 @@ export function TutorialBlocked() {
   const steps = [
     {
       tutorial:
-        '1 - Clique no ícone no canto superior/inferior esquerdo do navegador(as vezes é um ícone de um pino ou um planeta ou uma exclamação) ou algo parecido.',
+        '1 - Clique no ícone no canto superior/inferior esquerdo/direito do navegador(as vezes é um ícone de um pino ou um planeta ou uma exclamação) ou algo parecido.',
         icons
     },
     {

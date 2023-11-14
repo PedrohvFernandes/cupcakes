@@ -21,7 +21,7 @@ export function TutorialForcedBlock() {
     },
     {
       tutorial:
-        '4 - Clicando no ícone no canto superior/inferior esquerdo(as vezes é um ícone de um pino ou um planeta ou uma exclamação) ou algo parecido.',
+        '4 - Clicando no ícone no canto superior/inferior esquerdo/direito(as vezes é um ícone de um pino ou um planeta ou uma exclamação) ou algo parecido.',
       icons
     },
     {
