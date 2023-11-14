@@ -27,7 +27,7 @@ export function Location() {
 
   const { toast } = useToast()
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const { isLoaded } = useJsApiLoader({
     id: ConfigAuth.cupcakes.google.keys.maps.id,
