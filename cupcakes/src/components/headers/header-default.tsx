@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { Header } from './header'
 import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
 import { BottomLine } from '@components/bottom-line'
-import { CupcakesLogo } from '@components/components-svg/cupcakes-logo'
 
 import { Map, ShoppingCart } from '@assets/icons'
 
@@ -14,19 +13,18 @@ export function HeaderDefault() {
 
   return (
     <Header>
-      <CupcakesLogo />
       <div className="flex items-center gap-2">
         <BottomLine
           variantBottom={'bottom10'}
           path={ConfigRoutes.cupcakes.location.path}
         >
           <ButtonDefaultOutline
-            className="flex gap-2 items-center"
+            className="w-12 sm:w-14 md:w-44 flex gap-2 items-center"
             path={ConfigRoutes.cupcakes.location.path}
             onClick={() => navigate(ConfigRoutes.cupcakes.location.path)}
           >
             <Map className="text-primary-backgroundIcons" />
-            <span>Sua localização</span>
+            <span className='hidden md:block'>Sua localização</span>
           </ButtonDefaultOutline>
         </BottomLine>
         <BottomLine
@@ -36,6 +34,7 @@ export function HeaderDefault() {
           <ButtonDefaultOutline
             path={ConfigRoutes.cupcakes.shoppingCart.path}
             onClick={() => navigate(ConfigRoutes.cupcakes.shoppingCart.path)}
+            className='w-12 sm:w-14 md:w-16'
           >
             <ShoppingCart />
           </ButtonDefaultOutline>

@@ -1,3 +1,4 @@
+import { CupcakesLogo } from '@components/components-svg/cupcakes-logo'
 import { cn } from '@lib/utils'
 
 interface IHeaderProps extends React.HTMLAttributes<HTMLElement> {
@@ -17,7 +18,8 @@ export function Header({
       )}
       {...rest}
     >
-      <div className="container flex items-center justify-between w-full">
+      <div className="container flex items-center justify-between gap-2 w-full">
+        <CupcakesLogo />
         {children}
       </div>
     </header>

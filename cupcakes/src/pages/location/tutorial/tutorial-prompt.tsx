@@ -22,7 +22,7 @@ export function TutorialPrompt() {
     }
   ]
   return (
-    <ScrollArea  className="h-52 w-full rounded-md border text-center">
+    <ScrollArea className="h-52 w-full rounded-md border text-center">
       <div className="p-4">
         <h4 className="mb-4 text-sm font-medium flex gap-2 items-center justify-center leading-none">
           Tutorial para permitir <Globe size={20} />
