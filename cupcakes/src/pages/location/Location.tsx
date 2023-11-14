@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useJsApiLoader } from '@react-google-maps/api'
 
 import { ConfigAuth, ConfigRoutes } from '@config/index'
@@ -28,6 +28,7 @@ export function Location() {
   const { toast } = useToast()
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   const { isLoaded } = useJsApiLoader({
     id: ConfigAuth.cupcakes.google.keys.maps.id,
@@ -63,6 +64,9 @@ export function Location() {
       func,
       durationRepeatFixed + durationRepeatInfinity
     )
+    if (location.pathname === ConfigRoutes.cupcakes.location.path) {
+      clearInterval(interval)
+    }
     return () => clearInterval(interval)
   }
 
