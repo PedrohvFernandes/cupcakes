@@ -41,23 +41,23 @@ export function Location() {
     return state
   }
 
-  const repeatNotification = ({
-    func,
-    durationRepeatFixed,
-    durationRepeatInfinity = 40000
-  }: {
-    func: Function
-    durationRepeatFixed: number
-    durationRepeatInfinity: number
-  }) => {
-    // No caso seria 20 segundos(para tirar a notificação) + 40 segundos(Para repetir) = 60 segundos
-    func()
-    const interval = setInterval(
-      func,
-      durationRepeatFixed + durationRepeatInfinity
-    )
-    return () => clearInterval(interval)
-  }
+  // const repeatNotification = ({
+  //   func,
+  //   durationRepeatFixed,
+  //   durationRepeatInfinity = 40000
+  // }: {
+  //   func: Function
+  //   durationRepeatFixed: number
+  //   durationRepeatInfinity: number
+  // }) => {
+  //   // No caso seria 20 segundos(para tirar a notificação) + 40 segundos(Para repetir) = 60 segundos
+  //   func()
+  //   const interval = setInterval(
+  //     func,
+  //     durationRepeatFixed + durationRepeatInfinity
+  //   )
+  //   return () => clearInterval(interval)
+  // }
 
   const notifications = () => {
     let durationRepeatFixed = 30000
@@ -162,49 +162,49 @@ export function Location() {
     stateGeoLocationPromise()
   }, [])
 
-  let stateGeoLocationComponent: JSX.Element
-  switch (
-    loadingGetLocationResponseState.responseState ||
-    getLocation().messageGeolocationNotSupportedBrowser?.error
-  ) {
-    case 'prompt':
-      stateGeoLocationComponent = <Prompt />
-      break
-    case 'granted':
-      stateGeoLocationComponent = (
-        <>
-          {isLoaded && (
-            <Granted
-              setResponseState={setLoadingGetLocationState}
-              // responseState={loadingGetLocationResponseState}
-            />
-          )}
-        </>
-      )
-      break
-    case 'denied':
-      stateGeoLocationComponent = <Denied />
-      break
-    case 'A geolocalização não é suportada por este navegador.':
-      stateGeoLocationComponent = (
-        <BottomLine
-          variantOpacity={'opacity100'}
-          variantBottom={'bottom10'}
-          variantColorBottom={'colorForeground'}
-        >
-          <ButtonDefaultOutline
-            onClick={() => {
-              navigate(ConfigRoutes.cupcakes.default.source)
-            }}
-          >
-            Voltar para a página inicial
-          </ButtonDefaultOutline>
-        </BottomLine>
-      )
-      break
-    default:
-      return null
-  }
+  // let stateGeoLocationComponent: JSX.Element
+  // switch (
+  //   loadingGetLocationResponseState.responseState ||
+  //   getLocation().messageGeolocationNotSupportedBrowser?.error
+  // ) {
+  //   case 'prompt':
+  //     stateGeoLocationComponent = <Prompt />
+  //     break
+  //   case 'granted':
+  //     stateGeoLocationComponent = (
+  //       <>
+  //         {isLoaded && (
+  //           <Granted
+  //             setResponseState={setLoadingGetLocationState}
+  //             // responseState={loadingGetLocationResponseState}
+  //           />
+  //         )}
+  //       </>
+  //     )
+  //     break
+  //   case 'denied':
+  //     stateGeoLocationComponent = <Denied />
+  //     break
+  //   case 'A geolocalização não é suportada por este navegador.':
+  //     stateGeoLocationComponent = (
+  //       <BottomLine
+  //         variantOpacity={'opacity100'}
+  //         variantBottom={'bottom10'}
+  //         variantColorBottom={'colorForeground'}
+  //       >
+  //         <ButtonDefaultOutline
+  //           onClick={() => {
+  //             navigate(ConfigRoutes.cupcakes.default.source)
+  //           }}
+  //         >
+  //           Voltar para a página inicial
+  //         </ButtonDefaultOutline>
+  //       </BottomLine>
+  //     )
+  //     break
+  //   default:
+  //     return null
+  // }
 
   return (
     <>
