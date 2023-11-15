@@ -42,7 +42,7 @@ export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
   const requestPointsOnTheMapRequest: google.maps.places.PlaceSearchRequest = {
     location: getLocation().responseDataMap
       ?.center as google.maps.LatLngLiteral, // Localização do usuário
-    radius: 1000, //1000 metros ou 1km
+    radius: 800, //1000 metros ou 1km
     type: 'cafe' // Tipo de lugar que queremos buscar, lembrando que a pessoa que criou o lugar que define o tipo, então pode ser que uma cafeteria não esteja com o tipo "cafe"
   }
 
@@ -313,7 +313,7 @@ export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
             }}
             options={{
               label: {
-                text: 'Cafeteria pesquisada! 🤩' + position.getTitle(),
+                text: 'Cafeteria pesquisada pelo usuario! 🤩' + position.getTitle(),
                 color: '#fff',
                 fontSize: '12px',
                 className: 'mt-16 bg-background p-2 rounded-lg text-center'
