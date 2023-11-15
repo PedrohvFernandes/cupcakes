@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useJsApiLoader } from '@react-google-maps/api'
+import { LoadScript } from '@react-google-maps/api'
 
 import { ConfigAuth, ConfigRoutes } from '@config/index'
 
@@ -29,10 +29,11 @@ export function Location() {
 
   const navigate = useNavigate()
 
-  const { isLoaded } = useJsApiLoader({
-    id: ConfigAuth.cupcakes.google.keys.maps.id,
-    googleMapsApiKey: ConfigAuth.cupcakes.google.keys.maps.key
-  })
+  // const { isLoaded } = useJsApiLoader({
+  //   id: ConfigAuth.cupcakes.google.keys.maps.id,
+  //   googleMapsApiKey: ConfigAuth.cupcakes.google.keys.maps.key,
+  //   libraries: ['places']
+  // })
 
   const stateGeoLocation = async () => {
     const state = await getLocation().responseState?.then(response => {
@@ -172,14 +173,19 @@ export function Location() {
       break
     case 'granted':
       stateGeoLocationComponent = (
-        <>
-          {isLoaded && (
-            <Granted
-              setResponseState={setLoadingGetLocationState}
-              // responseState={loadingGetLocationResponseState}
-            />
-          )}
-        </>
+        // O load script é o responsável por carregar os demais scripts do google maps, por exemplo o places
+        <LoadScript
+          googleMapsApiKey={ConfigAuth.cupcakes.google.keys.maps.key}
+          libraries={['places']}
+          loadingElement={<LoaderDefault>Carregando o mapa...</LoaderDefault>}
+        >
+          {/* {isLoaded && ( */}
+          <Granted
+            setResponseState={setLoadingGetLocationState}
+            // responseState={loadingGetLocationResponseState}
+          />
+          {/* )} */}
+        </LoadScript>
       )
       break
     case 'denied':
@@ -210,7 +216,8 @@ export function Location() {
     <>
       <Toaster />
       <section className="container flex items-center justify-center min-h-screen mx-auto py-2">
-        {isLoaded && loadingGetLocationResponseState.responseState !== '' ? (
+        {/* {isLoaded && loadingGetLocationResponseState.responseState !== '' ? ( */}
+        {loadingGetLocationResponseState.responseState !== '' ? (
           // Mostrar os cafes mais proximos da localização do usuário, caso não tenha nenhum, mostrar uma mensagem de erro(NÃO ACHAMOS NEM UMA CAFETERIA PROXIMA), e se tiver, o mais proximo dele ira ficar amarelo e os demais azuis. Pode colocar lanchonete tambem
           // Mostrar a rota do usuário até a cafeteria mais proxima ou naquele que ele clicar
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
