@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { LoadScript } from '@react-google-maps/api'
+import { LoadScript, useJsApiLoader } from '@react-google-maps/api'
 
 import { ConfigAuth, ConfigRoutes } from '@config/index'
 
@@ -50,11 +50,11 @@ export function Location() {
 
   const navigate = useNavigate()
 
-  // const { isLoaded } = useJsApiLoader({
-  //   id: ConfigAuth.cupcakes.google.keys.maps.id,
-  //   googleMapsApiKey: ConfigAuth.cupcakes.google.keys.maps.key,
-  //   libraries: ['places']
-  // })
+  const { isLoaded } = useJsApiLoader({
+    id: ConfigAuth.cupcakes.google.keys.maps.id,
+    googleMapsApiKey: ConfigAuth.cupcakes.google.keys.maps.key,
+    libraries: ['places', 'geometry']
+  })
 
   const stateGeoLocation = async () => {
     try {
@@ -200,12 +200,14 @@ export function Location() {
                 <LoaderDefault>Carregando o mapa...</LoaderDefault>
               }
             >
-              {/* {isLoaded && ( */}
               <Granted responseState={loadingGetLocationResponseState} />
-              {/* )} */}
             </LoadScript>
           ) : (
-            <Granted responseState={loadingGetLocationResponseState} />
+            <>
+              {isLoaded && (
+                <Granted responseState={loadingGetLocationResponseState} />
+              )}
+            </>
           )}
         </>
       )
