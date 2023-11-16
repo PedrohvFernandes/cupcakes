@@ -5,32 +5,35 @@ import {
   NavigationMenuItem,
   // NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
+  NavigationMenuTrigger
   // NavigationMenuViewport
 } from '@components/ui/navigation-menu'
 
-import { TutorialPrompt } from './tutorial-prompt'
-import { TutorialBlocked } from './tutorial-blocked'
-import { TutorialLinks } from './tutorial-links'
+import { TutorialBlocked } from '../tutorial/tutorial-blocked'
+import { TutorialForcedBlock } from '../tutorial/tutorial-forced-blocked'
+import { TutorialLinks } from '../tutorial/tutorial-links'
 
-export function NavTutorialPrompt() {
+export function NavTutorialBlock() {
   return (
     <NavigationMenu>
       <NavigationMenuList className="flex-col md:flex-row gap-2">
-        <NavigationMenuItem>
-          <NavigationMenuTrigger className="bg-accent text-xs md:text-sm font-bold">
-            Tutorial para permitir
-          </NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <TutorialPrompt />
-          </NavigationMenuContent>
-        </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="bg-accent text-xs md:text-sm font-bold">
             Tutorial caso tenha bloqueado
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <TutorialBlocked />
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="bg-accent text-xs md:text-sm font-bold py-6">
+            <div className="flex flex-col">
+              <span>Não aparece as opções permitir e</span>
+              <span>"limpar esta configuração" ?</span>
+            </div>
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <TutorialForcedBlock />
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>

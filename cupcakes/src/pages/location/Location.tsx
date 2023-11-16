@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LoadScript } from '@react-google-maps/api'
 
@@ -10,19 +10,40 @@ import { ButtonDefaultOutline } from '@components/buttons/button-default-outline
 import { useToast } from '@components/ui/use-toast'
 import { LoaderDefault } from '@components/loaders/loader-default'
 import { BottomLine } from '@components/bottom-line'
-
-import { Prompt } from './type-state-geo-location/prompt'
-import { Denied } from './type-state-geo-location/denied'
-import { Granted } from './type-state-geo-location/granted'
-
-import { IResponseState } from './type-state-geo-location/typings'
 import { Toaster } from '@components/ui/toaster'
 
+import { NavTutorialPrompt } from './type-state-geo-location/nav-tutorial-prompt'
+import { NavTutorialBlock } from './type-state-geo-location/nav-tutorial-block'
+import { Granted } from './type-state-geo-location/granted'
+
+import {
+  IGeolocationPosition,
+  IResponseState
+} from './type-state-geo-location/typings'
+
 export function Location() {
+  // Objeto criado para servir de retorno das informações de geolocalização, pois o retorno da função principal getCurrentPosition que utiliza as funções success e errors não retorna nada, com isso, foi criado um objeto para servir de retorno
   const [loadingGetLocationResponseState, setLoadingGetLocationResponseState] =
-    useState<IResponseState>({
-      responseState: ''
+    useState<IGeolocationPosition>({
+      responseDataMap: {
+        center: {
+          lat: 0,
+          lng: 0
+        },
+        accuracy: 0
+      },
+      responseState: {
+        responseState: ''
+      },
+      messageGeolocationNotSupportedBrowser: {
+        error: ''
+      },
+      error: {
+        code: 0,
+        message: ''
+      }
     })
+
   const { getLocation } = useGetGeolocationMaps()
 
   const { toast } = useToast()
@@ -36,10 +57,31 @@ export function Location() {
   // })
 
   const stateGeoLocation = async () => {
-    const state = await getLocation().responseState?.then(response => {
-      return response.responseState as IResponseState['responseState']
-    })
-    return state
+    try {
+      const state = await getLocation()
+      setLoadingGetLocationResponseState({
+        responseState: {
+          responseState: state.responseState
+            ?.responseState as IResponseState['responseState']
+        },
+        responseDataMap: {
+          center: {
+            lat: state.responseDataMap?.center.lat as number,
+            lng: state.responseDataMap?.center.lng as number
+          },
+          accuracy: state.responseDataMap?.accuracy as number
+        },
+        messageGeolocationNotSupportedBrowser: {
+          error: state.messageGeolocationNotSupportedBrowser?.error as string
+        },
+        error: {
+          code: state.error?.code as number,
+          message: state.error?.message as string
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   // const repeatNotification = ({
@@ -60,12 +102,14 @@ export function Location() {
   //   return () => clearInterval(interval)
   // }
 
-  const notifications = () => {
+  const notificationsState = () => {
     // let durationRepeatFixed = 30000
     // let durationRepeatInfinity = 40000
 
     let durationFixed = 60000
-    if (loadingGetLocationResponseState.responseState === 'denied') {
+    if (
+      loadingGetLocationResponseState.responseState?.responseState === 'denied'
+    ) {
       // const toasts = () => {
       //   toast({
       //     title: 'Você bloqueou a permissão de localização! 🤨',
@@ -92,20 +136,34 @@ export function Location() {
       })
     }
 
-    if (loadingGetLocationResponseState.responseState === 'prompt') {
+    if (
+      loadingGetLocationResponseState.responseState?.responseState === 'granted'
+    ) {
+      toast({
+        title: 'Localização encontrada!',
+        description:
+          'Agora você pode ver as cafeterias mais próximas de você! ☕',
+        duration: 10000,
+        variant: 'success'
+      })
+    }
+
+    if (
+      loadingGetLocationResponseState.responseState?.responseState === 'prompt'
+    ) {
       toast({
         title:
-          'Você ainda não aceitou a permissão de localização ou bloqueou temporariamente!',
+          'Você ainda não aceitou a permissão de localização ou bloqueou/aceitou temporariamente(Depende do navegador)!',
         description:
-          'Por favor faça o tutorial em tela para que possamos te mostrar as cafeterias mais próximas de você! Caso você ja tenha aceitado basta reiniciar a pagina clicando no botão "RECARREGAR" 😊',
+          'Por favor permita sua localização para que possamos te mostrar as cafeterias mais próximas de você! Se sentir inseguro(a) em permitir, por favor faça o tutorial em tela! 😊',
         duration: durationFixed,
         variant: 'alert'
       })
     }
 
     if (
-      getLocation().messageGeolocationNotSupportedBrowser?.error ===
-      'A geolocalização não é suportada por este navegador.'
+      loadingGetLocationResponseState.messageGeolocationNotSupportedBrowser
+        ?.error === 'A geolocalização não é suportada por este navegador.'
     ) {
       toast({
         title: 'Infelizmente seu navegador não suporta a geolocalização!',
@@ -117,82 +175,46 @@ export function Location() {
     }
   }
 
-  const setLoadingGetLocationState = (
-    loadingGetLocationResponseState: IResponseState
-  ) => {
-    setLoadingGetLocationResponseState(loadingGetLocationResponseState)
-  }
-
-  useEffect(() => {
-    const stateGeoLocationPromise = async () => {
-      const stateGeoLocationType = await stateGeoLocation().then(response => {
-        return response
-      })
-      if (
-        stateGeoLocationType !== loadingGetLocationResponseState.responseState
-      ) {
-        setLoadingGetLocationResponseState({
-          responseState: stateGeoLocationType as IResponseState['responseState']
-        })
-      }
+  const switchStateGeoLocation = useCallback(() => {
+    if (
+      loadingGetLocationResponseState.responseState?.responseState === 'prompt'
+    ) {
+      return <NavTutorialPrompt />
     }
-    stateGeoLocationPromise()
-    notifications()
-    // getLocation().responseState?.then(response => {
-    //   setLoadingGetLocationResponseState({
-    //     responseState: response.responseState
-    //   })
-    // })
-  }, [loadingGetLocationResponseState.responseState])
-
-  useEffect(() => {
-    const stateGeoLocationPromise = async () => {
-      const stateGeoLocationType = await stateGeoLocation().then(response => {
-        return response
-      })
-      if (stateGeoLocationType === 'granted') {
-        toast({
-          title: 'Localização encontrada!',
-          description:
-            'Agora você pode ver as cafeterias mais próximas de você! Talvez o mapa fique azulado por um tempo, mas logo ele ira carregar sua localização! Ou se preferir clique no botão "Recarregar o mapa" para forçar a atualização!',
-          duration: 10000,
-          variant: 'success'
-        })
-      }
+    if (
+      loadingGetLocationResponseState.responseState?.responseState === 'denied'
+    ) {
+      return <NavTutorialBlock />
     }
-    stateGeoLocationPromise()
-  }, [])
-
-  let stateGeoLocationComponent: JSX.Element
-  switch (
-    loadingGetLocationResponseState.responseState ||
-    getLocation().messageGeolocationNotSupportedBrowser?.error
-  ) {
-    case 'prompt':
-      stateGeoLocationComponent = <Prompt />
-      break
-    case 'granted':
-      stateGeoLocationComponent = (
-        // O load script é o responsável por carregar os demais scripts do google maps, por exemplo o places e o geometry
-        <LoadScript
-          googleMapsApiKey={ConfigAuth.cupcakes.google.keys.maps.key}
-          libraries={['places', 'geometry']}
-          loadingElement={<LoaderDefault>Carregando o mapa...</LoaderDefault>}
-        >
-          {/* {isLoaded && ( */}
-          <Granted
-            setResponseState={setLoadingGetLocationState}
-            // responseState={loadingGetLocationResponseState}
-          />
-          {/* )} */}
-        </LoadScript>
+    if (
+      loadingGetLocationResponseState.responseState?.responseState === 'granted'
+    ) {
+      return (
+        <>
+          {/* Caso ja tenha carregado todo script da google, não precise carregar novamente, dessa forma evitamos erro e pegamos somente o maps */}
+          {window.google === undefined ? (
+            <LoadScript
+              googleMapsApiKey={ConfigAuth.cupcakes.google.keys.maps.key}
+              libraries={['places', 'geometry']}
+              loadingElement={
+                <LoaderDefault>Carregando o mapa...</LoaderDefault>
+              }
+            >
+              {/* {isLoaded && ( */}
+              <Granted responseState={loadingGetLocationResponseState} />
+              {/* )} */}
+            </LoadScript>
+          ) : (
+            <Granted responseState={loadingGetLocationResponseState} />
+          )}
+        </>
       )
-      break
-    case 'denied':
-      stateGeoLocationComponent = <Denied />
-      break
-    case 'A geolocalização não é suportada por este navegador.':
-      stateGeoLocationComponent = (
+    }
+    if (
+      loadingGetLocationResponseState.messageGeolocationNotSupportedBrowser
+        ?.error === 'A geolocalização não é suportada por este navegador.'
+    ) {
+      return (
         <BottomLine
           variantOpacity={'opacity100'}
           variantBottom={'bottom10'}
@@ -207,23 +229,41 @@ export function Location() {
           </ButtonDefaultOutline>
         </BottomLine>
       )
-      break
-    default:
-      return null
-  }
+    }
+  }, [loadingGetLocationResponseState.responseState?.responseState])
+
+  useEffect(() => {
+    stateGeoLocation()
+    switchStateGeoLocation()
+    notificationsState()
+    // getLocation().responseState?.then(response => {
+    //   setLoadingGetLocationResponseState({
+    //     responseState: response.responseState
+    //   })
+    // })
+  }, [loadingGetLocationResponseState.responseState?.responseState])
 
   return (
     <>
       <Toaster />
       <section className="container flex items-center justify-center min-h-screen mx-auto py-2">
+        {/* // Mostrar a rota do usuário até a cafeteria mais proxima ou naquele que
+        ele clicar */}
         {/* {isLoaded && loadingGetLocationResponseState.responseState !== '' ? ( */}
-        {loadingGetLocationResponseState.responseState !== '' ? (
-          // Mostrar a rota do usuário até a cafeteria mais proxima ou naquele que ele clicar
+        {loadingGetLocationResponseState.responseState?.responseState !== '' ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
-            {stateGeoLocationComponent}
+            {switchStateGeoLocation()}
+            <ButtonDefaultOutline
+              size={'xl'}
+              onClick={() => {
+                window.location.reload()
+              }}
+            >
+              Recarregar
+            </ButtonDefaultOutline>
           </div>
         ) : (
-          <LoaderDefault>Carregando o Mapa e suas informações...</LoaderDefault>
+          <LoaderDefault>Carregando seus dados de localização...</LoaderDefault>
         )}
       </section>
     </>

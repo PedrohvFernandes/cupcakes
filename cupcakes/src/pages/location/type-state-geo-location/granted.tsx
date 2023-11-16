@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 
 import { GoogleMap, MarkerF, StandaloneSearchBox } from '@react-google-maps/api'
 
-import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
 import { Input } from '@components/ui/input'
 import { useToast } from '@components/ui/use-toast'
 
@@ -15,17 +14,18 @@ import {
   UserProfileIconUrl
 } from '@assets/icons'
 
-import { IResponseState } from './typings'
+import { IGeolocationPosition } from './typings'
 
 interface IResponseStateGranted {
-  setResponseState: (state: IResponseState) => void
-  // responseState: IResponseState
+  responseState: IGeolocationPosition
 }
 
-export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
+export function Granted({
+  responseState
+}: Readonly<IResponseStateGranted>) {
   const { toast } = useToast()
 
-  const { OPTIONS_MAP, getLocation } = useGetGeolocationMaps()
+  const { OPTIONS_MAP } = useGetGeolocationMaps()
 
   const [searchBox, setSearchBox] = useState<google.maps.places.SearchBox>()
   const [map, setMap] = useState<google.maps.Map>()
@@ -40,9 +40,8 @@ export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
   )
 
   const requestPointsOnTheMapRequest: google.maps.places.PlaceSearchRequest = {
-    location: getLocation().responseDataMap
-      ?.center as google.maps.LatLngLiteral, // Localização do usuário
-    radius: 800, //1000 metros ou 1km
+    location: responseState.responseDataMap?.center, // Localização do usuário
+    radius: 1000, //1000 metros ou 1km
     type: 'cafe' // Tipo de lugar que queremos buscar, lembrando que a pessoa que criou o lugar que define o tipo, então pode ser que uma cafeteria não esteja com o tipo "cafe"
   }
 
@@ -94,7 +93,6 @@ export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
         })
       ])
       //Pegamos a ref do mapa e  Movemos o mapa para o lugar que o usuario digitou
-      // To-do: Ele não esta movendo o mapa para o lugar que o usuario digitou
       map?.panTo(location)
     } else if (!place.types?.includes('cafe')) {
       toast({
@@ -118,12 +116,12 @@ export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
   const userBoundsFunc = () => {
     const userBounds = new window.google.maps.LatLngBounds(
       new window.google.maps.LatLng(
-        (getLocation().responseDataMap?.center.lat as number) - 0.045,
-        (getLocation().responseDataMap?.center.lng as number) - 0.045
+        (responseState.responseDataMap?.center.lat as number) - 0.045,
+        (responseState.responseDataMap?.center.lng as number) - 0.045
       ),
       new window.google.maps.LatLng(
-        (getLocation().responseDataMap?.center.lat as number) + 0.045,
-        (getLocation().responseDataMap?.center.lng as number) + 0.045
+        (responseState.responseDataMap?.center.lat as number) + 0.045,
+        (responseState.responseDataMap?.center.lng as number) + 0.045
       )
     )
 
@@ -174,7 +172,7 @@ export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
               const currentDistance =
                 google.maps.geometry.spherical.computeDistanceBetween(
                   // From
-                  getLocation().responseDataMap
+                  responseState.responseDataMap
                     ?.center as unknown as google.maps.LatLng,
                   // To
                   currentLocation
@@ -183,7 +181,7 @@ export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
               const closestDistance =
                 google.maps.geometry.spherical.computeDistanceBetween(
                   // From
-                  getLocation().responseDataMap
+                  responseState.responseDataMap
                     ?.center as unknown as google.maps.LatLng,
                   // To
                   closestLocation
@@ -223,7 +221,7 @@ export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
   useEffect(() => {
     userBoundsFunc()
     requestPointsOnTheMap()
-  }, [map])
+  }, [map, responseState.responseDataMap?.center])
 
   return (
     <div className="flex flex-col w-full gap-2">
@@ -256,7 +254,7 @@ export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
         onLoad={onMapLoad}
         mapContainerStyle={OPTIONS_MAP.CONTAINER_STYLE}
         center={
-          getLocation().responseDataMap?.center as google.maps.LatLngLiteral
+          responseState.responseDataMap?.center as google.maps.LatLngLiteral
         }
         zoom={15}
         clickableIcons={true}
@@ -271,7 +269,7 @@ export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
 
         <MarkerF
           position={
-            getLocation().responseDataMap?.center as google.maps.LatLngLiteral
+            responseState.responseDataMap?.center as google.maps.LatLngLiteral
           }
           options={{
             label: {
@@ -313,7 +311,8 @@ export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
             }}
             options={{
               label: {
-                text: 'Cafeteria pesquisada pelo usuario! 🤩' + position.getTitle(),
+                text:
+                  'Cafeteria pesquisada pelo usuario! 🤩' + position.getTitle(),
                 color: '#fff',
                 fontSize: '12px',
                 className: 'mt-16 bg-background p-2 rounded-lg text-center'
@@ -366,21 +365,6 @@ export function Granted({ setResponseState }: Readonly<IResponseStateGranted>) {
           />
         )}
       </GoogleMap>
-
-      <ButtonDefaultOutline
-        size={'xl'}
-        onClick={() => {
-          setResponseState({
-            responseState: ''
-          })
-          toast({
-            title: 'Recarregando o mapa...',
-            duration: 2000
-          })
-        }}
-      >
-        Recarregar o mapa
-      </ButtonDefaultOutline>
     </div>
   )
 }

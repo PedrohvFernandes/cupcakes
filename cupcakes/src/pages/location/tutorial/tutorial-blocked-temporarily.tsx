@@ -6,8 +6,12 @@ import { icons } from '../type-state-geo-location/typings'
 import { ScrollArea } from '@components/ui/scroll-area'
 import { Separator } from '@components/ui/separator'
 
-export function TutorialBlocked() {
+export function TutorialBlockedTemporarily() {
   const steps = [
+    {
+      tutorial:
+        'Obs: isso são para os navegadores iguais ao Firefox que tem a opção de "Memorizar decisão" ou "Sempre permitir" e você não a marcou antes de clicar em bloquear.'
+    },
     {
       tutorial:
         '1 - Clique no ícone no canto superior/inferior esquerdo/direito do navegador(as vezes é um ícone de um pino ou um planeta ou uma exclamação) ou algo parecido.',
@@ -15,7 +19,7 @@ export function TutorialBlocked() {
     },
     {
       tutorial:
-        '2 - Apos clicar no ícone, devera ter alguma dessas opções: "limpar esta configuração" ou "Redefinir permissão" ou "Repor autorização" ou algum "Bloqueado X" para limpar ou algo parecido, você deverá clicar em uma dessas opções.'
+        '2 - Apos clicar no ícone, devera ter alguma dessas opções: "limpar esta configuração" ou "Redefinir permissão" ou "Repor autorização" ou algum "Bloqueado temporariamente X" para limpar ou algo parecido, você deverá clicar em uma dessas opções.'
     },
     {
       tutorial:

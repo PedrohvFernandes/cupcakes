@@ -1,7 +1,25 @@
 import { AlertCircle, Globe, Lock, MapPin, MapPinOff } from '@assets/icons'
 
 interface IResponseState {
-  responseState: '' | 'granted' | 'prompt' | 'denied'
+  responseState: '' | 'granted'| 'prompt' | 'denied'
+}
+
+interface IGeolocationPosition {
+  responseDataMap?: {
+    center: {
+      lat: number
+      lng: number
+    }
+    accuracy: number
+  }
+  error?: {
+    code: number
+    message: string
+  }
+  messageGeolocationNotSupportedBrowser?: {
+    error: string
+  }
+  responseState?: IResponseState
 }
 
 const icons = [
@@ -27,6 +45,9 @@ const icons = [
   }
 ]
 
-export type { IResponseState }
+export type {
+  IResponseState,
+  IGeolocationPosition,
+}
 
 export { icons }

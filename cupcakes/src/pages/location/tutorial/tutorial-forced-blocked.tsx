@@ -13,7 +13,7 @@ export function TutorialForcedBlock() {
     },
     {
       tutorial:
-        '2- Obs: Caso tenha bloqueado normalmente por você e ficou reiniciando varias vezes ao bloquear isso não ira acontecer, basta fazer o tutorial de bloqueado no botão "Tutorial caso tenha bloqueado".'
+        '2- Obs: Caso tenha bloqueado normalmente por você e após isso ficou reiniciando varias vezes, isso não ira acontecer, basta fazer o tutorial de bloqueado no botão "Tutorial caso tenha bloqueado".'
     },
     {
       tutorial:
@@ -25,7 +25,7 @@ export function TutorialForcedBlock() {
       icons
     },
     {
-      tutorial: '5 - Depois clicar em "Redefinir permissão" ou algo parecido.'
+      tutorial: '5 - Depois clicar em "Redefinir permissão" ou "Bloqueado X" ou algo parecido.'
     },
     {
       tutorial:
