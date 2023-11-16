@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { GoogleMap, MarkerF, StandaloneSearchBox } from '@react-google-maps/api'
 
@@ -20,24 +20,39 @@ interface IResponseStateGranted {
   responseState: IGeolocationPosition
 }
 
-export function Granted({
-  responseState
-}: Readonly<IResponseStateGranted>) {
+export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
   const { toast } = useToast()
 
   const { OPTIONS_MAP } = useGetGeolocationMaps()
 
-  const [searchBox, setSearchBox] = useState<google.maps.places.SearchBox>()
+  // Map e o SearchBox são os componentes do google maps
   const [map, setMap] = useState<google.maps.Map>()
+  const [searchBox, setSearchBox] = useState<google.maps.places.SearchBox>()
+
+  // O ultimo marker que o usuario pesquisou
+  const [destinationMarkerCafe, setDestinationMarkerCafe] =
+    useState<google.maps.LatLng>()
+  const [pointMarkerCafe, setPointMarkerCafe] = useState<google.maps.LatLng>()
+
+  // Os markers que ele ja pesquisou
   const [markersSearchBox, setMarkersSearchBox] = useState<
     google.maps.Marker[]
   >([])
-  const [markersCafe, setMarkersCafe] = useState<google.maps.Marker[]>([])
-  const [markersNearestCafe, setMarkersNearestCafe] =
+
+  // Markers que são pesquisados automaticamente, ao iniciar o map
+  const [markersCafeAutomatic, setMarkersCafeAutomatic] = useState<google.maps.Marker[]>([])
+
+  // Marker da cafeteria mais proxima
+  const [markerNearestCafe, setMarkerNearestCafe] =
     useState<google.maps.Marker>(new google.maps.Marker())
+
+  //  limites da região do usuário
   const [userBounds, setUserBounds] = useState<google.maps.LatLngBounds | null>(
     null
   )
+
+  const [responseMatrix, setResponseMatrix] =
+    useState<google.maps.DistanceMatrixResponse | null>(null)
 
   const requestPointsOnTheMapRequest: google.maps.places.PlaceSearchRequest = {
     location: responseState.responseDataMap?.center, // Localização do usuário
@@ -71,7 +86,7 @@ export function Granted({
     if (
       userBounds?.contains(place.geometry!.location as google.maps.LatLng) &&
       place.types?.includes('cafe') &&
-      !markersCafe.find(marker => marker.getTitle() === place.name)
+      !markersCafeAutomatic.find(marker => marker.getTitle() === place.name)
     ) {
       setMarkersSearchBox([
         ...markersSearchBox,
@@ -99,7 +114,7 @@ export function Granted({
         title: 'Isso não é uma cafeteria!',
         duration: 2000
       })
-    } else if (markersCafe.find(marker => marker.getTitle() === place.name)) {
+    } else if (markersCafeAutomatic.find(marker => marker.getTitle() === place.name)) {
       toast({
         title: 'Essa cafeteria já esta no mapa!',
         duration: 2000
@@ -128,7 +143,75 @@ export function Granted({
     setUserBounds(userBounds)
   }
 
-  const requestPointsOnTheMap = () => {
+  const requestPointClosestMarker = (
+    results: google.maps.places.PlaceResult[] | null
+  ) => {
+    // Encontrar a cafeteria mais próxima
+    // Aqui estamos usando o método reduce para encontrar o local mais próximo dentre os resultados ou seja as cafeteria que estão na região do usuário
+    let closestCafe = results!.reduce((closest, current) => {
+      // estamos pegando a localização do local atual e do local mais próximo da cafeteria
+      const currentLocation = current.geometry?.location as google.maps.LatLng
+      const closestLocation = closest.geometry?.location as google.maps.LatLng
+
+      // aqui no caso estamos pegando o atual local do usuario + o local atual da cafeteria mais proxima e calculando a distância entre eles
+      const currentDistance =
+        google.maps.geometry.spherical.computeDistanceBetween(
+          // From
+          responseState.responseDataMap
+            ?.center as unknown as google.maps.LatLng,
+          // To
+          currentLocation
+        )
+      // aqui no caso estamos pegando o atual local do usuario + o local mais próximo da cafeteria mais proxima  e calculando a distância entre eles
+      const closestDistance =
+        google.maps.geometry.spherical.computeDistanceBetween(
+          // From
+          responseState.responseDataMap
+            ?.center as unknown as google.maps.LatLng,
+          // To
+          closestLocation
+        )
+
+      // Se a distância atual for menor que a distância mais próxima, retorne o local atual, caso contrário, retorne o local mais próximo
+      return currentDistance < closestDistance ? current : closest
+    })
+
+    // Adicionar marcador para a cafeteria mais próxima
+    const closestMarker = new google.maps.Marker({
+      position: closestCafe.geometry?.location as google.maps.LatLng,
+      map: map,
+      icon: {
+        url: `${CoffeeYellowUrl}`,
+        scaledSize: new google.maps.Size(40, 40)
+      },
+      title: closestCafe.name,
+      animation: google.maps.Animation.DROP
+    })
+    setMarkerNearestCafe(closestMarker)
+    //Pegamos a ref do mapa e  Movemos o mapa para o lugar que o usuario digitou
+    // To-do: Ele não esta movendo o mapa para o lugar que o usuario digitou
+    map?.panTo(closestMarker.getPosition() as google.maps.LatLng)
+  }
+
+  // Inicialmente o valor do destino é para a rota mais proxima, ou seja cafeteria
+  // E o usuario pode mudar quando pesquisar
+  // E quando clicar em algum dos markers na tela
+  const plotRouteClosestMarker = (
+    destination: google.maps.LatLng = markerNearestCafe.getPosition() as google.maps.LatLng
+  ) => {
+    useMemo<google.maps.DirectionsRequest>(() => {
+      return {
+        origin: {
+          lat: responseState.responseDataMap?.center.lat as number,
+          lng: responseState.responseDataMap?.center.lng as number
+        },
+        destination: destination,
+        travelMode: google.maps.TravelMode.DRIVING
+      }
+    }, [destination])
+  }
+
+  const requestPointsOnTheMapAutomatic = () => {
     if (!map) return
 
     // Pegamos o serviço do google places e passamos o mapa como parametro
@@ -142,8 +225,8 @@ export function Granted({
           results &&
           results.length > 0
         ) {
-          setMarkersCafe([
-            ...markersCafe,
+        setMarkersCafeAutomatic([
+            ...markersCafeAutomatic,
             ...results.map(place => {
               return new google.maps.Marker({
                 position: place.geometry?.location as google.maps.LatLng,
@@ -159,53 +242,7 @@ export function Granted({
           ])
           // Certifique-se de que o módulo de geometria está carregado para usar o método computeDistanceBetween e conseguir calcular a distância entre dois pontos para saber qual é o mais próximo
           if (google.maps.geometry) {
-            // Encontrar a cafeteria mais próxima
-            // Aqui estamos usando o método reduce para encontrar o local mais próximo dentre os resultados ou seja as cafeteria que estão na região do usuário
-            let closestCafe = results.reduce((closest, current) => {
-              // estamos pegando a localização do local atual e do local mais próximo da cafeteria
-              const currentLocation = current.geometry
-                ?.location as google.maps.LatLng
-              const closestLocation = closest.geometry
-                ?.location as google.maps.LatLng
-
-              // aqui no caso estamos pegando o atual local do usuario + o local atual da cafeteria mais proxima e calculando a distância entre eles
-              const currentDistance =
-                google.maps.geometry.spherical.computeDistanceBetween(
-                  // From
-                  responseState.responseDataMap
-                    ?.center as unknown as google.maps.LatLng,
-                  // To
-                  currentLocation
-                )
-              // aqui no caso estamos pegando o atual local do usuario + o local mais próximo da cafeteria mais proxima  e calculando a distância entre eles
-              const closestDistance =
-                google.maps.geometry.spherical.computeDistanceBetween(
-                  // From
-                  responseState.responseDataMap
-                    ?.center as unknown as google.maps.LatLng,
-                  // To
-                  closestLocation
-                )
-
-              // Se a distância atual for menor que a distância mais próxima, retorne o local atual, caso contrário, retorne o local mais próximo
-              return currentDistance < closestDistance ? current : closest
-            })
-
-            // Adicionar marcador para a cafeteria mais próxima
-            const closestMarker = new google.maps.Marker({
-              position: closestCafe.geometry?.location as google.maps.LatLng,
-              map: map,
-              icon: {
-                url: `${CoffeeYellowUrl}`,
-                scaledSize: new google.maps.Size(40, 40)
-              },
-              title: closestCafe.name,
-              animation: google.maps.Animation.DROP
-            })
-            setMarkersNearestCafe(closestMarker)
-            //Pegamos a ref do mapa e  Movemos o mapa para o lugar que o usuario digitou
-            // To-do: Ele não esta movendo o mapa para o lugar que o usuario digitou
-            map?.panTo(closestMarker.getPosition() as google.maps.LatLng)
+            requestPointClosestMarker(results)
           }
         }
         if (status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
@@ -220,7 +257,7 @@ export function Granted({
 
   useEffect(() => {
     userBoundsFunc()
-    requestPointsOnTheMap()
+    requestPointsOnTheMapAutomatic()
   }, [map, responseState.responseDataMap?.center])
 
   return (
@@ -321,7 +358,7 @@ export function Granted({
           />
         ))}
 
-        {markersCafe.map((position, index) => (
+        {markersCafeAutomatic.map((position, index) => (
           <MarkerF
             key={index}
             position={{
@@ -343,11 +380,11 @@ export function Granted({
           />
         ))}
 
-        {markersNearestCafe.getPosition() && (
+        {markerNearestCafe.getPosition() && (
           <MarkerF
             position={{
-              lat: markersNearestCafe.getPosition()?.lat() as number,
-              lng: markersNearestCafe.getPosition()?.lng() as number
+              lat: markerNearestCafe.getPosition()?.lat() as number,
+              lng: markerNearestCafe.getPosition()?.lng() as number
             }}
             icon={{
               url: `${CoffeeYellowUrl}`,
@@ -356,7 +393,7 @@ export function Granted({
             options={{
               label: {
                 text:
-                  'Cafeteria mais próxima! 🤩' + markersNearestCafe.getTitle(),
+                  'Cafeteria mais próxima! 🤩' + markerNearestCafe.getTitle(),
                 color: '#fff',
                 fontSize: '12px',
                 className: 'mt-16 bg-background p-2 rounded-lg text-center'
