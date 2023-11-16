@@ -260,6 +260,7 @@ export function Location() {
               onClick={() => {
                 window.location.reload()
               }}
+              className='w-full'
             >
               Recarregar
             </ButtonDefaultOutline>
