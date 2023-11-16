@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { LoadScript, useJsApiLoader } from '@react-google-maps/api'
+import { LoadScript } from '@react-google-maps/api'
 
 import { ConfigAuth, ConfigRoutes } from '@config/index'
 
@@ -50,11 +50,11 @@ export function Location() {
 
   const navigate = useNavigate()
 
-  const { isLoaded } = useJsApiLoader({
-    id: ConfigAuth.cupcakes.google.keys.maps.id,
-    googleMapsApiKey: ConfigAuth.cupcakes.google.keys.maps.key,
-    libraries: ['places', 'geometry']
-  })
+  // const { isLoaded } = useJsApiLoader({
+  //   id: ConfigAuth.cupcakes.google.keys.maps.id,
+  //   googleMapsApiKey: ConfigAuth.cupcakes.google.keys.maps.key,
+  //   libraries: ['places']
+  // })
 
   const stateGeoLocation = async () => {
     try {
@@ -200,14 +200,12 @@ export function Location() {
                 <LoaderDefault>Carregando o mapa...</LoaderDefault>
               }
             >
+              {/* {isLoaded && ( */}
               <Granted responseState={loadingGetLocationResponseState} />
+              {/* )} */}
             </LoadScript>
           ) : (
-            <>
-              {isLoaded && (
-                <Granted responseState={loadingGetLocationResponseState} />
-              )}
-            </>
+            <Granted responseState={loadingGetLocationResponseState} />
           )}
         </>
       )
@@ -252,7 +250,7 @@ export function Location() {
         {/* // Mostrar a rota do usuário até a cafeteria mais proxima ou naquele que
         ele clicar */}
         {/* {isLoaded && loadingGetLocationResponseState.responseState !== '' ? ( */}
-        {loadingGetLocationResponseState.responseState?.responseState !== '' && isLoaded ? (
+        {loadingGetLocationResponseState.responseState?.responseState !== '' ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
             {switchStateGeoLocation()}
             <ButtonDefaultOutline
