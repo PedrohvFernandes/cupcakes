@@ -252,7 +252,7 @@ export function Location() {
         {/* // Mostrar a rota do usuário até a cafeteria mais proxima ou naquele que
         ele clicar */}
         {/* {isLoaded && loadingGetLocationResponseState.responseState !== '' ? ( */}
-        {loadingGetLocationResponseState.responseState?.responseState !== '' ? (
+        {loadingGetLocationResponseState.responseState?.responseState !== '' && isLoaded ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
             {switchStateGeoLocation()}
             <ButtonDefaultOutline
