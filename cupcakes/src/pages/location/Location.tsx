@@ -20,6 +20,7 @@ import {
   IGeolocationPosition,
   IResponseState
 } from './type-state-geo-location/typings'
+import { cn } from '@lib/utils'
 
 export function Location() {
   // Objeto criado para servir de retorno das informações de geolocalização, pois o retorno da função principal getCurrentPosition que utiliza as funções success e errors não retorna nada, com isso, foi criado um objeto para servir de retorno
@@ -260,7 +261,10 @@ export function Location() {
               onClick={() => {
                 window.location.reload()
               }}
-              className='w-full'
+              className={cn(
+                loadingGetLocationResponseState.responseState?.responseState === 'granted' && 'w-full',
+                loadingGetLocationResponseState.responseState?.responseState !== 'granted' && 'w-1/2' 
+              )}
             >
               Recarregar
             </ButtonDefaultOutline>
