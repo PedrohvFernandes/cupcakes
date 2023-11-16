@@ -50,6 +50,8 @@ export function Location() {
 
   const navigate = useNavigate()
 
+  const google = window.google
+
   // const { isLoaded } = useJsApiLoader({
   //   id: ConfigAuth.cupcakes.google.keys.maps.id,
   //   googleMapsApiKey: ConfigAuth.cupcakes.google.keys.maps.key,
@@ -192,7 +194,7 @@ export function Location() {
       return (
         <>
           {/* Caso ja tenha carregado todo script da google, não precise carregar novamente, dessa forma evitamos erro e pegamos somente o maps */}
-          {window.google === undefined ? (
+          {google === undefined ? (
             <LoadScript
               googleMapsApiKey={ConfigAuth.cupcakes.google.keys.maps.key}
               libraries={['places', 'geometry']}
