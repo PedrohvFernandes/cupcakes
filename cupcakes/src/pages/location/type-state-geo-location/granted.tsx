@@ -41,7 +41,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
       `mt-16 p-2 rounded-lg text-center`,
       position.getTitle() === pointMarkerCafe?.getTitle()
         ? 'bg-background'
-        : 'bg-background/60',
+        : 'bg-background/60'
     )}`
   }
 
@@ -201,7 +201,6 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
   // A gente passa essa função para os onClicks dos markers, para quando o usuario clicar em um marker, ele setar o marker que o usuario clicou, para aparecer no mapa e ser usado na função traceRoute e no useEffect que chama a função traceRoute quando o pointMarkerCafe mudar. Quase a msm ideia do onPlacesChange, a diferença é que sempre aqui eu vou ter um marker, pois o usuario clicou em um marker, e no onPlacesChange eu posso não ter um marker, pois o usuario pode digitar algo que não é uma cafeteria ou que não esta na região do usuario
   const onPlacesChangeButtonMarkers = (position: google.maps.Marker) => {
     if (!map) return
-
     // Ao pesquisar:
     // A gente seta o marker que o usuário pesquisou, para aparecer no mapa e ser usado na função traceRoute
     setPointMarkerCafe(
@@ -226,16 +225,17 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
       duration: 5000,
       variant: 'success'
     })
+    map.panTo(position.getPosition() as google.maps.LatLng)
   }
 
   //  Ao chamar essa função apos inserir o point de destino no campo de busca/selecionar o que ja esta no mapa, ela compara se o point não é nulo, se ele for nulo mostra uma mensagem em tela, se não ele seta o point de destino que é usado para manipular as funções de rota.
   const traceRoute = () => {
-    if (!pointMarkerCafe) return
     // o PointMarkerDestinationCafe é so usado para manipular as funçoes de  traçamento da rota, enquanto o pointMarkerCafe é usado para manipular e mostrar no mapa
     setPointMarkerDestinationCafe(pointMarkerCafe)
   }
 
   useEffect(() => {
+    if (!pointMarkerCafe) return
     traceRoute()
   }, [pointMarkerCafe])
 
@@ -249,7 +249,8 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
           ?.center as google.maps.LatLngLiteral,
         destination:
           pointMarkerDestinationCafe?.getPosition() as google.maps.LatLng,
-        travelMode: 'DRIVING'
+        // travelMode: google.maps.TravelMode.WALKING
+        travelMode: 'WALKING'
       }
     }, [pointMarkerDestinationCafe])
 

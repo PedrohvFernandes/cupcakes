@@ -251,8 +251,6 @@ export function Location() {
     <>
       <Toaster />
       <section className="container flex items-center justify-center min-h-screen mx-auto py-2">
-        {/* // Mostrar a rota do usuário até a cafeteria mais proxima ou naquele que
-        ele clicar */}
         {/* {isLoaded && loadingGetLocationResponseState.responseState !== '' ? ( */}
         {loadingGetLocationResponseState.responseState?.responseState !== '' ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
