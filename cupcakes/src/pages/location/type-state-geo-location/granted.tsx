@@ -52,7 +52,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
   const [map, setMap] = useState<google.maps.Map>()
   const [searchBox, setSearchBox] = useState<google.maps.places.SearchBox>()
 
-  // O ultimo marker que o usuario pesquisou
+  // O ultimo marker que o usuário pesquisou
   const [pointMarkerCafe, setPointMarkerCafe] =
     useState<google.maps.Marker | null>(null)
   const [pointMarkerDestinationCafe, setPointMarkerDestinationCafe] =
@@ -62,11 +62,14 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
   const [markersSearchBox, setMarkersSearchBox] = useState<
     google.maps.Marker[]
   >([])
+  // Cafeterias que o cliente ja clicou
+  const [markersClicked, setMarkersClicked] = useState<google.maps.Marker[]>([])
 
   // Markers que são pesquisados automaticamente, ao iniciar o map
   const [markersCafeAutomatic, setMarkersCafeAutomatic] = useState<
     google.maps.Marker[]
   >([])
+
 
   // Marker da cafeteria mais proxima
   const [markerNearestCafe, setMarkerNearestCafe] =
@@ -81,7 +84,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
   const [responseMatrix, setResponseMatrix] =
     useState<google.maps.DistanceMatrixResponse | null>(null)
 
-  // Pontos especificos no mapa, no caso estamos pegando os cafes
+  // Pontos específicos no mapa, no caso estamos pegando os cafes
   const requestPointsOnTheMapRequest: google.maps.places.PlaceSearchRequest = {
     location: responseState.responseDataMap?.center, // Localização do usuário
     radius: 500, //3000 metros ou 3km
@@ -98,7 +101,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
     setSearchBox(ref)
   }
 
-  // Define os limites da região do usuário (por exemplo, uma área de 5 km ao redor da localização do usuário), ou seja ao digitar um lugar, ele vai procurar apenas na região do usuário, mas ainda ira aparecer outros lugares que não estão na região do usuário, so que ira forçar o usuario a procurar apenas na região dele
+  // Define os limites da região do usuário (por exemplo, uma área de 5 km ao redor da localização do usuário), ou seja ao digitar um lugar, ele vai procurar apenas na região do usuário, mas ainda ira aparecer outros lugares que não estão na região do usuário, so que ira forçar o usuário a procurar apenas na região dele
   const userBoundsFunc = () => {
     const userBounds = new window.google.maps.LatLngBounds(
       new window.google.maps.LatLng(
@@ -117,11 +120,11 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
   // Para pegar a referencia do que foi digitado na caixa de pesquisa como autocomplete
   const onPlacesChange = () => {
     if (!searchBox || !map) return
-    // Pegamos o lugar que o usuario digitou ou varios lugares, ex: se o usuario digitar "Cafeteria" ele vai retornar varios lugares que tem relação com "Cafeteria"
+    // Pegamos o lugar que o usuário digitou ou vários lugares, ex: se o usuário digitar "Cafeteria" ele vai retornar vários lugares que tem relação com "Cafeteria"
     const places = searchBox.getPlaces()
     // o places é um array, então pegamos o primeiro resultado gerado
     const place = places![0]
-    // As coordenadas do lugar que o usuario digitou
+    // As coordenadas do lugar que o usuário digitou
     const location = {
       lat: place.geometry?.location?.lat() as number,
       lng: place.geometry?.location?.lng() as number
@@ -147,7 +150,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
           animation: google.maps.Animation.DROP
         })
       )
-      // Aqui ele esta sendo usado para limpar o marker de destino, que é usado somente para manipular a rota, ou seja, quando o usuario pesquisar um lugar, ele limpa o marker de destino, pois o marker de destino é usado somente para manipular a rota
+      // Aqui ele esta sendo usado para limpar o marker de destino, que é usado somente para manipular a rota, ou seja, quando o usuário pesquisar um lugar, ele limpa o marker de destino, pois o marker de destino é usado somente para manipular a rota
       setPointMarkerDestinationCafe(null)
       // Limpa a resposta da matriz de distância, ou seja a linha que liga o ponto de partida ao ponto de destino
       setResponseMatrix(null)
@@ -166,11 +169,11 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
         })
       ])
       toast({
-        title: 'Cafeteria adicionada ao mapa juntamente com a rota! 🤩',
+        title: 'Cafeteria adicionada ao mapa juntamente com a rota! 🚶',
         duration: 5000,
         variant: 'success'
       })
-      //Pegamos a ref do mapa e  Movemos o mapa para o lugar que o usuario digitou
+      //Pegamos a ref do mapa e  Movemos o mapa para o lugar que o usuário digitou
       map?.panTo(location)
     } else if (!place.types?.includes('cafe')) {
       toast({
@@ -198,7 +201,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
     inputValueSearchBox.current!.value = ''
   }
 
-  // A gente passa essa função para os onClicks dos markers, para quando o usuario clicar em um marker, ele setar o marker que o usuario clicou, para aparecer no mapa e ser usado na função traceRoute e no useEffect que chama a função traceRoute quando o pointMarkerCafe mudar. Quase a msm ideia do onPlacesChange, a diferença é que sempre aqui eu vou ter um marker, pois o usuario clicou em um marker, e no onPlacesChange eu posso não ter um marker, pois o usuario pode digitar algo que não é uma cafeteria ou que não esta na região do usuario
+  // A gente passa essa função para os onClicks dos markers, para quando o usuário clicar em um marker, ele setar o marker que o usuário clicou, para aparecer no mapa e ser usado na função traceRoute e no useEffect que chama a função traceRoute quando o pointMarkerCafe mudar. Quase a msm ideia do onPlacesChange, a diferença é que sempre aqui eu vou ter um marker, pois o usuário clicou em um marker, e no onPlacesChange eu posso não ter um marker, pois o usuário pode digitar algo que não é uma cafeteria ou que não esta na região do usuário
   const onPlacesChangeButtonMarkers = (position: google.maps.Marker) => {
     if (!map) return
     // Ao pesquisar:
@@ -216,10 +219,16 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
         animation: google.maps.Animation.DROP
       })
     )
-    // Aqui ele esta sendo usado para limpar o marker de destino, que é usado somente para manipular a rota, ou seja, quando o usuario pesquisar um lugar, ele limpa o marker de destino, pois o marker de destino é usado somente para manipular a rota
+    // Aqui ele esta sendo usado para limpar o marker de destino, que é usado somente para manipular a rota, ou seja, quando o usuário pesquisar um lugar, ele limpa o marker de destino, pois o marker de destino é usado somente para manipular a rota
+
     setPointMarkerDestinationCafe(null)
+
     // Limpa a resposta da matriz de distância, ou seja a linha que liga o ponto de partida ao ponto de destino
     setResponseMatrix(null)
+
+    // E por fim repassamos os markers que o usuário ja clicou, para que quando ele clicar em um outro marker, ele não perca os markers que ele ja clicou
+    setMarkersClicked([...markersClicked, position])
+    console.log(markersClicked)
     toast({
       title: 'Rota da cafeteria adicionada com sucesso ao mapa! 🚶',
       duration: 5000,
@@ -230,7 +239,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
 
   //  Ao chamar essa função apos inserir o point de destino no campo de busca/selecionar o que ja esta no mapa, ela compara se o point não é nulo, se ele for nulo mostra uma mensagem em tela, se não ele seta o point de destino que é usado para manipular as funções de rota.
   const traceRoute = () => {
-    // o PointMarkerDestinationCafe é so usado para manipular as funçoes de  traçamento da rota, enquanto o pointMarkerCafe é usado para manipular e mostrar no mapa
+    // o PointMarkerDestinationCafe é so usado para manipular as funções de  traçamento da rota, enquanto o pointMarkerCafe é usado para manipular e mostrar no mapa
     setPointMarkerDestinationCafe(pointMarkerCafe)
   }
 
@@ -283,7 +292,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
       const currentLocation = current.geometry?.location as google.maps.LatLng
       const closestLocation = closest.geometry?.location as google.maps.LatLng
 
-      // aqui no caso estamos pegando o atual local do usuario + o local atual da cafeteria mais proxima e calculando a distância entre eles
+      // aqui no caso estamos pegando o atual local do usuário + o local atual da cafeteria mais proxima e calculando a distância entre eles
       const currentDistance =
         google.maps.geometry.spherical.computeDistanceBetween(
           // From
@@ -292,7 +301,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
           // To
           currentLocation
         )
-      // aqui no caso estamos pegando o atual local do usuario + o local mais próximo da cafeteria mais proxima  e calculando a distância entre eles
+      // aqui no caso estamos pegando o atual local do usuário + o local mais próximo da cafeteria mais proxima  e calculando a distância entre eles
       const closestDistance =
         google.maps.geometry.spherical.computeDistanceBetween(
           // From
@@ -325,7 +334,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
   const requestPointsOnTheMapAutomatic = () => {
     if (!map) return
 
-    // Pegamos o serviço do google places e passamos o mapa como parametro
+    // Pegamos o serviço do google places e passamos o mapa como parâmetro
     const servicePlaces = new google.maps.places.PlacesService(map)
     // Pegamos os pontos no mapa
     servicePlaces.nearbySearch(
@@ -438,7 +447,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
           animation={google.maps.Animation.BOUNCE}
         />
 
-        {/* Cafes que o usuario ja pesquisou */}
+        {/* Cafes que o usuário ja pesquisou */}
         {markersSearchBox.map((position, index) => (
           <MarkerF
             key={index}
@@ -450,13 +459,13 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
             options={{
               label: {
                 text:
-                  'Cafeteria pesquisada pelo usuario! 🤩' + position.getTitle(),
+                  'Cafeteria pesquisada pelo usuário! 🤩' + position.getTitle(),
                 color: '#fff',
                 fontSize: '12px',
                 className: styleMarkers(position)
               }
             }}
-            // Ao clicar a gente tem que traçar uma rota, com isso enviamos o marker que o usuario clicou para o pointMarkerCafe e temos que chamar a função de traçar a rota: traceRoute atraves do useEffect toda vez que o pointMarkerCafe mudar
+            // Ao clicar a gente tem que traçar uma rota, com isso enviamos o marker que o usuário clicou para o pointMarkerCafe e temos que chamar a função de traçar a rota: traceRoute através do useEffect toda vez que o pointMarkerCafe mudar
             onClick={() => {
               onPlacesChangeButtonMarkers(position)
             }}
@@ -509,7 +518,23 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
           />
         )}
 
-        {/*Atual cafe pesquisado/clicado pelo cliente ou clicado por ele*/}
+
+
+        {/* Marcadores clicados */}
+        {markersClicked.map((position, index) => (
+          <MarkerF
+            key={index}
+            position={{
+              lat: position.getPosition()?.lat() as number,
+              lng: position.getPosition()?.lng() as number
+            }}
+            icon={position.getIcon() as google.maps.Icon}
+            onClick={() => {
+              onPlacesChangeButtonMarkers(position)
+            }}
+          />
+        ))}
+        {/*Atual cafe pesquisado/clicado pelo cliente*/}
         {pointMarkerCafe && (
           <MarkerF
             position={{
@@ -526,12 +551,12 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
                 color: '#fff',
                 fontSize: '10px',
                 className:
-                  'bg-accent p-2 rounded-lg text-center z-[100] absolute top-24 mt-2 mx-2 animate-bounce'
+                  'bg-accent p-2 rounded-lg text-center z-[100] absolute top-24 mt-2 mx-2 animate-bounce left-0'
               }
             }}
           />
         )}
-
+        
         {/* Traçamento de rotas */}
 
         {/* para carregar os serviços de direction, ou seja uma req da api directions */}

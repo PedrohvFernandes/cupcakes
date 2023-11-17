@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { LoadScript } from '@react-google-maps/api'
+import { LoadScript, Libraries } from '@react-google-maps/api'
 
 import { ConfigAuth, ConfigRoutes } from '@config/index'
 
@@ -52,6 +52,7 @@ export function Location() {
   const navigate = useNavigate()
 
   const google = window.google
+  const libraries: Libraries = ['places', 'geometry', 'routes']
 
   // const { isLoaded } = useJsApiLoader({
   //   id: ConfigAuth.cupcakes.google.keys.maps.id,
@@ -199,7 +200,7 @@ export function Location() {
             // O load script carrega todo script do google  maps, e as api que você deseja utilizar, no caso, estamos utilizando a api de places, geometry e routes. Lembrando que para usar tem ativar elas no console da google cloud usando a mesma chave api e no mesmo projeto
             <LoadScript
               googleMapsApiKey={ConfigAuth.cupcakes.google.keys.maps.key}
-              libraries={['places', 'geometry', 'routes']}
+              libraries={libraries}
               loadingElement={
                 <LoaderDefault>Carregando o mapa...</LoaderDefault>
               }
