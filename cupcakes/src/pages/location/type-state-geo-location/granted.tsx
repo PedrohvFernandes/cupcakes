@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import {
   DirectionsRenderer,
@@ -69,7 +69,6 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
   const [markersCafeAutomatic, setMarkersCafeAutomatic] = useState<
     google.maps.Marker[]
   >([])
-
 
   // Marker da cafeteria mais proxima
   const [markerNearestCafe, setMarkerNearestCafe] =
@@ -150,6 +149,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
           animation: google.maps.Animation.DROP
         })
       )
+      // Por que a rota não esta limpando ao mudar o destino: O "problema" na verdade é relacionado com o modo de desenvolvimento do react, lembra sempre de verificar e limitar as verificações da callback usada dentro do directionservice (se usar o código do video ja da certo), mas lembra de ir no arquivo index.tsx/main.tsx do react e retira o react.strictMode, esse modo é o modo de desenvolvimento e por montar e simular o desmonte da tela ta dando esse "bug" de não apagar o trajeto. Muito provavelmente já está funcionando se voce buildar para produção.
       // Aqui ele esta sendo usado para limpar o marker de destino, que é usado somente para manipular a rota, ou seja, quando o usuário pesquisar um lugar, ele limpa o marker de destino, pois o marker de destino é usado somente para manipular a rota
       setPointMarkerDestinationCafe(null)
       // Limpa a resposta da matriz de distância, ou seja a linha que liga o ponto de partida ao ponto de destino
@@ -228,7 +228,6 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
 
     // E por fim repassamos os markers que o usuário ja clicou, para que quando ele clicar em um outro marker, ele não perca os markers que ele ja clicou
     setMarkersClicked([...markersClicked, position])
-    console.log(markersClicked)
     toast({
       title: 'Rota da cafeteria adicionada com sucesso ao mapa! 🚶',
       duration: 5000,
@@ -518,8 +517,6 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
           />
         )}
 
-
-
         {/* Marcadores clicados */}
         {markersClicked.map((position, index) => (
           <MarkerF
@@ -541,10 +538,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
               lat: pointMarkerCafe.getPosition()?.lat() as number,
               lng: pointMarkerCafe.getPosition()?.lng() as number
             }}
-            icon={{
-              url: `${CoffeeRedUrl}`,
-              scaledSize: new google.maps.Size(40, 40)
-            }}
+            icon={pointMarkerCafe.getIcon() as google.maps.Icon}
             options={{
               label: {
                 text: 'Cafeteria em rota! 🚶',
@@ -556,7 +550,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
             }}
           />
         )}
-        
+
         {/* Traçamento de rotas */}
 
         {/* para carregar os serviços de direction, ou seja uma req da api directions */}
