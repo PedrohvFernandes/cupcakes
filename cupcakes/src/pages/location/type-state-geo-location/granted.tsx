@@ -86,7 +86,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
   // Pontos específicos no mapa, no caso estamos pegando os cafes
   const requestPointsOnTheMapRequest: google.maps.places.PlaceSearchRequest = {
     location: responseState.responseDataMap?.center, // Localização do usuário
-    radius: 500, //3000 metros ou 3km
+    radius: 3000, //3000 metros ou 3km
     type: 'cafe' // Tipo de lugar que queremos buscar, lembrando que a pessoa que criou o lugar que define o tipo, então pode ser que uma cafeteria não esteja com o tipo "cafe"
   }
 
@@ -516,8 +516,31 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
             }}
           />
         )}
-
+        {/*Atual cafe pesquisado/clicado pelo cliente*/}
+        {pointMarkerCafe && (
+          <MarkerF
+            position={{
+              lat: pointMarkerCafe.getPosition()?.lat() as number,
+              lng: pointMarkerCafe.getPosition()?.lng() as number
+            }}
+            icon={{
+              url: `${CoffeeRedUrl}`,
+              scaledSize: new google.maps.Size(40, 40)
+          
+            }}
+            options={{
+              label: {
+                text: 'Cafeteria em rota! 🚶',
+                color: '#fff',
+                fontSize: '10px',
+                className:
+                  'bg-accent p-2 rounded-lg text-center z-[100] absolute top-24 mt-2 mx-2 animate-bounce left-0'
+              }
+            }}
+          />
+        )}
         {/* Marcadores clicados */}
+        
         {markersClicked.map((position, index) => (
           <MarkerF
             key={index}
@@ -531,25 +554,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
             }}
           />
         ))}
-        {/*Atual cafe pesquisado/clicado pelo cliente*/}
-        {pointMarkerCafe && (
-          <MarkerF
-            position={{
-              lat: pointMarkerCafe.getPosition()?.lat() as number,
-              lng: pointMarkerCafe.getPosition()?.lng() as number
-            }}
-            icon={pointMarkerCafe.getIcon() as google.maps.Icon}
-            options={{
-              label: {
-                text: 'Cafeteria em rota! 🚶',
-                color: '#fff',
-                fontSize: '10px',
-                className:
-                  'bg-accent p-2 rounded-lg text-center z-[100] absolute top-24 mt-2 mx-2 animate-bounce left-0'
-              }
-            }}
-          />
-        )}
+
 
         {/* Traçamento de rotas */}
 
