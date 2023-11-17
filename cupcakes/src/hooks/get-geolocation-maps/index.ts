@@ -4,7 +4,7 @@ import { IGeolocationPosition } from '@pages/location/type-state-geo-location/ty
 
 const OPTIONS = {
   enableHighAccuracy: true,
-  timeout: 20000,
+  timeout: 5000,
   maximumAge: 0
 }
 
