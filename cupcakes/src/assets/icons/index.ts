@@ -8,6 +8,7 @@ import UserProfileIcon from './user-profile.svg?react'
 
 // Icons de assets URL
 import CoffeeBlueUrl from './coffee-blue.svg?url'
+import CoffeePinkUrl from './coffee-pink.svg?url'
 import CoffeeRedUrl from './coffee-red.svg?url'
 import CoffeeYellowUrl from './coffee-yellow.svg?url'
 import UserProfileIconUrl from './user-profile.svg?url'
@@ -33,10 +34,11 @@ export {
   AlertCircle,
   CoffeeBlue,
   CoffeeBlueUrl,
+  CoffeePinkUrl,
   CoffeeRed,
   CoffeeRedUrl,
-  CoffeeYellowUrl,
   CoffeeYellow,
+  CoffeeYellowUrl,
   GithubIcon,
   Globe,
   IconCoffee,

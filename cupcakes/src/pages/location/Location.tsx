@@ -196,9 +196,10 @@ export function Location() {
         <>
           {/* Caso ja tenha carregado todo script da google, não precise carregar novamente, dessa forma evitamos erro e pegamos somente o maps */}
           {google === undefined ? (
+            // O load script carrega todo script do google  maps, e as api que você deseja utilizar, no caso, estamos utilizando a api de places, geometry e routes. Lembrando que para usar tem ativar elas no console da google cloud usando a mesma chave api e no mesmo projeto
             <LoadScript
               googleMapsApiKey={ConfigAuth.cupcakes.google.keys.maps.key}
-              libraries={['places', 'geometry']}
+              libraries={['places', 'geometry', 'routes']}
               loadingElement={
                 <LoaderDefault>Carregando o mapa...</LoaderDefault>
               }
