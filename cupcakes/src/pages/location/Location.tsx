@@ -69,13 +69,13 @@ export function Location() {
 
   const stateGeoLocation = async () => {
     try {
-      const state = await getLocation()
-      return setLoadingGetLocationResponseState(state)
+      const state = await getLocation(position => setLoadingGetLocationResponseState(position))
+      // return setLoadingGetLocationResponseState(state)
     } catch (error) {
       console.log(error)
     }
   }
-
+  console.log(loadingGetLocationResponseState)
   // const repeatNotification = ({
   //   func,
   //   durationRepeatFixed,

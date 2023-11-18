@@ -60,7 +60,9 @@ const OPTIONS_MAP = {
 }
 
 // Função principal para pegar a geolocalização, que usa as funções success e errors
-const getLocation = () => {
+const getLocation = (
+  onPositionUpdate: (position: IGeolocationPosition) => void
+) => {
   // Verifica se o navegador tem suporte a geolocalização
   if (navigator.geolocation) {
     let watchId: number | null = null
@@ -100,6 +102,15 @@ const getLocation = () => {
             },
             OPTIONS
           )
+
+          onPositionUpdate({
+            responseState: responseData.responseState,
+            responseDataMap: responseData.responseDataMap,
+            error: responseData.error,
+            messageGeolocationNotSupportedBrowser:
+              responseData.messageGeolocationNotSupportedBrowser,
+            watchId: watchId
+          })
           resolve({
             responseState: responseData.responseState,
             responseDataMap: responseData.responseDataMap,
