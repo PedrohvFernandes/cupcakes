@@ -118,7 +118,7 @@ const getLocation = () => {
   } else {
     // Se não for suportado, você pode mostrar uma mensagem para o usuário
     return new Promise<IGeolocationPosition>(resolve => {
-      navigator.geolocation.getCurrentPosition(
+      navigator.geolocation.watchPosition(
         () =>
           resolve({
             messageGeolocationNotSupportedBrowser: {
