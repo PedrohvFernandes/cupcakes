@@ -68,7 +68,7 @@ const getLocation = () => {
       .then((response): Promise<IGeolocationPosition> => {
         // Aqui, a função success agora retorna um objeto com sucesso ou erro, dependendo do resultado
         return new Promise<IGeolocationPosition>(resolve => {
-          navigator.geolocation.getCurrentPosition(
+          navigator.geolocation.watchPosition(
             position =>
               resolve({
                 responseState: {
