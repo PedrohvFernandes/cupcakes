@@ -34,8 +34,6 @@ const success = (pos: GeolocationPosition) => {
     accuracy: coords.accuracy
     // Adicione mais propriedades conforme necessário
   }
-
-  console.log(responseDataMap)
   // Agora você pode retornar os dados de geolocalização
   return responseDataMap
 }
