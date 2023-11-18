@@ -253,6 +253,7 @@ export function Location() {
       <Toaster />
       <section className="container flex items-center justify-center min-h-screen mx-auto py-2">
         {/* {isLoaded && loadingGetLocationResponseState.responseState !== '' ? ( */}
+        {/* todo: coloca navegação tempo real */}
         {loadingGetLocationResponseState.responseState?.responseState !== '' ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
             {switchStateGeoLocation()}
