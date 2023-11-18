@@ -27,9 +27,11 @@ import { cn } from '@lib/utils'
 
 interface IResponseStateGranted {
   responseState: IGeolocationPosition
+  // setIsLoadedButtonState: React.Dispatch<React.SetStateAction<boolean>>
+  setIsLoadedButtonState: (isLoadedButtonState: boolean) => void
 }
 
-export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
+export function Granted({ responseState, setIsLoadedButtonState }: Readonly<IResponseStateGranted>) {
   // Notificação
   const { toast } = useToast()
 
@@ -377,6 +379,7 @@ export function Granted({ responseState }: Readonly<IResponseStateGranted>) {
   useEffect(() => {
     userBoundsFunc()
     requestPointsOnTheMapAutomatic()
+    setIsLoadedButtonState(true)
   }, [map, responseState.responseDataMap?.center])
 
   return (

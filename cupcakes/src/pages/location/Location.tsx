@@ -45,6 +45,8 @@ export function Location() {
       }
     })
 
+  const [isLoadedButton, setIsLoadedButton] = useState<boolean>(false)
+
   const { getLocation } = useGetGeolocationMaps()
 
   const { toast } = useToast()
@@ -59,6 +61,10 @@ export function Location() {
   //   googleMapsApiKey: ConfigAuth.cupcakes.google.keys.maps.key,
   //   libraries: ['places']
   // })
+
+  const setIsLoadedButtonState = (isLoaded: boolean) => {
+    setIsLoadedButton(isLoaded)
+  }
 
   const stateGeoLocation = async () => {
     try {
@@ -129,6 +135,7 @@ export function Location() {
       //   durationRepeatFixed,
       //   durationRepeatInfinity
       // })
+      setIsLoadedButton(prevState => !prevState)
 
       toast({
         title: 'Você bloqueou a permissão de localização! 🤨',
@@ -155,6 +162,8 @@ export function Location() {
     if (
       loadingGetLocationResponseState.responseState?.responseState === 'prompt'
     ) {
+      setIsLoadedButton(prevState => !prevState)
+
       toast({
         title:
           'Você ainda não aceitou a permissão de localização ou bloqueou/aceitou temporariamente(Depende do navegador)!',
@@ -206,11 +215,18 @@ export function Location() {
               }
             >
               {/* {isLoaded && ( */}
-              <Granted responseState={loadingGetLocationResponseState} />
+
+              <Granted
+                responseState={loadingGetLocationResponseState}
+                setIsLoadedButtonState={setIsLoadedButtonState}
+              />
               {/* )} */}
             </LoadScript>
           ) : (
-            <Granted responseState={loadingGetLocationResponseState} />
+            <Granted
+              responseState={loadingGetLocationResponseState}
+              setIsLoadedButtonState={setIsLoadedButtonState}
+            />
           )}
         </>
       )
@@ -257,18 +273,22 @@ export function Location() {
         {loadingGetLocationResponseState.responseState?.responseState !== '' ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
             {switchStateGeoLocation()}
-            <ButtonDefaultOutline
-              size={'xl'}
-              onClick={() => {
-                window.location.reload()
-              }}
-              className={cn(
-                loadingGetLocationResponseState.responseState?.responseState === 'granted' && 'w-full',
-                loadingGetLocationResponseState.responseState?.responseState !== 'granted' && 'w-1/2' 
-              )}
-            >
-              Recarregar
-            </ButtonDefaultOutline>
+            {isLoadedButton && (
+              <ButtonDefaultOutline
+                size={'xl'}
+                onClick={() => {
+                  window.location.reload()
+                }}
+                className={cn(
+                  loadingGetLocationResponseState.responseState
+                    ?.responseState === 'granted' && 'w-full',
+                  loadingGetLocationResponseState.responseState
+                    ?.responseState !== 'granted' && 'w-1/2'
+                )}
+              >
+                Recarregar
+              </ButtonDefaultOutline>
+            )}
           </div>
         ) : (
           <LoaderDefault>Carregando seus dados de localização...</LoaderDefault>
