@@ -445,7 +445,8 @@ export function Granted({
           options={{
             label: {
               text: `${
-                width < 768 ? 'Você esta aqui!' : 'Localização mais proxima!'
+                // Se a largura da tela for menor que 768px, ou seja se for um celular, ou se o navegador for o firefox, ele vai mostrar "Você esta aqui!", se não ele vai mostrar "Localização mais proxima!"
+                width < 768 ||(window.navigator.userAgent.indexOf('Firefox') > -1) ? 'Você esta aqui!' : 'Localização mais proxima!'
               }`,
               color: '#fff',
               fontSize: '12px',

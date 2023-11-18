@@ -16,9 +16,7 @@ import { NavTutorialPrompt } from './type-state-geo-location/nav-tutorial-prompt
 import { NavTutorialBlock } from './type-state-geo-location/nav-tutorial-block'
 import { Granted } from './type-state-geo-location/granted'
 
-import {
-  IGeolocationPosition,
-} from './type-state-geo-location/typings'
+import { IGeolocationPosition } from './type-state-geo-location/typings'
 import { cn } from '@lib/utils'
 
 export function Location() {
@@ -69,15 +67,18 @@ export function Location() {
   const stateGeoLocation = async () => {
     try {
       await getLocation(setLoadingGetLocationResponseState)
-    //  await getLocation(position => setLoadingGetLocationResponseState(position))
+      //  await getLocation(position => setLoadingGetLocationResponseState(position))
       // return setLoadingGetLocationResponseState(state)
     } catch (error) {
       console.log(error)
     }
   }
   useEffect(() => {
-    console.log('Novo estado de geolocalização:', loadingGetLocationResponseState);
-  }, [loadingGetLocationResponseState]);
+    console.log(
+      'Novo estado de geolocalização:',
+      loadingGetLocationResponseState
+    )
+  }, [loadingGetLocationResponseState])
   // const repeatNotification = ({
   //   func,
   //   durationRepeatFixed,
@@ -250,10 +251,12 @@ export function Location() {
     return () => {
       // Limpa a assinatura do watchPosition quando o componente é desmontado
       if (loadingGetLocationResponseState.watchId !== null) {
-        navigator.geolocation.clearWatch(loadingGetLocationResponseState.watchId as number);
+        navigator.geolocation.clearWatch(
+          loadingGetLocationResponseState.watchId as number
+        )
         console.log('watchPosition destruido')
       }
-    };
+    }
   }, [loadingGetLocationResponseState.responseState?.responseState])
 
   return (
