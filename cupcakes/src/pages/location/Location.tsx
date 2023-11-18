@@ -69,7 +69,8 @@ export function Location() {
 
   const stateGeoLocation = async () => {
     try {
-      const state = await getLocation(position => setLoadingGetLocationResponseState(position))
+      await getLocation(setLoadingGetLocationResponseState)
+    //  await getLocation(position => setLoadingGetLocationResponseState(position))
       // return setLoadingGetLocationResponseState(state)
     } catch (error) {
       console.log(error)
