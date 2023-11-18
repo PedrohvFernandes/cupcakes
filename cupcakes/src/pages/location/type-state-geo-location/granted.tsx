@@ -24,6 +24,7 @@ import {
 import { IGeolocationPosition } from './typings'
 
 import { cn } from '@lib/utils'
+import useWindowDimensions from '@hooks/get-window-dimensions'
 
 interface IResponseStateGranted {
   responseState: IGeolocationPosition
@@ -34,6 +35,8 @@ interface IResponseStateGranted {
 export function Granted({ responseState, setIsLoadedButtonState }: Readonly<IResponseStateGranted>) {
   // Notificação
   const { toast } = useToast()
+  //Tamanho da tela 
+  const { width } = useWindowDimensions();
 
   // StyleMap
   const { OPTIONS_MAP } = useGetGeolocationMaps()
@@ -423,7 +426,7 @@ export function Granted({ responseState, setIsLoadedButtonState }: Readonly<IRes
           }
           options={{
             label: {
-              text: 'Localização mais proxima!',
+              text: `${width < 768 ? 'Você esta aqui!' : 'Localização mais proxima!'}`,
               color: '#fff',
               fontSize: '12px',
               className:
