@@ -19,7 +19,8 @@ interface IGeolocationPosition {
   messageGeolocationNotSupportedBrowser?: {
     error: string
   }
-  responseState?: IResponseState
+  responseState?: IResponseState,
+  watchId?: number | null
 }
 
 const icons = [

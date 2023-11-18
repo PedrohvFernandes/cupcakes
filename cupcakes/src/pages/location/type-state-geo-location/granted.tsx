@@ -32,11 +32,14 @@ interface IResponseStateGranted {
   setIsLoadedButtonState: (isLoadedButtonState: boolean) => void
 }
 
-export function Granted({ responseState, setIsLoadedButtonState }: Readonly<IResponseStateGranted>) {
+export function Granted({
+  responseState,
+  setIsLoadedButtonState
+}: Readonly<IResponseStateGranted>) {
   // Notificação
   const { toast } = useToast()
-  //Tamanho da tela 
-  const { width } = useWindowDimensions();
+  //Tamanho da tela
+  const { width } = useWindowDimensions()
 
   // StyleMap
   const { OPTIONS_MAP } = useGetGeolocationMaps()
@@ -247,11 +250,6 @@ export function Granted({ responseState, setIsLoadedButtonState }: Readonly<IRes
     setPointMarkerDestinationCafe(pointMarkerCafe)
   }
 
-  useEffect(() => {
-    if (!pointMarkerCafe) return
-    traceRoute()
-  }, [pointMarkerCafe])
-
   // Aqui informamos qual a origem e o destino para o traçamento da rota e o tipo de viagem,  ou seja essa é a função para a api de directions do google maps
   // O uso do useMemo é para evitar que o objeto seja recriado toda vez que o componente for renderizado, ou seja, ele só vai ser criado uma vez, e quando o pointMarkerDestinationCafe mudar, ele vai ser recriado.
   const directionsServiceOptions =
@@ -380,9 +378,29 @@ export function Granted({ responseState, setIsLoadedButtonState }: Readonly<IRes
   }
 
   useEffect(() => {
-    userBoundsFunc()
+    if (responseState.responseState?.responseState === 'granted') {
+      toast({
+        title: 'Localização encontrada!',
+        description:
+          'Agora você pode ver as cafeterias mais próximas de você! ☕',
+        duration: 10000,
+        variant: 'success'
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!pointMarkerCafe) return
+    traceRoute()
+  }, [pointMarkerCafe])
+
+  useEffect(() => {
     requestPointsOnTheMapAutomatic()
     setIsLoadedButtonState(true)
+  }, [map])
+
+  useEffect(() => {
+    userBoundsFunc()
   }, [map, responseState.responseDataMap?.center])
 
   return (
@@ -426,7 +444,9 @@ export function Granted({ responseState, setIsLoadedButtonState }: Readonly<IRes
           }
           options={{
             label: {
-              text: `${width < 768 ? 'Você esta aqui!' : 'Localização mais proxima!'}`,
+              text: `${
+                width < 768 ? 'Você esta aqui!' : 'Localização mais proxima!'
+              }`,
               color: '#fff',
               fontSize: '12px',
               className:
@@ -532,7 +552,6 @@ export function Granted({ responseState, setIsLoadedButtonState }: Readonly<IRes
             icon={{
               url: `${CoffeeRedUrl}`,
               scaledSize: new google.maps.Size(40, 40)
-          
             }}
             options={{
               label: {
@@ -546,7 +565,7 @@ export function Granted({ responseState, setIsLoadedButtonState }: Readonly<IRes
           />
         )}
         {/* Marcadores clicados */}
-        
+
         {markersClicked.map((position, index) => (
           <MarkerF
             key={index}
@@ -560,7 +579,6 @@ export function Granted({ responseState, setIsLoadedButtonState }: Readonly<IRes
             }}
           />
         ))}
-
 
         {/* Traçamento de rotas */}
 

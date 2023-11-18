@@ -42,7 +42,8 @@ export function Location() {
       error: {
         code: 0,
         message: ''
-      }
+      },
+      watchId: null
     })
 
   const [isLoadedButton, setIsLoadedButton] = useState<boolean>(false)
@@ -69,26 +70,7 @@ export function Location() {
   const stateGeoLocation = async () => {
     try {
       const state = await getLocation()
-      setLoadingGetLocationResponseState({
-        responseState: {
-          responseState: state.responseState
-            ?.responseState as IResponseState['responseState']
-        },
-        responseDataMap: {
-          center: {
-            lat: state.responseDataMap?.center.lat as number,
-            lng: state.responseDataMap?.center.lng as number
-          },
-          accuracy: state.responseDataMap?.accuracy as number
-        },
-        messageGeolocationNotSupportedBrowser: {
-          error: state.messageGeolocationNotSupportedBrowser?.error as string
-        },
-        error: {
-          code: state.error?.code as number,
-          message: state.error?.message as string
-        }
-      })
+      return setLoadingGetLocationResponseState(state)
     } catch (error) {
       console.log(error)
     }
@@ -112,7 +94,7 @@ export function Location() {
   //   return () => clearInterval(interval)
   // }
 
-  const notificationsState = () => {
+  const notificationsStateAndSetIsLoadButton = () => {
     // let durationRepeatFixed = 30000
     // let durationRepeatInfinity = 40000
 
@@ -144,18 +126,6 @@ export function Location() {
         // duration: Infinity,
         duration: durationFixed,
         variant: 'destructive'
-      })
-    }
-
-    if (
-      loadingGetLocationResponseState.responseState?.responseState === 'granted'
-    ) {
-      toast({
-        title: 'Localização encontrada!',
-        description:
-          'Agora você pode ver as cafeterias mais próximas de você! ☕',
-        duration: 10000,
-        variant: 'success'
       })
     }
 
@@ -255,13 +225,33 @@ export function Location() {
 
   useEffect(() => {
     stateGeoLocation()
+
+    // const timer = setTimeout(() => {
+    //   setIsLoadedButton(prevState => !prevState)
+    // }, 10000)
+
+    // return () => clearTimeout(timer)
+  }, [])
+
+  useEffect(() => {
     switchStateGeoLocation()
-    notificationsState()
+    notificationsStateAndSetIsLoadButton()
     // getLocation().responseState?.then(response => {
     //   setLoadingGetLocationResponseState({
     //     responseState: response.responseState
     //   })
     // })
+
+    // Aqui estamos removendo o watchPosition, pois ele fica enviando as coordenadas, e quando o usuário sai da tela de localização, ele continua enviando as coordenadas, e isso pode gerar um gasto de bateria desnecessário, por isso, estamos removendo ele ao sair da tela de localização, ou seja ao destruir o componente
+    // destruir o watchPosition apos fechar o componente, porque se não ao sair dele e voltar sem destruir o watchPosition acaba que ele não consegue pesquisar novamente, o que não acontecia com o getCurrentPosition porque ele so pega a atual posição e não fica enviando as coords
+    // Retorna uma função que será executada quando o componente for desmontado
+    return () => {
+      // Limpa a assinatura do watchPosition quando o componente é desmontado
+      if (loadingGetLocationResponseState.watchId !== null) {
+        navigator.geolocation.clearWatch(loadingGetLocationResponseState.watchId as number);
+        console.log('watchPosition destruido')
+      }
+    };
   }, [loadingGetLocationResponseState.responseState?.responseState])
 
   return (
@@ -269,7 +259,8 @@ export function Location() {
       <Toaster />
       <section className="container flex items-center justify-center min-h-screen mx-auto py-2">
         {/* {isLoaded && loadingGetLocationResponseState.responseState !== '' ? ( */}
-        {/* todo: coloca navegação tempo real */}
+        {/* todo: coloca navegação tempo real -  sempre tentar retornar o valor success(coords) para aqui, para passar pro granted para passar para o marker */}
+        {/* Colocar uma mensagem de success quando usuario chegar ao seu destino */}
         {loadingGetLocationResponseState.responseState?.responseState !== '' ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
             {switchStateGeoLocation()}
