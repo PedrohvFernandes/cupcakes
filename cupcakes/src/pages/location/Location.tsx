@@ -18,7 +18,6 @@ import { Granted } from './type-state-geo-location/granted'
 
 import {
   IGeolocationPosition,
-  IResponseState
 } from './type-state-geo-location/typings'
 import { cn } from '@lib/utils'
 
@@ -76,7 +75,9 @@ export function Location() {
       console.log(error)
     }
   }
-  console.log(loadingGetLocationResponseState)
+  useEffect(() => {
+    console.log('Novo estado de geolocalização:', loadingGetLocationResponseState);
+  }, [loadingGetLocationResponseState]);
   // const repeatNotification = ({
   //   func,
   //   durationRepeatFixed,
