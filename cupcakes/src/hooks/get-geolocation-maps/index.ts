@@ -1,6 +1,6 @@
 // Infos da geolocalização
 
-import { IGeolocationPosition } from '@pages/location/type-state-geo-location/typings'
+// import { IGeolocationPosition } from '@pages/location/type-state-geo-location/typings'
 
 const OPTIONS = {
   enableHighAccuracy: true,
