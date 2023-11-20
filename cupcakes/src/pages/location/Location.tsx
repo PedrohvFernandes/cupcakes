@@ -264,7 +264,6 @@ export function Location() {
       <Toaster />
       <section className="container flex items-center justify-center min-h-screen mx-auto py-2">
         {/* {isLoaded && loadingGetLocationResponseState.responseState !== '' ? ( */}
-        {/* todo: coloca navegação tempo real -  sempre tentar retornar o valor success(coords) para aqui, para passar pro granted para passar para o marker */}
         {/* Colocar uma mensagem de success quando usuario chegar ao seu destino */}
         {loadingGetLocationResponseState.responseState?.responseState !== '' ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
