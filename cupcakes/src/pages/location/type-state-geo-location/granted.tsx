@@ -123,7 +123,7 @@ export function Granted({
 
     setUserBounds(userBounds)
   }
-console.log(responseState.responseDataMap?.center.lat)
+
   // Para pegar a referencia do que foi digitado na caixa de pesquisa como autocomplete
   const onPlacesChange = () => {
     if (!searchBox || !map) return

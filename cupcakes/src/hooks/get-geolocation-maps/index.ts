@@ -60,6 +60,147 @@ const OPTIONS_MAP = {
 }
 
 // Função principal para pegar a geolocalização, que usa as funções success e errors
+const getLocation = () => {
+  return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.permissions
+        .query({ name: 'geolocation' })
+        .then(permissionStatus => {
+          const responseData = {
+            responseState: { responseState: permissionStatus.state },
+            responseDataMap: { center: { lat: 0, lng: 0 }, accuracy: 0 },
+            error: { code: 0, message: '' },
+            messageGeolocationNotSupportedBrowser: { error: '' },
+            watchId: null as number | null
+          }
+
+          let watchId: number | null = null
+
+          const successCallback = (position: GeolocationPosition) => {
+            responseData.responseDataMap.center = {
+              lat: success(position).latitude,
+              lng: success(position).longitude
+            }
+            responseData.responseState.responseState = permissionStatus.state
+            responseData.responseDataMap.accuracy = success(position).accuracy
+            responseData.watchId = watchId
+            resolve(responseData)
+          }
+
+          const errorCallback = (error: GeolocationPositionError) => {
+            responseData.error = {
+              code: errors(error).errorCode,
+              message: errors(error).errorMessage
+            }
+            responseData.responseState.responseState = permissionStatus.state
+            responseData.watchId = watchId
+            resolve(responseData)
+          }
+          // O watchPosition é usado para monitorar as mudanças na posição do usuário, ja o getCurrentPosition é usado para obter a posição atual do usuário. E quando utilizamos o watchPosition, ele retorna um id que pode ser usado para limpar a assinatura mais tarde, se necessário, por exemplo quando o usuario sair do componente, e se não fizer isso, quando retornar para o componente que usa suas informações ira dar um erro.
+          // Mostrar uma mensagem de success quando o usario chegar na localização desejada(So comparar a latitude e longitude do usuario com a latitude e longitude do local desejado)
+          watchId = navigator.geolocation.watchPosition(
+            successCallback,
+            errorCallback,
+            OPTIONS
+          )
+        })
+        .catch(error => {
+          console.error('Error querying geolocation permission:', error)
+          const errorResponse = {
+            responseState: { responseState: 'error' },
+            responseDataMap: { center: { lat: 0, lng: 0 }, accuracy: 0 },
+            error: {
+              code: 0,
+              message: 'Error querying geolocation permission'
+            },
+            messageGeolocationNotSupportedBrowser: { error: '' },
+            watchId: null
+          }
+          reject(errorResponse)
+        })
+    } else {
+      const unsupportedResponse = {
+        responseState: { responseState: 'unsupported' },
+        responseDataMap: { center: { lat: 0, lng: 0 }, accuracy: 0 },
+        error: { code: 0, message: '' },
+        messageGeolocationNotSupportedBrowser: {
+          error: 'A geolocalização não é suportada por este navegador.'
+        },
+        watchId: null
+      }
+      reject(unsupportedResponse)
+    }
+  })
+}
+
+// const getLocation = () => {
+//   return new Promise((resolve, reject) => {
+//     if (navigator.geolocation) {
+//       let watchId: number | null = null
+
+//       navigator.permissions
+//         .query({ name: 'geolocation' })
+//         .then(permissionStatus => {
+//           const responseData = {
+//             responseState: { responseState: permissionStatus.state },
+//             responseDataMap: { center: { lat: 0, lng: 0 }, accuracy: 0 },
+//             error: { code: 0, message: '' },
+//             messageGeolocationNotSupportedBrowser: { error: '' },
+//             watchId: null as number | null
+//           }
+
+//           watchId = navigator.geolocation.watchPosition(
+//             position => {
+//               responseData.responseDataMap.center = {
+//                 lat: success(position).latitude,
+//                 lng: success(position).longitude
+//               }
+//               responseData.responseState.responseState = permissionStatus.state
+//               responseData.responseDataMap.accuracy = success(position).accuracy
+//               responseData.watchId = watchId
+//               resolve(responseData)
+//             },
+//             error => {
+//               responseData.error = {
+//                 code: errors(error).errorCode,
+//                 message: errors(error).errorMessage
+//               }
+//               responseData.responseState.responseState = permissionStatus.state
+//               responseData.watchId = watchId
+//               resolve(responseData)
+//             },
+//             OPTIONS
+//           )
+//         })
+//         .catch(error => {
+//           console.error('Error querying geolocation permission:', error)
+//           const errorResponse = {
+//             responseState: { responseState: 'error' },
+//             responseDataMap: { center: { lat: 0, lng: 0 }, accuracy: 0 },
+//             error: {
+//               code: 0,
+//               message: 'Error querying geolocation permission'
+//             },
+//             messageGeolocationNotSupportedBrowser: { error: '' },
+//             watchId: null
+//           }
+//           reject(errorResponse)
+//         })
+//     } else {
+//       const unsupportedResponse = {
+//         responseState: { responseState: 'unsupported' },
+//         responseDataMap: { center: { lat: 0, lng: 0 }, accuracy: 0 },
+//         error: { code: 0, message: '' },
+//         messageGeolocationNotSupportedBrowser: {
+//           error: 'A geolocalização não é suportada por este navegador.'
+//         },
+//         watchId: null
+//       }
+//       reject(unsupportedResponse)
+//     }
+//   })
+// }
+
 // const getLocation = (
 //   onPositionUpdate: (position: IGeolocationPosition) => void
 // ) => {
@@ -190,64 +331,63 @@ const OPTIONS_MAP = {
 //   }
 // }
 
-const getLocation = (onPositionUpdate: (position: IGeolocationPosition) => void) => {
-  return new Promise((resolve) => {
-    if (navigator.geolocation) {
-      let watchId = null as number | null;
+// const getLocation = (onPositionUpdate: (position: IGeolocationPosition) => void) => {
+//   return new Promise((resolve) => {
+//     if (navigator.geolocation) {
+//       let watchId = null as number | null;
 
-      navigator.permissions
-        .query({ name: 'geolocation' })
-        .then((permissionStatus) => {
-          const responseData = {
-            responseState: { responseState: permissionStatus.state },
-            responseDataMap: { center: { lat: 0, lng: 0 }, accuracy: 0 },
-            error: { code: 0, message: '' },
-            messageGeolocationNotSupportedBrowser: { error: '' },
-            watchId: null as number | null,
-          };
+//       navigator.permissions
+//         .query({ name: 'geolocation' })
+//         .then((permissionStatus) => {
+//           const responseData = {
+//             responseState: { responseState: permissionStatus.state },
+//             responseDataMap: { center: { lat: 0, lng: 0 }, accuracy: 0 },
+//             error: { code: 0, message: '' },
+//             messageGeolocationNotSupportedBrowser: { error: '' },
+//             watchId: null as number | null,
+//           };
 
-          if (permissionStatus.state === 'granted') {
-            watchId = navigator.geolocation.watchPosition(
-              (position) => {
-                responseData.responseDataMap.center = {
-                  lat: success(position).latitude,
-                  lng: success(position).longitude,
-                };
-                responseData.responseDataMap.accuracy =  success(position).accuracy;
-                onPositionUpdate(responseData);
-              },
-              (error) => {
-                responseData.error = {
-                  code: errors(error).errorCode,
-                  message: errors(error).errorMessage,
-                };
-                onPositionUpdate(responseData);
-              },
-              OPTIONS
-            );
+//           if (permissionStatus.state === 'granted') {
+//             watchId = navigator.geolocation.watchPosition(
+//               (position) => {
+//                 responseData.responseDataMap.center = {
+//                   lat: success(position).latitude,
+//                   lng: success(position).longitude,
+//                 };
+//                 responseData.responseDataMap.accuracy =  success(position).accuracy;
+//                 onPositionUpdate(responseData);
+//               },
+//               (error) => {
+//                 responseData.error = {
+//                   code: errors(error).errorCode,
+//                   message: errors(error).errorMessage,
+//                 };
+//                 onPositionUpdate(responseData);
+//               },
+//               OPTIONS
+//             );
 
-            responseData.watchId = watchId;
-          } else {
-            onPositionUpdate(responseData);
-          }
+//             responseData.watchId = watchId;
+//           } else {
+//             onPositionUpdate(responseData);
+//           }
 
-          resolve(responseData);
-        });
-    } else {
-      // Se não for suportado, você pode mostrar uma mensagem para o usuário
-      resolve({
-        responseState: { responseState: 'unsupported' },
-        responseDataMap: { center: { lat: 0, lng: 0 }, accuracy: 0 },
-        error: { code: 0, message: '' },
-        messageGeolocationNotSupportedBrowser: {
-          error: 'A geolocalização não é suportada por este navegador.',
-        },
-        watchId: null,
-      });
-    }
-  });
-};
-
+//           resolve(responseData);
+//         });
+//     } else {
+//       // Se não for suportado, você pode mostrar uma mensagem para o usuário
+//       resolve({
+//         responseState: { responseState: 'unsupported' },
+//         responseDataMap: { center: { lat: 0, lng: 0 }, accuracy: 0 },
+//         error: { code: 0, message: '' },
+//         messageGeolocationNotSupportedBrowser: {
+//           error: 'A geolocalização não é suportada por este navegador.',
+//         },
+//         watchId: null,
+//       });
+//     }
+//   });
+// };
 
 // const getLocation = () => {
 //   if (navigator.geolocation) {

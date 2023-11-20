@@ -66,19 +66,15 @@ export function Location() {
 
   const stateGeoLocation = async () => {
     try {
-      await getLocation(setLoadingGetLocationResponseState)
+      // await getLocation(setLoadingGetLocationResponseState)
+      let state = await getLocation()
       //  await getLocation(position => setLoadingGetLocationResponseState(position))
-      // return setLoadingGetLocationResponseState(state)
+      return setLoadingGetLocationResponseState(state as IGeolocationPosition)
     } catch (error) {
       console.log(error)
     }
   }
-  useEffect(() => {
-    console.log(
-      'Novo estado de geolocalização:',
-      loadingGetLocationResponseState
-    )
-  }, [loadingGetLocationResponseState])
+
   // const repeatNotification = ({
   //   func,
   //   durationRepeatFixed,
@@ -264,7 +260,6 @@ export function Location() {
       <Toaster />
       <section className="container flex items-center justify-center min-h-screen mx-auto py-2">
         {/* {isLoaded && loadingGetLocationResponseState.responseState !== '' ? ( */}
-        {/* Colocar uma mensagem de success quando usuario chegar ao seu destino */}
         {loadingGetLocationResponseState.responseState?.responseState !== '' ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
             {switchStateGeoLocation()}
