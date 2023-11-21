@@ -424,9 +424,9 @@ export function Granted({
       <GoogleMap
         onLoad={onMapLoad}
         mapContainerStyle={OPTIONS_MAP.CONTAINER_STYLE}
-        center={
-          responseState.responseDataMap?.center as google.maps.LatLngLiteral
-        }
+        // center={
+        //   responseState.responseDataMap?.center as google.maps.LatLngLiteral
+        // }
         zoom={15}
         clickableIcons={true}
       >

@@ -1,6 +1,6 @@
 // Infos da geolocalização
 
-// import { IGeolocationPosition } from '@pages/location/type-state-geo-location/typings'
+import { IGeolocationPosition } from '@pages/location/type-state-geo-location/typings'
 
 const OPTIONS = {
   enableHighAccuracy: true,
@@ -34,7 +34,6 @@ const success = (pos: GeolocationPosition) => {
     accuracy: coords.accuracy
     // Adicione mais propriedades conforme necessário
   }
-  console.log(responseDataMap)
   // Agora você pode retornar os dados de geolocalização
   return responseDataMap
 }
@@ -60,7 +59,9 @@ const OPTIONS_MAP = {
 }
 
 // Função principal para pegar a geolocalização, que usa as funções success e errors
-const getLocation = () => {
+const getLocation = (
+  onPositionUpdate: (position: IGeolocationPosition) => void
+) => {
   return new Promise((resolve, reject) => {
     if (navigator.geolocation) {
       navigator.permissions
@@ -84,7 +85,7 @@ const getLocation = () => {
             responseData.responseState.responseState = permissionStatus.state
             responseData.responseDataMap.accuracy = success(position).accuracy
             responseData.watchId = watchId
-            resolve(responseData)
+            resolve(onPositionUpdate(responseData))
           }
 
           const errorCallback = (error: GeolocationPositionError) => {
@@ -94,7 +95,7 @@ const getLocation = () => {
             }
             responseData.responseState.responseState = permissionStatus.state
             responseData.watchId = watchId
-            resolve(responseData)
+            resolve(onPositionUpdate(responseData))
           }
           // O watchPosition é usado para monitorar as mudanças na posição do usuário, ja o getCurrentPosition é usado para obter a posição atual do usuário. E quando utilizamos o watchPosition, ele retorna um id que pode ser usado para limpar a assinatura mais tarde, se necessário, por exemplo quando o usuario sair do componente, e se não fizer isso, quando retornar para o componente que usa suas informações ira dar um erro.
           // Mostrar uma mensagem de success quando o usario chegar na localização desejada(So comparar a latitude e longitude do usuario com a latitude e longitude do local desejado)
@@ -116,7 +117,7 @@ const getLocation = () => {
             messageGeolocationNotSupportedBrowser: { error: '' },
             watchId: null
           }
-          reject(errorResponse)
+          reject(onPositionUpdate(errorResponse as IGeolocationPosition))
         })
     } else {
       const unsupportedResponse = {
@@ -128,7 +129,7 @@ const getLocation = () => {
         },
         watchId: null
       }
-      reject(unsupportedResponse)
+      reject(onPositionUpdate(unsupportedResponse as IGeolocationPosition))
     }
   })
 }

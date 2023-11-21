@@ -66,10 +66,10 @@ export function Location() {
 
   const stateGeoLocation = async () => {
     try {
-      // await getLocation(setLoadingGetLocationResponseState)
-      let state = await getLocation()
+      await getLocation(setLoadingGetLocationResponseState)
+      // let state = await getLocation()
       //  await getLocation(position => setLoadingGetLocationResponseState(position))
-      return setLoadingGetLocationResponseState(state as IGeolocationPosition)
+      // return setLoadingGetLocationResponseState(state as IGeolocationPosition)
     } catch (error) {
       console.log(error)
     }
@@ -230,7 +230,7 @@ export function Location() {
     // }, 10000)
 
     // return () => clearTimeout(timer)
-  }, [])
+  }, [loadingGetLocationResponseState.responseDataMap?.center])
 
   useEffect(() => {
     switchStateGeoLocation()
