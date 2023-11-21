@@ -116,7 +116,7 @@ export function Location() {
       //   durationRepeatFixed,
       //   durationRepeatInfinity
       // })
-      setIsLoadedButton(prevState => !prevState)
+      setIsLoadedButton(true)
 
       toast({
         title: 'Você bloqueou a permissão de localização! 🤨',
@@ -131,7 +131,7 @@ export function Location() {
     if (
       loadingGetLocationResponseState.responseState?.responseState === 'prompt'
     ) {
-      setIsLoadedButton(prevState => !prevState)
+      setIsLoadedButton(true)
 
       toast({
         title:
