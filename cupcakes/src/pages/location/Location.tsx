@@ -230,7 +230,7 @@ export function Location() {
     // }, 10000)
 
     // return () => clearTimeout(timer)
-  }, [loadingGetLocationResponseState.responseDataMap?.center])
+  }, [])
 
   useEffect(() => {
     switchStateGeoLocation()
