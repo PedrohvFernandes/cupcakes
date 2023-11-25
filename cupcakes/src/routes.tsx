@@ -7,7 +7,7 @@ import { DefaultLayoutCheckout } from './layouts/default-layout-checkout'
 
 import { NotFound } from './pages/exception/NotFound'
 import { Home } from '@pages/home/Home'
-import { Checkout } from '@pages/Checkout'
+import { Checkout } from '@pages/CheckoutFinalized'
 import { Location } from '@pages/location/Location'
 import { ShoppingCart } from '@pages/ShoppingCart'
 

@@ -31,6 +31,7 @@ export function HeaderDefault() {
           variantBottom={'bottom10'}
           path={ConfigRoutes.cupcakes.shoppingCart.path}
         >
+          {/* Aqui no cart vai aparecer a quantidade de produtos listados, se ele selecionou 2, mas  dentre os dois um ele colocou que quer 5, continua aparecendo 2 itens no icone do carrinho */}
           <ButtonDefaultOutline
             path={ConfigRoutes.cupcakes.shoppingCart.path}
             onClick={() => navigate(ConfigRoutes.cupcakes.shoppingCart.path)}
