@@ -9,6 +9,7 @@
       "@components/*": ["components/*"],
       "@config/*": ["config/*"],
       "@hooks/*": ["hooks/*"],
+      "@contexts/*": ["contexts/*"],
       "@pages/*": ["pages/*"],
       "@routes/*": ["routes/*"],
       "@utils/*": ["utils/*"],

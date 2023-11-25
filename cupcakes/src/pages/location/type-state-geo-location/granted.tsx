@@ -470,8 +470,9 @@ export function Granted({
           //   url: `${UserProfileIconUrl}`,
           //   scaledSize: new google.maps.Size(35, 35)
           // }}
-          animation={google.maps.Animation.BOUNCE}
-        />
+          // animation={google.maps.Animation.BOUNCE}
+          animation={google.maps.Animation.DROP}
+          />
 
         {/* Cafes que o usuário ja pesquisou */}
         {markersSearchBox.map((position, index) => (
