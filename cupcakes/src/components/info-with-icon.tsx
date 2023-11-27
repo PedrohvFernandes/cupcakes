@@ -60,8 +60,8 @@ export function InfoWith({
       {typeof text === 'string' ? (
         <p
           className={cn(
-            'text-foreground/80 bg-accent/50 p-2 rounded group-hover:bg-accent/100 transition-colors duration-200',
-            highlighted === index ? 'bg-accent/100' : '',
+            'text-foreground/80 bg-accent/50 p-2 rounded group-hover:bg-accent/100 group-hover:text-sm transition-colors duration-200',
+            highlighted === index ? 'bg-accent/100 text-sm' : '',
 
             classNameP
           )}

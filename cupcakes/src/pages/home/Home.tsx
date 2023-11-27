@@ -88,14 +88,11 @@ export function Home() {
       <Toaster />
       <section className="container flex flex-col gap-2">
         <Intro />
-        {/* Apos fazer a intro, o search e o menu deixar responsivo */}
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col lg:flex-row gap-2 items-center justify-center">
           <Input
-            className="placeholder:text-2xl text-2xl text-center placeholder:text-foreground/80 text-foreground/80 bg-accent/80 transition-all w-[36rem] hover:ring-2 hover:ring-ring hover:ring-offset-2 hover:bg-accent/100 focus-visible:bg-accent/100 hover:text-foreground/100 focus-visible:text-foreground/100"
+            className="text-1xl placeholder:text-1xl lg:placeholder:text-2xl lg:text-2xl text-center placeholder:text-foreground/80 text-foreground/80 bg-accent/80 transition-all w-full lg:w-[36rem] hover:ring-2 hover:ring-ring hover:ring-offset-2 hover:bg-accent/100 focus-visible:bg-accent/100 hover:text-foreground/100 focus-visible:text-foreground/100"
             placeholder="Qual café ? ☕"
           />
-        </div>
-        <div className="flex items-center justify-center">
           <Menubar>
             <MenubarMenu>
               <MenubarTrigger className="bg-foreground hover:bg-accent text-accent hover:text-foreground transition-all">
@@ -103,7 +100,7 @@ export function Home() {
                   ? clickCoffeeFiltering
                   : 'Quer filtrar as opções ? 🤔'}
               </MenubarTrigger>
-              <MenubarContent>
+              <MenubarContent className="w-full">
                 {menuItems.map(item => (
                   <div onClick={item.onClick} key={item.text}>
                     <MenubarItem className="flex gap-2 items-center justify-center">
