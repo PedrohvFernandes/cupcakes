@@ -14,6 +14,7 @@ import { Input } from '@components/ui/input'
 import { useToast } from '@components/ui/use-toast'
 import { Toaster } from '@components/ui/toaster'
 import { Intro } from './intro'
+import { cn } from '@lib/utils'
 
 type coffeeFiltering =
   | 'PRODUTOS GERAL ☕'
@@ -95,7 +96,10 @@ export function Home() {
           />
           <Menubar>
             <MenubarMenu>
-              <MenubarTrigger className="bg-foreground hover:bg-accent text-accent hover:text-foreground transition-all">
+              <MenubarTrigger className={cn(
+                'bg-foreground hover:bg-accent text-accent hover:text-foreground transition-all',
+                clickCoffeeFiltering !== 'LIMPAR FILTRO 🧹' && 'bg-accent text-foreground'
+              )}>
                 {clickCoffeeFiltering !== 'LIMPAR FILTRO 🧹'
                   ? clickCoffeeFiltering
                   : 'Quer filtrar as opções ? 🤔'}
