@@ -25,7 +25,7 @@ const debounce = ({ fn, timeMs }: debounceProps) => {
   };
 };
 
-const useWindowDimensions = () => {
+const useGetWindowDimensions = () => {
   const [windowDimensions, setWindowDimensions] = useState(
     getWindowDimensions(),
   );
@@ -45,4 +45,4 @@ const useWindowDimensions = () => {
   return windowDimensions;
 };
 
-export default useWindowDimensions;
+export default useGetWindowDimensions;
