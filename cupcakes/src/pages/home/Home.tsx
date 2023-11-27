@@ -120,7 +120,7 @@ export function Home() {
         </div>
 
         {/* Mais abaixo vem os produtos de acordo com o search e de acordo com a opção selecionada no menu */}
-        {/* Cada produto vai ter + - a quantidade e o botão com um carrinho e outro de comprar(o de comprar ja leva direto ao stripe e ao mesmo tempo adiciona no carrinho, porque caso o cliente cancele no stripe ele fica armazenada temporariamente no carrinho), o preço, o name(title), categoria e a descrição e a imagem */}
+        {/* Cada produto vai ter: + - a quantidade e o botão com um carrinho e outro de comprar(o de comprar ja leva direto ao stripe e ao mesmo tempo adiciona no carrinho, porque caso o cliente cancele no stripe ele fica armazenada temporariamente no carrinho), o preço, o name(title), categoria e a descrição e a imagem */}
 
         {/* Por enquanto eu quero poder listar os produtos, fazer o search, o menu, levar os itens para o carrinho e levar ja direto pro stripe apos clicar no botao comprar junto com quantidade que o usuario selecionou */}
 

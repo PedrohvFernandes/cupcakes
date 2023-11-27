@@ -19,7 +19,7 @@ export function Icon({
   return (
     <div
       className={cn(
-        'w-8 h-8 flex items-center justify-center rounded-full p-2 bg-accent/50 group-hover:bg-accent/100 transition-colors duration-200',
+        'w-8 h-8 flex items-center justify-center rounded-full p-2 bg-accent/50 group-hover:bg-accent/100 transition-all duration-200',
         highlighted === index ? 'bg-accent/100' : '',
         // rest.className
         className
@@ -60,7 +60,7 @@ export function InfoWith({
       {typeof text === 'string' ? (
         <p
           className={cn(
-            'text-foreground/80 bg-accent/50 p-2 rounded group-hover:bg-accent/100 transition-colors duration-200',
+            'text-foreground/80 bg-accent/50 p-2 rounded group-hover:bg-accent/100 transition-all duration-200',
             highlighted === index ? 'bg-accent/100 text-sm' : '',
 
             classNameP
