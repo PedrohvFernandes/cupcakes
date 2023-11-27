@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import {
   Menubar,
   MenubarContent,
@@ -11,15 +13,53 @@ import {
 import { Input } from '@components/ui/input'
 
 import { Intro } from './intro'
-import useGetWindowDimensions from '@hooks/get-window-dimensions'
+
+type coffeeFiltering =
+  | 'PRODUTOS GERAL ☕'
+  | 'BOLINHO/DOCE 🧁'
+  | 'BEBIDAS ☕'
+  | 'SALGADOS 🥪'
+  | ''
 
 export function Home() {
-  const { width } = useGetWindowDimensions()
+  const [clickCoffeeFiltering, setClickCoffeeFiltering] =
+    useState<coffeeFiltering>('')
+
+  const onHeaderClickCoffeeFiltering = (
+    clickCoffeeFiltering: coffeeFiltering
+  ) => {
+    setClickCoffeeFiltering(clickCoffeeFiltering)
+  }
+  const menuItems = [
+    {
+      text: 'PRODUTOS GERAL ☕',
+      shortcut: '☕',
+      onClick: () => onHeaderClickCoffeeFiltering('PRODUTOS GERAL ☕')
+    },
+    {
+      text: 'BOLINHO/DOCE 🧁',
+      shortcut: '🧁',
+      onClick: () => onHeaderClickCoffeeFiltering('BOLINHO/DOCE 🧁')
+    },
+    {
+      text: 'BEBIDAS ☕',
+      shortcut: '☕',
+      onClick: () => onHeaderClickCoffeeFiltering('BEBIDAS ☕')
+    },
+    {
+      text: 'SALGADOS 🥪',
+      shortcut: '🥪',
+      onClick: () => onHeaderClickCoffeeFiltering('SALGADOS 🥪')
+    },
+    {
+      text: 'LIMPAR FILTRO 🧹',
+      shortcut: 'LIMPAR 🧹',
+      onClick: () => onHeaderClickCoffeeFiltering('')
+    }
+  ]
   return (
-    <section className="container">
+    <section className="container flex flex-col gap-2">
       <Intro />
-      {/* O search e o menu vai ficar um abaixo do outro, mas quando descer a tela vai ficar um do lado do outro dentro de uma div,  somente para celulares menores que vao ficar em um menu sanduíche */}
-      {/* Menu que esta no figma, deixar ele grande usar o Menubar, para celular fazer um Combobox, isso para filtrar as opçoes em tela, quando rolar a tela essas opções e o search vai acompanhar ficando dentro de um div abaixo do header com uma distancia pequena dele*/}
       {/* Apos fazer a intro, o search e o menu deixar responsivo */}
       <div className="flex items-center justify-center">
         <Input
@@ -27,25 +67,30 @@ export function Home() {
           placeholder="Qual café ? ☕"
         />
       </div>
-      {width > 640 ? (
+      <div className="flex items-center justify-center">
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger>File</MenubarTrigger>
+            <MenubarTrigger className="bg-foreground text-accent transition-all">
+              {clickCoffeeFiltering !== ''
+                ? clickCoffeeFiltering
+                : 'Quer filtrar as opções ? 🤔'}
+            </MenubarTrigger>
             <MenubarContent>
-              <MenubarItem>
-                New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-              </MenubarItem>
-              <MenubarItem>New Window</MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem>Share</MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem>Print</MenubarItem>
+              {
+                menuItems.map(item => (
+                  <div onClick={item.onClick} key={item.text}>
+                    <MenubarItem className="flex gap-2 items-center justify-center">
+                      <span>{item.text}</span>
+                      <MenubarShortcut>{item.shortcut}</MenubarShortcut>
+                    </MenubarItem>
+                    <MenubarSeparator />
+                  </div>
+                ))
+              }
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
-      ) : (
-        <></>
-      )}
+      </div>
 
       {/* Mais abaixo vem os produtos de acordo com o search e de acordo com a opção selecionada no menu */}
       {/* Cada produto vai ter + - a quantidade e o botão com um carrinho e outro de comprar(o de comprar ja leva direto ao stripe e ao mesmo tempo adiciona no carrinho, porque caso o cliente cancele no stripe ele fica armazenada temporariamente no carrinho), o preço, o name(title), categoria e a descrição e a imagem */}
