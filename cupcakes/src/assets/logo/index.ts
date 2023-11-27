@@ -5,8 +5,12 @@
 // export { ReactComponent as CupcakesLogo } from '@assets/logo-cupcakes.svg?react'
 
 // Agora é feito dessa maneira, ja passando o alias para o svg, e o vite faz o resto, e não da mais erro na importação na web, o transformando em um componente. Ele sabe que tem que transforma o svg em um componente, pois o vite já vem com o plugin vite-plugin-react-svg, que faz isso e por conta do custom.d.ts, criamos o module *.svg?react e passando ?react depois do caminho do svg ele sabe que tem que transformar o svg em um componente/ReactComponent
-import CupcakesLogoSVG from '@assets/logo-cupcakes.svg?react'
+import CupcakesLogoSVGVertical from '@assets/logo/logo-cupcakes-vertical.svg?react'
+import CupcakesLogoSVGHorizontal from '@assets/logo/logo-cupcakes-horizontal.svg?react'
+import {default as CupcakesLogoSVGHorizontalPngURL} from '@assets/logo/logo-cupcakes-horizontal-png.png'
 
 export {
-  CupcakesLogoSVG
+  CupcakesLogoSVGVertical,
+  CupcakesLogoSVGHorizontal,
+  CupcakesLogoSVGHorizontalPngURL
 }

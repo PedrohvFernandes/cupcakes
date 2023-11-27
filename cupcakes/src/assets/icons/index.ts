@@ -20,6 +20,8 @@ const pathProfileIcon =
 // Icons de libs:
 import {
   AlertCircle,
+  Clock2,
+  Coffee,
   GithubIcon,
   Globe,
   Link,
@@ -27,11 +29,15 @@ import {
   Lock,
   Map,
   MapPin,
-  MapPinOff
+  MapPinOff,
+  Package,
+  ShoppingCart as ShoppingCartIcon
 } from 'lucide-react'
 
 export {
   AlertCircle,
+  Clock2,
+  Coffee,
   CoffeeBlue,
   CoffeeBlueUrl,
   CoffeePinkUrl,
@@ -48,7 +54,9 @@ export {
   Map,
   MapPin,
   MapPinOff,
+  Package,
   ShoppingCart,
+  ShoppingCartIcon,
   UserProfileIcon,
   UserProfileIconUrl,
   pathProfileIcon

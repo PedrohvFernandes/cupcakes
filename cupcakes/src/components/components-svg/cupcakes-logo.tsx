@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 
-import { CupcakesLogoSVG } from '@assets/index'
+import { CupcakesLogoSVGVertical } from '@assets/logo/index'
 import { ConfigRoutes } from '@config/index'
 
 export function CupcakesLogo() {
   const navigate = useNavigate()
 
   return (
-    <CupcakesLogoSVG
+    <CupcakesLogoSVGVertical
       onClick={() => navigate(ConfigRoutes.cupcakes.default.source)}
       className='cursor-pointer w-28 sm:w-36  md:w-52'
     />
