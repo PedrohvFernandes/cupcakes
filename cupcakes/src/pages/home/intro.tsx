@@ -3,9 +3,12 @@ import { useEffect, useState } from 'react'
 import { Clock2, Coffee, Package, ShoppingCartIcon } from '@assets/icons'
 import { CupcakesLogoSVGHorizontalPngURL } from '@assets/logo'
 import { Icon, InfoWith } from '@components/info-with-icon'
+import useGetWindowDimensions from '@hooks/get-window-dimensions'
 
 export function Intro() {
   const [highlighted, setHighlighted] = useState(0)
+
+  const { width } = useGetWindowDimensions()
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -51,7 +54,7 @@ export function Intro() {
           <h1 className="leading-[130%] font-extrabold text-1xl md:text-2xl lg:text-5xl text-center lg:text-start  text-primary-backgroundIcons tracking-wide bg-accent p-2 rounded">
             Encontre o café perfeito para sua tarde 🌞
           </h1>
-          <span className="leading-[130%] text-sm md:text-base lg:text-lg tracking-widest bg-accent/50 text-foreground/80 p-2 rounded">
+          <span className="leading-[130%] text-sm md:text-base lg:text-lg text-center lg:text-start tracking-widest bg-accent/50 text-foreground/80 p-2 rounded">
             Com o Cupcakes você consegue encontrar os melhores cafés onde você
             estiver
           </span>
@@ -90,11 +93,13 @@ export function Intro() {
           ))}
         </div>
       </div>
-      <img
-        src={CupcakesLogoSVGHorizontalPngURL}
-        alt="Cupcakes"
-        className="w-[25rem] hidden lg:block"
-      />
+      {width > 1024 && (
+        <img
+          src={CupcakesLogoSVGHorizontalPngURL}
+          alt="Cupcakes"
+          className="w-[25rem] hidden lg:block"
+        />
+      )}
     </div>
   )
 }
