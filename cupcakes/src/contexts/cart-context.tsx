@@ -1,6 +1,6 @@
 import { ICoffee } from '@pages/home/typings'
 // https://www.tabnews.com.br/matheuspazinati/biblioteca-immer-melhorando-a-legibilidade-de-um-estado-react-complexo
-// O produce é uma função do immer que recebe um estado e uma função que vai modificar esse estado, e retorna um novo estado. Ele deixa o código mais legível e mais fácil de entender, nao alterando a forma do react ser perfomatico que é a questao da imutabilidade. Apenas a escrita do código será de forma mutável, mas por de baixo dos panos, esse código será convertido para um código imutável. Ou seja, você vai aproveitar o melhor dos dois mundos: A facilidade de entender o que está ocorrendo no estado (mutabilidade) sem comprometer a performance (imutabilidade). E quem fará isso por nós é uma biblioteca chamada immer.
+// O produce é uma função do immer que recebe um estado e uma função que vai modificar esse estado, e retorna um novo estado. Ele deixa o código mais legível e mais fácil de entender, nao alterando a forma do react ser perfomatico que é a questao da imutabilidade. Apenas a escrita do código será de forma mutável, mas por de baixo dos panos, esse código será convertido para um código imutável. Ou seja, você vai aproveitar o melhor dos dois mundos: A facilidade de entender o que está ocorrendo no estado (mutabilidade) sem comprometer a performance (imutabilidade). E quem fará isso por nós é uma biblioteca chamada immer. dessa forma evitamos de ficar passando o spread ...state, e sim apenas o state, por tras o immer vai fazer isso por nós, e o código fica mais legível.
 import { produce } from 'immer'
 import { createContext, ReactNode, useEffect, useState } from 'react'
 
@@ -71,7 +71,7 @@ export function CartContextProvider({
       cartItem => cartItem.id === coffee.id
     )
 
-    // o produce retorna um novo estado, ou seja, um novo array, que é o cartItems, e o draft é esse novo array, que é o novo estado, e o que esta dentro do produce é o que vai modificar esse novo estado, ou seja, o que esta dentro do produce é o que vai modificar o draft, que é o novo estado, que é o novo array, que é o novo cartItems. Basicamente o draft é o novo estado do cartItems, e o que esta dentro do produce é o que vai modificar esse novo estado, ou seja, o draft
+    // o produce retorna um novo estado, ou seja, um novo array, que é o cartItems, e o draft é esse novo array, que é o novo estado, e o que esta dentro do produce é o que vai modificar esse novo estado, ou seja, o que esta dentro do produce é o que vai modificar o draft, que é o novo estado, que é o novo array, que é o novo cartItems. Basicamente o draft é o novo estado do cartItems, e o que esta dentro do produce é o que vai modificar esse novo estado, ou seja, o draft. O draft vira o state que voce passar como primeiro argumento
     const newCart = produce(cartItems, draft => {
       // Se o item nao existir no carrinho, adiciona ele, se nao aumenta a quantidade dele
       if (coffeeAlreadyExistsInCart < 0) {
