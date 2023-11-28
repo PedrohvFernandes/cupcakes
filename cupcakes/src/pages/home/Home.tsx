@@ -99,7 +99,7 @@ export function Home() {
               )}>
                 {clickCoffeeFiltering !== 'GERAL ☕'
                   ? clickCoffeeFiltering
-                  : `${clickCoffeeFiltering} Filtrar`}
+                  : `${clickCoffeeFiltering} Filtrar opções`}
               </MenubarTrigger>
               <MenubarContent className="w-full">
                 {menuItems.map(item => (
