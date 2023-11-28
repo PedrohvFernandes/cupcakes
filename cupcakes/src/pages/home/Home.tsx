@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { cn } from '@lib/utils'
+
 import {
   Menubar,
   MenubarContent,
@@ -14,20 +16,19 @@ import { Input } from '@components/ui/input'
 import { useToast } from '@components/ui/use-toast'
 import { Toaster } from '@components/ui/toaster'
 import { Intro } from './intro'
-import { cn } from '@lib/utils'
+import { OurCoffees } from './our-coffees'
 
 type coffeeFiltering =
-  | 'PRODUTOS GERAL ☕'
+  | 'GERAL ☕'
   | 'BOLINHO/DOCE 🧁'
   | 'BEBIDAS ☕'
   | 'SALGADOS 🥪'
-  | 'LIMPAR FILTRO 🧹'
 
 export function Home() {
   const { toast } = useToast()
 
   const [clickCoffeeFiltering, setClickCoffeeFiltering] =
-    useState<coffeeFiltering>('LIMPAR FILTRO 🧹')
+    useState<coffeeFiltering>('GERAL ☕')
 
   const onHeaderClickCoffeeFiltering = (clickCoffee: coffeeFiltering) => {
     if (clickCoffee === clickCoffeeFiltering) {
@@ -50,9 +51,9 @@ export function Home() {
 
   const menuItems = [
     {
-      text: 'PRODUTOS GERAL ☕',
+      text: 'GERAL ☕',
       shortcut: '☕',
-      onClick: () => onHeaderClickCoffeeFiltering('PRODUTOS GERAL ☕')
+      onClick: () => onHeaderClickCoffeeFiltering('GERAL ☕')
     },
     {
       text: 'BOLINHO/DOCE 🧁',
@@ -69,17 +70,12 @@ export function Home() {
       shortcut: '🥪',
       onClick: () => onHeaderClickCoffeeFiltering('SALGADOS 🥪')
     },
-    {
-      text: 'LIMPAR FILTRO 🧹',
-      shortcut: 'LIMPAR 🧹',
-      onClick: () => onHeaderClickCoffeeFiltering('LIMPAR FILTRO 🧹')
-    }
   ]
 
   useEffect(() => {
     toast({
       title: 'Bem vindo ao nosso site!',
-      description: 'Aqui você encontra os melhores produtos para o seu dia!',
+      description: 'Aqui você encontra os melhores cafés para animar o seu dia!',
       duration: 5000,
       variant: 'success'
     })
@@ -87,22 +83,23 @@ export function Home() {
   return (
     <>
       <Toaster />
-      <section className="container flex flex-col gap-2">
+      <section className="container flex flex-col gap-4">
+        {/* Colocar para funcionar o search e o menu */}
         <Intro />
-        <div className="flex flex-col lg:flex-row gap-2 items-center justify-center">
+        <div className="flex flex-col lg:flex-row gap-2 items-center justify-center sticky top-20">
           <Input
-            className="text-1xl placeholder:text-1xl lg:placeholder:text-2xl lg:text-2xl text-center placeholder:text-foreground/80 text-foreground/80 bg-accent/80 transition-all w-full lg:w-[36rem] hover:ring-2 hover:ring-ring hover:ring-offset-2 hover:bg-accent/100 focus-visible:bg-accent/100 hover:text-foreground/100 focus-visible:text-foreground/100"
+            className="text-1xl placeholder:text-1xl lg:placeholder:text-2xl lg:text-2xl text-center placeholder:text-foreground/60 text-foreground/80 bg-accent/80 transition-all w-full lg:w-[36rem] hover:ring-2 hover:ring-ring hover:ring-offset-2 hover:bg-accent/100 focus-visible:bg-accent/100 hover:text-foreground/100 focus-visible:text-foreground/100 focus-visible:placeholder:text-foreground/100 hover:placeholder:text-foreground/100"
             placeholder="Qual café ? ☕"
           />
           <Menubar>
             <MenubarMenu>
               <MenubarTrigger className={cn(
                 'bg-foreground hover:bg-accent text-accent hover:text-foreground transition-all',
-                clickCoffeeFiltering !== 'LIMPAR FILTRO 🧹' && 'bg-accent text-foreground'
+                clickCoffeeFiltering !== 'GERAL ☕' && 'bg-accent text-foreground'
               )}>
-                {clickCoffeeFiltering !== 'LIMPAR FILTRO 🧹'
+                {clickCoffeeFiltering !== 'GERAL ☕'
                   ? clickCoffeeFiltering
-                  : 'Quer filtrar as opções ? 🤔'}
+                  : `${clickCoffeeFiltering} Filtrar`}
               </MenubarTrigger>
               <MenubarContent className="w-full">
                 {menuItems.map(item => (
@@ -118,6 +115,8 @@ export function Home() {
             </MenubarMenu>
           </Menubar>
         </div>
+
+        <OurCoffees />
 
         {/* Mais abaixo vem os produtos de acordo com o search e de acordo com a opção selecionada no menu */}
         {/* Cada produto vai ter: + - a quantidade e o botão com um carrinho e outro de comprar(o de comprar ja leva direto ao stripe e ao mesmo tempo adiciona no carrinho, porque caso o cliente cancele no stripe ele fica armazenada temporariamente no carrinho), o preço, o name(title), categoria e a descrição e a imagem */}

@@ -258,7 +258,7 @@ export function Location() {
   return (
     <>
       <Toaster />
-      <section className="container flex items-center justify-center min-h-screen mx-auto py-2">
+      <section className="container flex items-center justify-center min-h-screen mx-auto">
         {/* {isLoaded && loadingGetLocationResponseState.responseState !== '' ? ( */}
         {loadingGetLocationResponseState.responseState?.responseState !== '' ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">

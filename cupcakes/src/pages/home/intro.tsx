@@ -27,7 +27,7 @@ export function Intro() {
 
   const infoWithItems = [
     {
-      text: 'Compra simples e segura',
+      text: 'Compra simples e segura com o Stripe',
       icon: <ShoppingCartIcon />
       // className: ''
     },
@@ -51,11 +51,11 @@ export function Intro() {
     <div className="flex items-center justify-center gap-4 min-h-[34rem]">
       <div>
         <section className="flex flex-col gap-2">
-          <h1 className="leading-[130%] font-extrabold text-1xl md:text-2xl lg:text-5xl text-center lg:text-start  text-primary-backgroundIcons tracking-wide bg-accent p-2 rounded">
+          <h1 className="leading-[130%] font-extrabold text-1xl md:text-2xl lg:text-5xl text-center lg:text-start text-primary-backgroundIcons tracking-wide bg-accent p-2 rounded">
             Encontre o café perfeito para sua tarde 🌞
           </h1>
           <span className="leading-[130%] text-sm md:text-base lg:text-lg text-center lg:text-start tracking-widest bg-accent/50 text-foreground/80 p-2 rounded">
-            Com o Cupcakes você consegue encontrar os melhores cafés onde você
+            Com o Cupcakes você consegue encontrar os melhores cafés a onde você
             estiver
           </span>
         </section>
