@@ -17,12 +17,12 @@ export function TutorialPrompt() {
     },
     {
       tutorial:
-        '3 - Caso você tenha apertado no X, clique no ícone no canto superior/inferior esquerdo/direito do navegador(as vezes é um ícone de um pino ou um planeta ou uma exclamação) ou algo parecido. Apos clicar no ícone, devera ter alguma dessas opções: "limpar esta configuração" ou "Redefinir permissão" ou "Repor autorização" ou algum X para limpar ou algo parecido, você deverá clicar em uma dessas opções, e por fim reiniciar a pagina clicando no botão de recarregar do navegador ou no botão Recarregar que esta no centro da pagina.',
+        '3 - Caso você tenha apertado no X, clique no ícone no canto superior/inferior esquerdo/direito do navegador(as vezes é um ícone de um pino ou um planeta ou uma exclamação) ou algo parecido. Apos clicar no ícone, devera ter alguma dessas opções: "limpar esta configuração" ou "Redefinir permissão" ou "Repor autorização" ou algum X para limpar ou algo parecido, você deverá clicar em uma dessas opções, e por fim reiniciar a pagina clicando no botão de recarregar do navegador ou no botão Recarregar que esta no centro da pagina. Caso não tenho um X ou algo parecido, somente reinicie a pagina clicando no botão de recarregar do navegador ou no botão Recarregar que esta no centro da pagina.',
       icons
     },
     {
       tutorial:
-        '4 - Caso você bloqueie o acesso a sua localização e o seu navegador possui a opção de "Memorizar decisão" ou "Sempre permitir" e você não a marcou clique no botão "Bloqueado temporariamente".'
+        '4 - Caso você bloqueie o acesso a sua localização e o seu navegador possui a opção de "Memorizar decisão" ou "Sempre permitir" e você não a marcou, clique no botão "Bloqueado temporariamente".'
     }
   ]
   return (
