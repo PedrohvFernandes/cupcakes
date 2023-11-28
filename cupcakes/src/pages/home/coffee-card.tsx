@@ -33,6 +33,12 @@ export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
     setQuantity(1)
   }
 
+  function handleDirectPurchase() {
+    handleAddToCart()
+    // Levar para o stripe direto
+    console.log('stripe')
+  }
+
   const formattedPrice = formatMoney(coffee.price)
 
   return (
@@ -57,17 +63,26 @@ export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
           <strong className="text-xl">{formattedPrice}</strong>
         </div>
 
-        <div className="flex flex-col sm355:flex-row items-center justify-center gap-2">
-          <QuantityInput
-            quantity={quantity}
-            onIncrease={handleIncrease}
-            onDecrease={handleDecrease}
-          />
+        <div className="flex flex-col items-center justify-center gap-2">
+          <div className="flex flex-col sm355:flex-row items-center justify-center gap-2">
+            <QuantityInput
+              quantity={quantity}
+              onIncrease={handleIncrease}
+              onDecrease={handleDecrease}
+            />
+            <ButtonDefaultOutline
+              onClick={handleAddToCart}
+              variantBgOutline={'bgPrimaryForeground'}
+            >
+              <ShoppingCart />
+            </ButtonDefaultOutline>
+          </div>
           <ButtonDefaultOutline
-            onClick={handleAddToCart}
             variantBgOutline={'bgPrimaryForeground'}
+            className="w-full hover:bg-primary"
+            onClick={() => handleDirectPurchase()}
           >
-            <ShoppingCart />
+            Comprar
           </ButtonDefaultOutline>
         </div>
       </div>
