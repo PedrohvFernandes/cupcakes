@@ -30,7 +30,9 @@ import {
   Map,
   MapPin,
   MapPinOff,
+  Minus,
   Package,
+  Plus,
   ShoppingCart as ShoppingCartIcon
 } from 'lucide-react'
 
@@ -54,7 +56,9 @@ export {
   Map,
   MapPin,
   MapPinOff,
+  Minus,
   Package,
+  Plus,
   ShoppingCart,
   ShoppingCartIcon,
   UserProfileIcon,

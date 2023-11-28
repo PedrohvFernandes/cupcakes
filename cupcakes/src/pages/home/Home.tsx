@@ -81,12 +81,15 @@ export function Home() {
       variant: 'success'
     })
   }, [])
+  
   return (
     <>
       <Toaster />
+
       <section className="container flex flex-col gap-4">
         {/* Colocar para funcionar o search e o menu */}
         <Intro />
+
         <div className="flex flex-col lg:flex-row gap-2 items-center justify-center sticky top-20">
           <Input
             className="text-1xl placeholder:text-1xl lg:placeholder:text-2xl lg:text-2xl text-center placeholder:text-foreground/60 text-foreground/80 bg-accent/80 transition-all w-full lg:w-[36rem] hover:ring-2 hover:ring-ring hover:ring-offset-2 hover:bg-accent/100 focus-visible:bg-accent/100 hover:text-foreground/100 focus-visible:text-foreground/100 focus-visible:placeholder:text-foreground/100 hover:placeholder:text-foreground/100"

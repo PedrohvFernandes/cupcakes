@@ -5,9 +5,10 @@ import { CartContextProvider } from '@contexts/cart-context'
 
 function App() {
   return (
-    // <CartContextProvider>
+    // O provider do contexto do carrinho circulando toda a aplicação
+    <CartContextProvider>
       <RouterProvider router={Router} />
-    // </CartContextProvider>
+    </CartContextProvider>
   )
 }
 

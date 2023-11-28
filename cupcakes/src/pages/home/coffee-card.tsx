@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useCart } from '@hooks/push-item-cart'
 import { formatMoney } from '@utils/format-money'
 
+import { QuantityInput } from '@components/inputs/quantity-input'
+
 import { ICoffeeProps } from './typings'
 
 export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
@@ -16,6 +18,7 @@ export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
     setQuantity(state => state - 1)
   }
 
+  // O addCoffeeToCart é uma função que esta vindo do contexto do carrinho, que foi passada pelo provider do contexto do carrinho
   const { addCoffeeToCart } = useCart()
 
   function handleAddToCart() {
