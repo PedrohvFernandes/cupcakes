@@ -52,30 +52,31 @@ export function Home() {
   const menuItems = [
     {
       text: 'GERAL ☕',
-      shortcut: '☕',
-      onClick: () => onHeaderClickCoffeeFiltering('GERAL ☕')
+      shortcut: '☕'
+      // onClick: () => onHeaderClickCoffeeFiltering('GERAL ☕')
     },
     {
       text: 'BOLINHO/DOCE 🧁',
-      shortcut: '🧁',
-      onClick: () => onHeaderClickCoffeeFiltering('BOLINHO/DOCE 🧁')
+      shortcut: '🧁'
+      // onClick: () => onHeaderClickCoffeeFiltering('BOLINHO/DOCE 🧁')
     },
     {
       text: 'BEBIDAS ☕',
-      shortcut: '☕',
-      onClick: () => onHeaderClickCoffeeFiltering('BEBIDAS ☕')
+      shortcut: '☕'
+      // onClick: () => onHeaderClickCoffeeFiltering('BEBIDAS ☕')
     },
     {
       text: 'SALGADOS 🥪',
-      shortcut: '🥪',
-      onClick: () => onHeaderClickCoffeeFiltering('SALGADOS 🥪')
-    },
+      shortcut: '🥪'
+      // onClick: () => onHeaderClickCoffeeFiltering('SALGADOS 🥪')
+    }
   ]
 
   useEffect(() => {
     toast({
       title: 'Bem vindo ao nosso site!',
-      description: 'Aqui você encontra os melhores cafés para animar o seu dia!',
+      description:
+        'Aqui você encontra os melhores cafés para animar o seu dia!',
       duration: 5000,
       variant: 'success'
     })
@@ -93,17 +94,26 @@ export function Home() {
           />
           <Menubar>
             <MenubarMenu>
-              <MenubarTrigger className={cn(
-                'bg-foreground hover:bg-accent text-accent hover:text-foreground transition-all',
-                clickCoffeeFiltering !== 'GERAL ☕' && 'bg-accent text-foreground'
-              )}>
+              <MenubarTrigger
+                className={cn(
+                  'bg-foreground hover:bg-accent text-accent hover:text-foreground transition-all',
+                  clickCoffeeFiltering !== 'GERAL ☕' &&
+                    'bg-accent text-foreground'
+                )}
+              >
                 {clickCoffeeFiltering !== 'GERAL ☕'
                   ? clickCoffeeFiltering
                   : `${clickCoffeeFiltering} Filtrar opções`}
               </MenubarTrigger>
               <MenubarContent className="w-full">
                 {menuItems.map(item => (
-                  <div onClick={item.onClick} key={item.text}>
+                  <div
+                    // onClick={item.onClick}
+                    onClick={() =>
+                      onHeaderClickCoffeeFiltering(item.text as coffeeFiltering)
+                    }
+                    key={item.text}
+                  >
                     <MenubarItem className="flex gap-2 items-center justify-center">
                       <span>{item.text}</span>
                       <MenubarShortcut>{item.shortcut}</MenubarShortcut>
