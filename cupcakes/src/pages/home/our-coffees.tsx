@@ -2,7 +2,7 @@ import { coffees } from '../../data/coffees'
 
 export function OurCoffees() {
   return (
-    <div className="w-full">
+    <div className='min-h-[34rem]'>
       <h2 className="leading-[130%] font-extrabold text-center md:text-start text-2xl lg:text-4xl  tracking-wide">
         Nossos cafés ☕
       </h2>

@@ -48,7 +48,7 @@ export function Intro() {
     }
   ]
   return (
-    <div className="flex items-center justify-center gap-4  min-h-[35rem] lg:min-h-[38rem]">
+    <div className="flex items-center justify-center gap-4 min-h-[35rem] lg:min-h-[38rem]">
       <div>
         <section className="flex flex-col gap-2">
           <h1 className="leading-[130%] font-extrabold text-1xl md:text-2xl lg:text-5xl text-center lg:text-start text-primary-backgroundIcons tracking-wide bg-accent p-2 rounded">
