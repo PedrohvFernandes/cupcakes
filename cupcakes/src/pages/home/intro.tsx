@@ -27,7 +27,7 @@ export function Intro() {
 
   const infoWithItems = [
     {
-      text: 'Compra simples e segura com o Stripe',
+      text: 'Compra simples e segura com Stripe',
       icon: <ShoppingCartIcon />
       // className: ''
     },
