@@ -55,7 +55,7 @@ export function Intro() {
             Encontre o café perfeito para sua tarde 🌞
           </h1>
           <span className="leading-[130%] text-sm md:text-base lg:text-lg text-center lg:text-start tracking-widest bg-accent/50 text-foreground/80 p-2 rounded">
-            Com o Cupcakes você consegue encontrar os melhores cafés a onde você
+            Com o Cupcakes você consegue encomendar os melhores cafés na onde você
             estiver
           </span>
         </section>
