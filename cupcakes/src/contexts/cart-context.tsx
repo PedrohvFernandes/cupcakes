@@ -5,20 +5,20 @@ import { produce } from 'immer'
 import { createContext, ReactNode, useEffect, useState } from 'react'
 
 // O item do carrinho
-export interface CartItem extends ICoffee {
+export interface ICartItem extends ICoffee {
   quantity: number
 }
 
 // O type do contexto do carrinho
 interface ICartContextType {
   // Os itens do carrinho
-  cartItems: CartItem[]
+  cartItems: ICartItem[]
   // A quantidade de itens no carrinho
   cartQuantity: number
   // O valor total dos itens no carrinho
   cartItemsTotal: number
   // Adiciona um item ao carrinho
-  addCoffeeToCart: (coffee: CartItem) => void
+  addCoffeeToCart: (coffee: ICartItem) => void
   // Aumenta ou diminui a quantidade de um item no carrinho
   changeCartItemQuantity: (
     cartItemId: number,
@@ -38,36 +38,46 @@ interface ICartContextProviderProps {
   children: ReactNode
 }
 
-// A chave para armazenar os itens do carrinho no localStorage
+// A chave:valor para armazenar os itens do carrinho no localStorage
 const COFFEE_ITEMS_STORAGE_KEY = 'coffeeDelivery:cartItems'
 
 // O provider do contexto do carrinho é um componente que vai ficar por volta de todos os componentes que vão ter acesso ao contexto do carrinho, sendo o children todos os componentes/a aplicação  que vão ter acesso a esse contexto
 export function CartContextProvider({
   children
 }: Readonly<ICartContextProviderProps>) {
-  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+  // O estado dos itens do carrinho, que é inicializado com os itens do localStorage
+  const [cartItems, setCartItems] = useState<ICartItem[]>(() => {
     const storedCartItems = localStorage.getItem(COFFEE_ITEMS_STORAGE_KEY)
+    // Se existir itens no localStorage, retorna eles, se nao retorna um array vazio
     if (storedCartItems) {
       return JSON.parse(storedCartItems)
     }
     return []
   })
 
+  // A quantidade de itens no carrinho
   const cartQuantity = cartItems.length
 
+  // O valor total dos itens no carrinho
   const cartItemsTotal = cartItems.reduce((total, cartItem) => {
+    // O total é o valor total + o preço do item * a quantidade do item, ou seja o total que ja tinha mais o valor do item * a quantidade do item
     return total + cartItem.price * cartItem.quantity
   }, 0)
 
-  function addCoffeeToCart(coffee: CartItem) {
+  // Adiciona um item ao carrinho
+  function addCoffeeToCart(coffee: ICartItem) {
+    // O findIndex retorna o index do item que esta sendo procurado, se nao encontrar retorna -1
     const coffeeAlreadyExistsInCart = cartItems.findIndex(
       cartItem => cartItem.id === coffee.id
     )
 
+    // o produce retorna um novo estado, ou seja, um novo array, que é o cartItems, e o draft é esse novo array, que é o novo estado, e o que esta dentro do produce é o que vai modificar esse novo estado, ou seja, o que esta dentro do produce é o que vai modificar o draft, que é o novo estado, que é o novo array, que é o novo cartItems. Basicamente o draft é o novo estado do cartItems, e o que esta dentro do produce é o que vai modificar esse novo estado, ou seja, o draft
     const newCart = produce(cartItems, draft => {
+      // Se o item nao existir no carrinho, adiciona ele, se nao aumenta a quantidade dele
       if (coffeeAlreadyExistsInCart < 0) {
         draft.push(coffee)
       } else {
+        // O item ja existe no carrinho, entao aumenta a quantidade dele
         draft[coffeeAlreadyExistsInCart].quantity += coffee.quantity
       }
     })
@@ -75,6 +85,7 @@ export function CartContextProvider({
     setCartItems(newCart)
   }
 
+  // Aumenta ou diminui a quantidade de um item no carrinho com base no id do item
   function changeCartItemQuantity(
     cartItemId: number,
     type: 'increase' | 'decrease'
@@ -95,6 +106,7 @@ export function CartContextProvider({
   }
 
   function removeCartItem(cartItemId: number) {
+    // Aqui novamente o produce retorna um novo estado, ou seja, um novo array que é o cartItems. So que no caso a gente remove o item do carrinho com base no id do item.
     const newCart = produce(cartItems, draft => {
       const coffeeExistsInCart = cartItems.findIndex(
         cartItem => cartItem.id === cartItemId
@@ -113,6 +125,7 @@ export function CartContextProvider({
   }
 
   useEffect(() => {
+    // Sempre que o cartItems mudar, ele vai ser salvo no localStorage
     localStorage.setItem(COFFEE_ITEMS_STORAGE_KEY, JSON.stringify(cartItems))
   }, [cartItems])
 

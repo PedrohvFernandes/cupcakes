@@ -86,6 +86,14 @@ module.exports = {
         height: 'height',
         width: 'width',
         fontWeight: 'font-weight'
+      },
+      screens: {
+        'md817': '817px',
+        // => @media (min-width: 817px) { ... }
+        'sm430': '430px',
+        // => @media (min-width: 430px) { ... }
+        'sm355': '355px',
+        // => @media (min-width: 355px) { ... }
       }
     },
     fontFamily: {

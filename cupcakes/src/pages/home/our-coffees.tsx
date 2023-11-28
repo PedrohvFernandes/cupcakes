@@ -8,7 +8,7 @@ export function OurCoffees() {
         Nossos cafés ☕
       </h2>
 
-      <div className="flex flex-col items-center justify-center md:grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-14">
+      <div className="flex flex-col items-center justify-center md817:grid md817:grid-cols-2 xl:grid-cols-3 gap-8 mt-14">
         {coffees.map(coffee => (
           // <div
           //   className="flex flex-col items-center justify-center gap-4 w-full"
