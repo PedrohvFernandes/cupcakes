@@ -1,17 +1,17 @@
-Hospedagem back-end vercel com TS + Express:
+Hospedagem back-end vercel com TS + Express: Quando é ts tem que ser feito algumas configurações a mais por conta do build
 
 obs: Somente Express
 
 https://www.youtube.com/watch?v=B-T69_VP2Ls Deploy an Express API to Vercel
 https://www.youtube.com/watch?v=FZiza5N6BQU Deploy Nodejs Com Vercel e Banco de Dados gratuito
-https://www.youtube.com/watch?v=8jttLYYDWjo Deploy API Node GRÁTIS na Vercel I A Alternativa Mais Eficiente
+https://www.youtube.com/watch?v=8jttLYYDWjo Deploy API Node GRÁTIS na Vercel A Alternativa Mais Eficiente
 
 
 Para js + express:
 
 https://github.com/PedrohvFernandes/PedrohvFernandes-web-page-portfolio/blob/main/backend/vercel.json
 https://vercel.com/pedrohvfernandes/smtp-envio-de-email-portfolio
-https://vercel.com/pedrohvfernandes/smtp-envio-de-email-portfolio/settings -> Root Directory: backend. Nesse caso tive que colocar a raiz como backend, no momento do deploy. A raiz é a onde estaria a api, tive que fazer isso pois tenho o back-end e front-end no mesmo repositório, caso seu projeto seja somente a api, a raiz seria -> ./
+https://vercel.com/pedrohvfernandes/smtp-envio-de-email-portfolio/settings -> Root Directory: backend. Nesse caso tive que colocar a raiz como backend, no momento do deploy na Vercel. A raiz é a onde estaria a api, tive que fazer isso pois tenho o back-end e front-end no mesmo repositório, caso seu projeto seja somente a api, a raiz seria -> ./
 
 https://masteringbackend.com/posts/how-to-deploy-your-node-js-backend-project-to-vercel-a-step-by-step-guide
 
