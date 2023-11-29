@@ -33,7 +33,9 @@ export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
       quantity
     }
     toast({
-      title: `${coffee.name} foi adicionado ao carrinho, com ${quantity} ${quantity === 1 ? 'unidade' : 'unidades'}.`,
+      title: `${coffee.name} foi adicionado ao carrinho, com ${quantity} ${
+        quantity === 1 ? 'unidade' : 'unidades'
+      }.`,
       variant: 'success',
       duration: 5000
     })

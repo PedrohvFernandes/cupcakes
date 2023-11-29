@@ -28,7 +28,7 @@ export function ConfirmationSection() {
     // Leva pro stripe com os itens do carrinho
     // Se o pagamento for confirmado, leva pra tela de checkout finalized
     // Se o pagamento for recusado, leva pra tela de checkout canceled
-
+    console.log('stripe')
     // Limpa o carrinho
     cleanCart()
   }
