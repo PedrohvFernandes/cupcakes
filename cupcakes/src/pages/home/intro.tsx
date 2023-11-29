@@ -13,12 +13,12 @@ export function Intro() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       // O prev é o valor anterior, o highlighted é o valor atual
-      // A cada 4 segundos ele vai incrementar o valor atual e vai fazer o modulo do tamanho do array, para que ele não passe do tamanho do array
+      // A cada 3 segundos ele vai incrementar o valor atual e vai fazer o modulo do tamanho do array, para que ele não passe do tamanho do array
       // https://chat.openai.com/c/34592a05-92c7-46a0-b0df-995e6f0dbed4
       setHighlighted(
         prevHighlighted => (prevHighlighted + 1) % infoWithItems.length
       )
-    }, 4000)
+    }, 3000)
 
     return () => {
       clearInterval(intervalId)
