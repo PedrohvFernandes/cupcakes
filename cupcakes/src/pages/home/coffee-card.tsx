@@ -8,10 +8,13 @@ import { QuantityInput } from '@components/inputs/quantity-input'
 
 import { ShoppingCart } from '@assets/icons'
 
+import { useToast } from '@components/ui/use-toast'
 import { ICoffeeProps } from './typings'
 
 export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
   const [quantity, setQuantity] = useState(1)
+
+  const { toast } = useToast()
 
   function handleIncrease() {
     setQuantity(state => state + 1)
@@ -29,6 +32,11 @@ export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
       ...coffee,
       quantity
     }
+    toast({
+      title: `${coffee.name} foi adicionado ao carrinho, com ${quantity} ${quantity === 1 ? 'unidade' : 'unidades'}.`,
+      variant: 'success',
+      duration: 5000
+    })
     addCoffeeToCart(coffeeToAdd)
     setQuantity(1)
   }

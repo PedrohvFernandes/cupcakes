@@ -82,7 +82,7 @@ export function ConfirmationSection() {
         onClick={() => navigate(ConfigRoutes.cupcakes.default.source)}
         className="flex items-center justify-center gap-2"
       >
-        {cartQuantity <= 0 ? 'Volte para a loja' : 'Continuar comprando'}
+        {cartQuantity <= 0 ? 'Volte para a loja para comprar algo' : 'Continuar comprando'}
         <CornerUpLeft />
       </ButtonDefaultOutline>
     </section>
