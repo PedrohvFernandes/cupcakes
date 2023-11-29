@@ -12,7 +12,9 @@ const buttonVariants = cva('', {
       bgPrimaryForeground: 'bg-primary-foreground',
       bgPrimary: 'bg-primary',
       success: 'bg-primary-foreground hover:bg-success text-success-foreground',
-      alert: 'bg-primary-foreground hover:bg-alert hover:text-alert-foreground'
+      alert: 'bg-primary-foreground hover:bg-alert hover:text-alert-foreground',
+      destructive:
+        'bg-primary-foreground hover:bg-destructive'
     }
   },
   defaultVariants: {

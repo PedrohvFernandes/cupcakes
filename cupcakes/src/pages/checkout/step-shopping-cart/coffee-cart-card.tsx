@@ -29,7 +29,7 @@ export function CoffeeCartCard({ coffee }: Readonly<ICoffeeCartCardProps>) {
   const formattedPrice = formatMoney(coffeesTotal)
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between min-h-[8rem]">
+    <div className="flex flex-col gap-4  md:flex-row items-center justify-between min-h-[8rem]">
       <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
         <img src={`/coffees/${coffee.photo}`} className="w-16 h-16" />
         <div>
@@ -46,8 +46,8 @@ export function CoffeeCartCard({ coffee }: Readonly<ICoffeeCartCardProps>) {
 
             <ButtonDefaultOutline
               onClick={handleRemove}
-              variantBgOutline={'bgPrimary'}
-              className="hover:bg-primary-foreground flex gap-2"
+              variantBgOutline={'destructive'}
+              className="flex gap-2"
             >
               <Trash2 />
               REMOVER
