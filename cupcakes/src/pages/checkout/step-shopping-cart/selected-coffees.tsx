@@ -1,9 +1,8 @@
 import { useCart } from '@hooks/push-item-cart'
+import useGetWindowDimensions from '@hooks/get-window-dimensions'
 
 import { ConfirmationSection } from './confirmation-section'
 import { CoffeeCartCard } from './coffee-cart-card'
-import { Separator } from '@components/ui/separator'
-import useGetWindowDimensions from '@hooks/get-window-dimensions'
 
 export function SelectedCoffees() {
   const { cartItems } = useCart()
@@ -28,11 +27,7 @@ export function SelectedCoffees() {
         )}
 
         {cartItems.map(coffee => (
-          <>
-            <CoffeeCartCard key={coffee.id} coffee={coffee} />
-
-            <Separator className="bg-primary" />
-          </>
+          <CoffeeCartCard key={coffee.id} coffee={coffee} />
         ))}
 
         <ConfirmationSection />
