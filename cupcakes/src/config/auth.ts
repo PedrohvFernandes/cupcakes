@@ -1,3 +1,5 @@
+const isDev = import.meta.env.VITE_ENVIRONMENT === 'development'
+
 export default {
   cupcakes: {
     google: {
@@ -11,10 +13,14 @@ export default {
     stripe: {
       keys: {
         private: {
-          key: import.meta.env.VITE_STRIPE_CUPCAKES_API_PRIVATE_KEY
+          key: isDev
+            ? import.meta.env.VITE_STRIPE_CUPCAKES_API_PRIVATE_KEY_TEST
+            : import.meta.env.VITE_STRIPE_CUPCAKES_API_PRIVATE_KEY_LIVE
         },
         public: {
-          key: import.meta.env.VITE_STRIPE_CUPCAKES_API_PUBLIC_KEY
+          key: isDev
+            ? import.meta.env.VITE_STRIPE_CUPCAKES_API_PUBLIC_KEY_TEST
+            : import.meta.env.VITE_STRIPE_CUPCAKES_API_PUBLIC_KEY_LIVE
         }
       }
     }

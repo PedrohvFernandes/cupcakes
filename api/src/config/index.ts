@@ -1,0 +1,1 @@
+export { default as ConfigAuth } from './auth';
