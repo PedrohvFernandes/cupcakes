@@ -12,6 +12,8 @@ import { ConfigRoutes } from '@config/index'
 // const DELIVERY_PRICE = 3.5
 
 export function ConfirmationSection() {
+  // const { cartItems } = useCart()
+
   const { cleanCart, cartItemsTotal, cartQuantity } = useCart()
 
   const navigate = useNavigate()

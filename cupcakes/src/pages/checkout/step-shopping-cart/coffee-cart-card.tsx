@@ -1,16 +1,14 @@
-import { ICartItem } from '@contexts/cart-context'
-
 import { Trash2 } from '@assets/icons'
+
 import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
 import { QuantityInput } from '@components/inputs/quantity-input'
+
 import { useCart } from '@hooks/push-item-cart'
 import { formatMoney } from '@utils/format-money'
 
-interface CoffeeCartCardProps {
-  coffee: ICartItem
-}
+import { ICoffeeCartCardProps } from './typings'
 
-export function CoffeeCartCard({ coffee }: Readonly<CoffeeCartCardProps>) {
+export function CoffeeCartCard({ coffee }: Readonly<ICoffeeCartCardProps>) {
   const { changeCartItemQuantity, removeCartItem } = useCart()
 
   function handleIncrease() {
