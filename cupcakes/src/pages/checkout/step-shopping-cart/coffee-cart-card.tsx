@@ -29,13 +29,15 @@ export function CoffeeCartCard({ coffee }: Readonly<ICoffeeCartCardProps>) {
   const formattedPrice = formatMoney(coffeesTotal)
 
   return (
-    <div className="flex items-center justify-between min-h-[8rem]">
-      <div className="flex items-center justify-center gap-6">
+    <div className="flex flex-col md:flex-row items-center justify-between min-h-[8rem]">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
         <img src={`/coffees/${coffee.photo}`} className="w-16 h-16" />
         <div>
-          <p className="text-lg font-bold">{coffee.name}</p>
+          <p className="text-lg font-bold text-center sm398:text-start">
+            {coffee.name}
+          </p>
 
-          <div className="mt-2 flex items-center gap-2">
+          <div className="mt-2 flex flex-col sm398:flex-row items-center gap-2">
             <QuantityInput
               quantity={coffee.quantity}
               onIncrease={handleIncrease}

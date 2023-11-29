@@ -34,19 +34,19 @@ export function ConfirmationSection() {
   }
   return (
     <section className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <span className="font-semibold">Entrega:</span>{' '}
-        <span className="font-semibold">
+      <div className="flex flex-col sm:flex-row items-center justify-between">
+        <span className="font-semibold text-xs sm:text-base">Entrega:</span>{' '}
+        <span className="font-semibold text-xs sm:text-base text-center">
           Frete a ser calculado ao confirmar o pedido
         </span>
         {/* <span>{formattedDeliveryPrice}</span> */}
       </div>
 
-      <div className="flex items-center justify-between">
-        <span className="text-2xl font-bold">Total da compra:</span>
+      <div className="flex flex-col sm:flex-row items-center justify-between">
+        <span className="sm:text-2xl font-bold">Total da compra:</span>
         <div className="flex items-center gap-1">
           <span className="leading-3">R$</span>
-          <strong className="text-3xl">{formattedItemsTotal}</strong>
+          <strong className="sm:text-3xl">{formattedItemsTotal}</strong>
         </div>
       </div>
 
@@ -75,14 +75,14 @@ export function ConfirmationSection() {
         )}
       </ButtonDefaultOutline>
 
-      <p className="text-center font-semibold">Ou</p>
+      <p className="text-center font-semibold text-sm sm:text-base">Ou</p>
 
       <ButtonDefaultOutline
         variantBgOutline={'alert'}
         onClick={() => navigate(ConfigRoutes.cupcakes.default.source)}
         className="flex items-center justify-center gap-2"
       >
-        {cartQuantity <= 0 ? 'Volte para a loja para comprar algo' : 'Continuar comprando'}
+        {cartQuantity <= 0 ? 'Volte para a loja' : 'Continuar comprando'}
         <CornerUpLeft />
       </ButtonDefaultOutline>
     </section>

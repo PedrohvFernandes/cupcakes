@@ -92,6 +92,8 @@ module.exports = {
         // => @media (min-width: 817px) { ... }
         'sm430': '430px',
         // => @media (min-width: 430px) { ... }
+        'sm398': '398px',
+        // => @media (min-width: 398px) { ... }
         'sm355': '355px',
         // => @media (min-width: 355px) { ... }
       }
