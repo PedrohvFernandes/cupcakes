@@ -113,6 +113,12 @@
       "@routes/*": ["routes/*"],
       "@utils/*": ["utils/*"],
       "@lib/*": ["lib/*"],
-    }
-  }
+    },
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules" , "**/*.spec.ts"
+  ]
 }

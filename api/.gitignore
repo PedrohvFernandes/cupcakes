@@ -25,3 +25,4 @@ dist-ssr
 
 # Keep environment variables out of version control
 .env
+.vercel
