@@ -1,24 +1,25 @@
-import { fastify } from 'fastify'
-import { fastifyCors } from '@fastify/cors'
+import 'dotenv/config'
 
-const app = fastify()
+import cors from 'cors'
+import express from 'express'
+import { router } from './routes/router'
 
 // PORT = A porta que a plataforma(vercel) de deploy vai oferecer --> colocar ela so na parte de produção da plataforma
 const PORT = process.env.PORT ?? 3333
 // PRODORDEV = seudominion.com --> colocar ela so na parte de produção da plataforma(vercel)
 const PRODORDEV = process.env.PRODORDEV ?? 'http://localhost:3000'
 
-app.register(fastifyCors, {
-  origin: PRODORDEV
-})
+const app = express()
 
-app
-  .listen({
-    port: PORT as number,
+app.use(express.json())
+app.use(
+  cors({
+    origin: PRODORDEV,
+    optionsSuccessStatus: 200,
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS']
   })
-  .then(address => {
-    console.log(`server listening on ${address}`)
-  })
-  .catch(err => {
-    console.log(err)
-  })
+)
+
+app.use('/', router)
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
