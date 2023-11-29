@@ -1,0 +1,65 @@
+import { ICartItem } from '@contexts/cart-context'
+
+import { Trash2 } from '@assets/icons'
+import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
+import { QuantityInput } from '@components/inputs/quantity-input'
+import { useCart } from '@hooks/push-item-cart'
+import { formatMoney } from '@utils/format-money'
+
+interface CoffeeCartCardProps {
+  coffee: ICartItem
+}
+
+export function CoffeeCartCard({ coffee }: Readonly<CoffeeCartCardProps>) {
+  const { changeCartItemQuantity, removeCartItem } = useCart()
+
+  function handleIncrease() {
+    changeCartItemQuantity(coffee.id, 'increase')
+  }
+
+  function handleDecrease() {
+    changeCartItemQuantity(coffee.id, 'decrease')
+  }
+
+  function handleRemove() {
+    removeCartItem(coffee.id)
+  }
+
+  // Total de cada produto
+  const coffeesTotal = coffee.price * coffee.quantity
+
+  const formattedPrice = formatMoney(coffeesTotal)
+
+  return (
+    <div className="flex items-center justify-between min-h-[8rem]">
+      <div className="flex items-center justify-center gap-6">
+        <img src={`/coffees/${coffee.photo}`} className="w-16 h-16" />
+        <div>
+          <p className="text-lg font-bold">{coffee.name}</p>
+
+          <div className="mt-2 flex items-center gap-2">
+            <QuantityInput
+              quantity={coffee.quantity}
+              onIncrease={handleIncrease}
+              onDecrease={handleDecrease}
+            />
+
+            <ButtonDefaultOutline
+              onClick={handleRemove}
+              variantBgOutline={'bgPrimary'}
+              className="hover:bg-primary-foreground flex gap-2"
+            >
+              <Trash2 />
+              REMOVER
+            </ButtonDefaultOutline>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-1">
+        <span className="leading-3">R$</span>
+        <strong className="text-xl">{formattedPrice}</strong>
+      </div>
+    </div>
+  )
+}

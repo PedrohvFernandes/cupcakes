@@ -19,7 +19,7 @@ export function QuantityInput({
       <ButtonDefaultOutline
         onClick={onDecrease}
         disabled={quantity <= 1}
-        className="outline-none border-none disabled:opacity-50 disabled:cursor-not-allowed"
+        className="outline-none border-none"
       >
         <Minus />
       </ButtonDefaultOutline>

@@ -7,9 +7,9 @@ import { DefaultLayoutCheckout } from './layouts/default-layout-checkout'
 
 import { NotFound } from './pages/exception/NotFound'
 import { Home } from '@pages/home/Home'
-import { Checkout } from '@pages/CheckoutFinalized'
+import { Checkout } from '@pages/checkout/CheckoutFinalized'
 import { Location } from '@pages/location/Location'
-import { ShoppingCart } from '@pages/ShoppingCart'
+import { ShoppingCart } from '@pages/checkout/step-shopping-cart/ShoppingCart'
 
 export const Router = createBrowserRouter([
   {

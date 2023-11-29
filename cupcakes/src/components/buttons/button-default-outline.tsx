@@ -10,7 +10,9 @@ const buttonVariants = cva('', {
     variantBgOutline: {
       default: 'bg-transparent',
       bgPrimaryForeground: 'bg-primary-foreground',
-      bgPrimary: 'bg-primary'
+      bgPrimary: 'bg-primary',
+      success: 'bg-primary-foreground hover:bg-success text-success-foreground',
+      alert: 'bg-primary-foreground hover:bg-alert hover:text-alert-foreground'
     }
   },
   defaultVariants: {

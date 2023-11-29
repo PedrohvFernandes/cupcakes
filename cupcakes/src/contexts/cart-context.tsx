@@ -60,7 +60,7 @@ export function CartContextProvider({
 
   // O valor total dos itens no carrinho
   const cartItemsTotal = cartItems.reduce((total, cartItem) => {
-    // O total é o valor total + o preço do item * a quantidade do item, ou seja o total que ja tinha mais o valor do item * a quantidade do item
+    // O total é o valor total + o preço do item * a quantidade do item, ou seja o total que ja tinha(o valor que ja foi somado do item anterior) mais o valor do item * a quantidade do item do proximo item do array, sempre internado
     return total + cartItem.price * cartItem.quantity
   }, 0)
 
