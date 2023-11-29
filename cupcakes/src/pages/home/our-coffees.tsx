@@ -1,4 +1,4 @@
-import { coffees } from '../../data/coffees'
+import { coffees } from '@data/coffees'
 import { CoffeeCard } from './coffee-card'
 
 export function OurCoffees() {
