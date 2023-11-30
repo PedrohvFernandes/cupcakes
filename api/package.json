@@ -12,7 +12,7 @@
     "start": "nodemon -r tsconfig-paths/register src/server.ts",
     
     "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add ."
+    "add-build": "git add dist && git commit -m 'build'"
   },
   "husky": {
     "hooks": {
