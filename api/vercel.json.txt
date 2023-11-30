@@ -7,7 +7,7 @@ https://www.youtube.com/watch?v=FZiza5N6BQU Deploy Nodejs Com Vercel e Banco de 
 https://github.com/danileao/deploy-free/blob/master/tsconfig.json
 https://www.youtube.com/watch?v=8jttLYYDWjo Deploy API Node GRÁTIS na Vercel A Alternativa Mais Eficiente
 
-se usar o no arquivo vercel.json:
+se usar o builds no arquivo vercel.json: ex: vercel2.json.txt
 "builds": [
     {
       "src": "src/server.ts",
@@ -15,13 +15,14 @@ se usar o no arquivo vercel.json:
     }
   ],
 
-  quando subir o projeto ele nao vai usar o npm run build(Script no pacakge.json)
+  quando subir o projeto ele nao vai usar o npm run build(Script no pacakge.json), vai funcionar, mas:
 
-  os mappings precisam ser buildados para ter o caminho correto, e no build feito por mim no script pacakge.json, ele faz isso, alem de buildar o projeto(tsc), ele builda os mappings(tsc-alias)
+  caso tenha custom mappings, os mesmos precisam ser buildados para ter o caminho correto, e no build feito por mim no script pacakge.json, ele faz isso, alem de buildar o projeto(tsc), ele builda os mappings(tsc-alias). Se os caminhos nao forem buildados o projeto nao vai funcionar, pois nao vai encontrar os caminhos corretos.
 
 
   com isso temos essa alternativa caso voce use custom mappings no tsconfig.json e precise buildar o projeto e os mappings:
   https://dev.to/tirthpatel/deploy-node-ts-express-typescript-on-vercel-284h
+  https://codegenitor.medium.com/deploy-typescript-nodejs-vercel-env-edd9e5673ced
 Ex: https://github.com/hebertcisco/vercel-typescript-express-api/blob/main/package.json
 
 Para js + express: é bem mais simples
@@ -37,4 +38,4 @@ https://www.youtube.com/watch?v=TPXr2fkz0EM&t=159s COMO FAZER DEPLOY FRONT END /
 https://dev.to/tirthpatel/node-js-express-app-on-vercel-develop-run-deploy-524a
 
 
-  Caso na hora do deploy ele reclame de uma pasta public, basta criar e colocar um .gitkeep dentro dela
+ Caso na hora do deploy ele reclame de uma pasta public, basta criar e colocar um .gitkeep dentro dela
