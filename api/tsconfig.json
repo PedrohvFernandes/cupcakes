@@ -114,7 +114,7 @@
     },
   },
   "include": [
-    "src/**/*"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules" , "**/*.spec.ts"
