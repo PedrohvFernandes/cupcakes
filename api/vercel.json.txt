@@ -3,9 +3,9 @@ Hospedagem back-end vercel com TS + Express: Quando é ts tem que ser feito algu
 obs: Somente Express
 
 https://www.youtube.com/watch?v=B-T69_VP2Ls Deploy an Express API to Vercel
-https://www.youtube.com/watch?v=FZiza5N6BQU Deploy Nodejs Com Vercel e Banco de Dados gratuito
+https://www.youtube.com/watch?v=FZiza5N6BQU Deploy Nodejs Com Vercel e Banco de Dados gratuito(Nao precisa de build, praticamente igual ao deploy do back-end usando js + express)
 https://github.com/danileao/deploy-free/blob/master/tsconfig.json
-https://www.youtube.com/watch?v=8jttLYYDWjo Deploy API Node GRÁTIS na Vercel A Alternativa Mais Eficiente
+https://www.youtube.com/watch?v=8jttLYYDWjo Deploy API Node GRÁTIS na Vercel A Alternativa Mais Eficiente(Build manual)
 
 se usar o builds no arquivo vercel.json: ex: vercel2.json.txt
 "builds": [
@@ -15,15 +15,20 @@ se usar o builds no arquivo vercel.json: ex: vercel2.json.txt
     }
   ],
 
-  quando subir o projeto ele nao vai usar o npm run build(Script no pacakge.json), vai funcionar, mas:
+  quando subir o projeto ele nao vai usar o npm run build(Script no pacakge.json), vai funcionar sem ter nem um build(dist), mas:
 
   caso tenha custom mappings, os mesmos precisam ser buildados para ter o caminho correto, e no build feito por mim no script pacakge.json, ele faz isso, alem de buildar o projeto(tsc), ele builda os mappings(tsc-alias). Se os caminhos nao forem buildados o projeto nao vai funcionar, pois nao vai encontrar os caminhos corretos.
 
 
-  com isso temos essa alternativa caso voce use custom mappings no tsconfig.json e precise buildar o projeto e os mappings: Lembre de nao bloquear a pasta dist no gitignore, pois é ela que vai ser usada no deploy, pois aqui esta fazendo um pre-commit
-  https://dev.to/tirthpatel/deploy-node-ts-express-typescript-on-vercel-284h
+  Com isso temos essa alternativa caso voce use custom mappings no tsconfig.json e precise buildar o projeto e os mappings: Lembre de nao bloquear a pasta dist no gitignore caso fizer dessa maneira, pois é ela que vai ser usada no deploy, pois aqui esta fazendo um pre-commit, que vai buildar e enviar a pasta dist para o github no momento do commit, e no deploy a pasta dist vai ser usada. De certa forma a vercel ainda nao ira utilizar script build no momento do deploy, mas vai usar a pasta dist que foi buildada no pre-commit.
+  https://dev.to/tirthpatel/deploy-node-ts-express-typescript-on-vercel-284h (Build automatico no pre-commit)
+  https://github.com/tirth-2001/express-typescript-vercel-part2
+
   https://codegenitor.medium.com/deploy-typescript-nodejs-vercel-env-edd9e5673ced
-Ex: https://github.com/hebertcisco/vercel-typescript-express-api/blob/main/package.json
+
+  Ex: https://github.com/hebertcisco/vercel-typescript-express-api/blob/main/package.json
+
+
 
 Para js + express: é bem mais simples
 

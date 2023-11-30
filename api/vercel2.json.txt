@@ -15,3 +15,9 @@ Aqui para caso nao queire usar ou se voce nao fez o script de build para o proje
     }
   ]
 }
+
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts",
+  },

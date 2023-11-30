@@ -15,3 +15,20 @@
   ]
 }
 
+pacakge.json
+
+  "scripts": {
+    "build-local": "tsc && tsc-alias",
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts",
+
+    "build": "rimraf dist && tsc && tsc-alias",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist"
+  },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
+
