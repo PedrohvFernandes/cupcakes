@@ -4,6 +4,7 @@ obs: Somente Express
 
 https://www.youtube.com/watch?v=B-T69_VP2Ls Deploy an Express API to Vercel
 https://www.youtube.com/watch?v=FZiza5N6BQU Deploy Nodejs Com Vercel e Banco de Dados gratuito
+https://github.com/danileao/deploy-free/blob/master/tsconfig.json
 https://www.youtube.com/watch?v=8jttLYYDWjo Deploy API Node GRÁTIS na Vercel A Alternativa Mais Eficiente
 
 
