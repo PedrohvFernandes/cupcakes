@@ -46,3 +46,13 @@ https://dev.to/tirthpatel/node-js-express-app-on-vercel-develop-run-deploy-524a
 
 
  Caso na hora do deploy ele reclame de uma pasta public, basta criar e colocar um .gitkeep dentro dela
+
+
+
+ nodemon: Serve para reiniciar o servidor quando houver alteração no arquivo e adapta a execução para ts-node quando o arquivos for .ts e node quando for .js. Obs pra usar o ts-node é preciso instalar o ts-node e o typescript
+
+ https://stackshare.io/stackups/npm-ts-node-vs-npm-ts-node-dev
+ ts-node-dev: Serve para executar arquivo .ts e reiniciar o servidor quando houver alteração no arquivo
+ ts-node: Serve para executar arquivo .ts
+ 
+ node: Serve para executar arquivo .js
