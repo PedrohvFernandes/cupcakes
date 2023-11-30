@@ -30,6 +30,7 @@ se usar o builds no arquivo vercel.json: ex: vercel2.json.txt
 
   Ex: https://github.com/hebertcisco/vercel-typescript-express-api/blob/main/package.json
 
+Caso o pre-commit nao funcione, você pode usar o build manualmente e jogar a pasta dist pro repositorio para a vercel utilizar ele
 
 
 Para js + express: é bem mais simples
