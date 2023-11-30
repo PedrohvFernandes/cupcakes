@@ -28,6 +28,9 @@ pacakge.json
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist"
   },
+
+  usando lib pre-commit:
+
   "pre-commit": [
     "ts.check",
     "build",
@@ -52,4 +55,12 @@ pacakge.json
     "build",
     "add-build"
   ],
+
+  Pode usar a lib husky pra fazer o pre-commit:
+
+    "husky": {
+      "hooks": {
+        "pre-commit": "npm run ts.check && build && add-build"
+      }
+   },
 

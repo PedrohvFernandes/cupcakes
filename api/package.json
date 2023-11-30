@@ -12,13 +12,13 @@
     "start": "nodemon -r tsconfig-paths/register src/server.ts",
     
     "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist"
+    "add-build": "git add ."
   },
-  "pre-commit": [
-    "ts.check",
-    "build",
-    "add-build"
-  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run ts.check && build && add-build"
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -26,14 +26,14 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^20.10.1",
-    "pre-commit": "^1.2.2",
+    "husky": "^8.0.3",
+    "nodemon": "^3.0.1",
     "rimraf": "^2.7.1",
+    "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.3.2",
-    "nodemon": "^3.0.1",
-    "ts-node": "^10.9.1"
+    "typescript": "^5.3.2"
   },
   "dependencies": {
     "cors": "^2.8.5",
