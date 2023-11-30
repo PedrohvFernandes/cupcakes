@@ -110,9 +110,7 @@
     "baseUrl": "./src",
     "paths": {
       "@config/*": ["config/*"],
-      "@routes/*": ["routes/*"],
-      "@utils/*": ["utils/*"],
-      "@lib/*": ["lib/*"],
+      "@infra/*": ["infra/*"],
     },
   },
   "include": [

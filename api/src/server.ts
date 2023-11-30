@@ -2,7 +2,7 @@ import 'dotenv/config'
 
 import cors from 'cors'
 import express from 'express'
-import { router } from './routes/router'
+import { routes } from './router'
 
 // PORT = A porta que a plataforma(vercel) de deploy vai oferecer --> colocar ela so na parte de produção da plataforma
 const PORT = process.env.PORT ?? 3333
@@ -20,6 +20,6 @@ app.use(
   })
 )
 
-app.use('/', router)
+app.use('/', routes)
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
