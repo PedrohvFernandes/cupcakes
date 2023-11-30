@@ -108,18 +108,11 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
 
     /* Paths */
-    // "baseUrl": "./src",
-    // "paths": {
-    //   "@config/*": ["config/*"],
-    //   "@infra/*": ["infra/*"],
-    // },
     "baseUrl": "./src",
     "paths": {
-      "*": ["*", "infra/*", "config/*"],
-
       "@config/*": ["config/*"],
-      "@infra/*": ["infra/*"]
-    }
+      "@infra/*": ["infra/*"],
+    },
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]

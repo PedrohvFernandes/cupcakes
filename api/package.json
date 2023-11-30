@@ -4,13 +4,13 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "build-local": "tsc && tsc-alias",
-    "start-local": "nodemon dist/server.js",
+    "build": "rimraf dist && tsc && tsc-alias",
+    
+    "start-local-build": "nodemon dist/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts",
     
     "start": "nodemon -r tsconfig-paths/register src/server.ts",
     
-    "build": "rimraf dist && tsc && tsc-alias",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist"
   },

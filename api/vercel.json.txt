@@ -30,7 +30,7 @@ se usar o builds no arquivo vercel.json: ex: vercel2.json.txt
 
   Ex: https://github.com/hebertcisco/vercel-typescript-express-api/blob/main/package.json
 
-Caso o pre-commit nao funcione, você pode usar o build manualmente e jogar a pasta dist pro repositorio para a vercel utilizar ele
+Caso o pre-commit nao funcione, você pode usar o build manualmente dando npm run build e jogar a pasta dist pro repositorio para a vercel utilizar ele
 
 
 Para js + express: é bem mais simples
@@ -57,3 +57,64 @@ https://dev.to/tirthpatel/node-js-express-app-on-vercel-develop-run-deploy-524a
  ts-node: Serve para executar arquivo .ts
  
  node: Serve para executar arquivo .js
+
+
+rimraf: 
+
+O comando "rimraf dist" é projetado para garantir que, antes de iniciar o processo de compilação (tsc), o diretório de saída (dist) seja removido. Isso é útil para garantir que não haja resíduos de builds anteriores antes de iniciar um novo processo de compilação.
+
+a sequência completa rimraf dist && tsc && tsc-alias faz o seguinte em ordem:
+
+Remove o diretório dist usando rimraf.
+Compila os arquivos TypeScript usando o TypeScript Compiler (tsc).
+Executa  tsc-alias para traduzir as custom mappings.
+Essa abordagem de remoção do diretório antes de compilar é comum em scripts de construção para garantir que não haja resíduos antigos no diretório de saída antes de gerar os novos arquivos de saída durante o processo de compilação.
+
+
+
+ts.check:
+
+O script "ts.check": "tsc --project tsconfig.json" parece ser uma configuração para verificar a sintaxe e realizar verificações de tipo no seu código TypeScript usando o TypeScript Compiler (tsc). Aqui está uma explicação detalhada:
+
+"ts.check": Este é o nome do script. Pode ser utilizado para fornecer um atalho ou comando mais fácil para a execução de verificações específicas.
+
+"tsc --project tsconfig.json": Este é o comando real que será executado quando você rodar o script ts.check. Aqui estão os detalhes:
+
+tsc: Este é o comando do TypeScript Compiler.
+
+--project tsconfig.json: Este é um argumento que especifica o arquivo de configuração do TypeScript a ser usado (tsconfig.json). O arquivo tsconfig.json contém as opções de configuração para o compilador TypeScript, como configurações de compilação, opções de tipo, e outros.
+
+Em resumo, o script "ts.check" usa o TypeScript Compiler para realizar verificações de tipo e sintaxe no seu código, usando as configurações definidas no arquivo tsconfig.json. Isso é útil para garantir que o código TypeScript esteja em conformidade com as regras de tipo e outras configurações definidas no projeto.
+
+
+
+
+Add build:
+
+O script "add-build": "git add dist" parece ser uma configuração para adicionar (usando git add) as mudanças no diretório dist ao controle de versão Git. Aqui está uma explicação mais detalhada:
+
+"add-build": Este é o nome do script. Scripts como esses geralmente são criados para automatizar tarefas comuns durante o desenvolvimento.
+
+"git add dist": Este é o comando real que será executado quando você rodar o script add-build. Aqui estão os detalhes:
+
+git add: Este é o comando do Git usado para adicionar mudanças ao índice, preparando-as para o próximo commit.
+
+dist: Este é o diretório que está sendo adicionado ao controle de versão. No contexto de um processo de construção, o diretório dist muitas vezes contém os artefatos gerados pelo processo de construção, como arquivos JavaScript compilados, imagens otimizadas, ou outros artefatos de build.
+
+Então, quando você executa npm run add-build (ou o equivalente no gerenciador de pacotes que você está usando, como yarn), ele adiciona todas as mudanças no diretório dist ao controle de versão Git, preparando-as para um commit subsequente.
+
+Esse tipo de script pode ser útil em um fluxo de trabalho onde você deseja automatizar o processo de preparar as mudanças geradas durante a construção para serem commitadas no repositório Git.
+
+
+
+    "build": "rimraf dist && tsc && tsc-alias", -> rimraf: Serve para remover a pasta dist antes de buildar, tsc: Serve para buildar o projeto, tsc-alias: Serve para buildar os mappings
+    
+    "start-local-build": "nodemon dist/server.js", ->  Serve para executar o arquivo .js
+
+    "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts", -> Serve para executar o arquivo .ts e reiniciar o servidor quando houver alteração no arquivo
+    
+    "start": "nodemon -r tsconfig-paths/register src/server.ts", -> Serve para executar o arquivo .ts e reiniciar o servidor quando houver alteração no arquivo
+    
+    "ts.check": "tsc --project tsconfig.json", -> Serve para verificar a sintaxe e realizar verificações de tipo no seu código TypeScript usando o TypeScript Compiler (tsc)
+
+    "add-build": "git add dist" -> Serve para adicionar (usando git add) as mudanças no diretório dist ao controle de versão Git

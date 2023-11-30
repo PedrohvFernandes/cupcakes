@@ -34,3 +34,22 @@ pacakge.json
     "add-build"
   ],
 
+  ou
+  
+  "scripts": {
+    "build": "rimraf dist && tsc && tsc-alias",
+    
+    "start-local-build": "nodemon dist/server.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts",
+    
+    "start": "nodemon -r tsconfig-paths/register src/server.ts",
+    
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist"
+  },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
+
