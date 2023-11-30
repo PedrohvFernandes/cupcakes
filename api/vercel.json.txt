@@ -58,7 +58,7 @@ https://dev.to/tirthpatel/node-js-express-app-on-vercel-develop-run-deploy-524a
  
  node: Serve para executar arquivo .js
 
-
+https://chat.openai.com/c/baff2f31-133f-4748-bec2-fc055287ae9d
 rimraf: 
 
 O comando "rimraf dist" é projetado para garantir que, antes de iniciar o processo de compilação (tsc), o diretório de saída (dist) seja removido. Isso é útil para garantir que não haja resíduos de builds anteriores antes de iniciar um novo processo de compilação.
