@@ -1,0 +1,1 @@
+Configurar o path tanto no tsconfig.json e tsconfig.paths.json e no vite.config.ts

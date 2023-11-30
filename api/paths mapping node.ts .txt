@@ -1,0 +1,3 @@
+https://blog.rocketseat.com.br/path-mapping-typescript/
+
+https://blog.rocketseat.com.br/configurando-custom-path-mapping-no-node-js/#:~:text=Para%20configurar%20o%20path%20mapping,aliases%20para%20caminhos%20de%20módulos.
