@@ -1,4 +1,4 @@
-Aqui para caso nao queire usar ou se voce nao fez o script de build para o projeto. Na hora que fizer o deploy no vercel, ele vai usar o arquivo vercel.json builds para fazer o deploy.
+Aqui para caso nao queire usar ou se voce nao fez o script de build para o projeto. Na hora que fizer o deploy no vercel, ele vai usar o arquivo vercel.json builds para fazer o deploy usando o server.ts.
 
 {
   "version": 2,
@@ -15,6 +15,7 @@ Aqui para caso nao queire usar ou se voce nao fez o script de build para o proje
     }
   ]
 }
+pacakge.json
 
   "scripts": {
     "build": "tsc && tsc-alias",
