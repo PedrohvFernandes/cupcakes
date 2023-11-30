@@ -1,4 +1,4 @@
-A vercel vai continuar usando o builds para fazer o deploy, mas o arquivo que vai ser executado é o dist/index.js ou seja o arquivo que foi buildado no pre-commit, enviando a pasta dist para github e a utilizando no momento do deploy.
+A vercel vai continuar usando o builds para fazer o deploy, mas o arquivo que vai ser executado é o dist/index.js ou seja o arquivo que foi buildado no pre-commit ou manualmente, enviando a pasta dist para github e a utilizando no momento do deploy.
 
 {
   "version": 2,
