@@ -7,6 +7,17 @@ https://www.youtube.com/watch?v=FZiza5N6BQU Deploy Nodejs Com Vercel e Banco de 
 https://github.com/danileao/deploy-free/blob/master/tsconfig.json
 https://www.youtube.com/watch?v=8jttLYYDWjo Deploy API Node GRÁTIS na Vercel A Alternativa Mais Eficiente
 
+se usar o no arquivo vercel.json:
+"builds": [
+    {
+      "src": "src/server.ts",
+      "use": "@vercel/node"
+    }
+  ],
+
+  quando subir o projeto ele nao vai usar o npm run build(Script no pacakge.json)
+
+  os mappings precisam ser buildados para ter o caminho correto, e no build feito por mim no script pacakge.json, ele faz isso, alem de buildar o projeto(tsc), ele builda os mappings(tsc-alias)
 
 Para js + express:
 
