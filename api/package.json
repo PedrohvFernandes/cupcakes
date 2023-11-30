@@ -4,8 +4,7 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/server.js",
+
     "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts"
   },
   "keywords": [],
