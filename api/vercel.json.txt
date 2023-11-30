@@ -20,7 +20,7 @@ se usar o builds no arquivo vercel.json: ex: vercel2.json.txt
   caso tenha custom mappings, os mesmos precisam ser buildados para ter o caminho correto, e no build feito por mim no script pacakge.json, ele faz isso, alem de buildar o projeto(tsc), ele builda os mappings(tsc-alias). Se os caminhos nao forem buildados o projeto nao vai funcionar, pois nao vai encontrar os caminhos corretos.
 
 
-  com isso temos essa alternativa caso voce use custom mappings no tsconfig.json e precise buildar o projeto e os mappings:
+  com isso temos essa alternativa caso voce use custom mappings no tsconfig.json e precise buildar o projeto e os mappings: Lembre de nao bloquear a pasta dist no gitignore, pois é ela que vai ser usada no deploy, pois aqui esta fazendo um pre-commit
   https://dev.to/tirthpatel/deploy-node-ts-express-typescript-on-vercel-284h
   https://codegenitor.medium.com/deploy-typescript-nodejs-vercel-env-edd9e5673ced
 Ex: https://github.com/hebertcisco/vercel-typescript-express-api/blob/main/package.json
