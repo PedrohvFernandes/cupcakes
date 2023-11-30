@@ -1,0 +1,17 @@
+Aqui para caso nao queire usar ou se voce nao fez o script de build para o projeto. Na hora que fizer o deploy no vercel, ele vai usar o script de build que esta no package.json, caso nao tenha, ele vai usar o arquivo vercel.json builds para fazer o deploy.
+
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/server.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "(.*)",
+      "dest": "src/server.ts"
+    }
+  ]
+}
