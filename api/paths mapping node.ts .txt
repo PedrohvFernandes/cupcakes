@@ -3,3 +3,5 @@ https://blog.rocketseat.com.br/path-mapping-typescript/
 https://blog.rocketseat.com.br/configurando-custom-path-mapping-no-node-js/#:~:text=Para%20configurar%20o%20path%20mapping,aliases%20para%20caminhos%20de%20módulos.
 
 para solucionar o mapping na hora do build, alem do tsc usar o tsc-alias: https://dev.to/omills/path-mapping-with-vercel-functions-nodejs-typescript-22li
+
+para solucionar o mapping na hora do dev  tsconfig-paths/register
