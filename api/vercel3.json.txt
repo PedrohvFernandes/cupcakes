@@ -1,10 +1,12 @@
-A vercel vai continuar usando o builds para fazer o deploy, mas o arquivo que vai ser executado é o dist/index.js ou seja o arquivo que foi buildado no pre-commit ou manualmente, enviando a pasta dist para github e a utilizando no momento do deploy.
+A vercel vai continuar usando o builds para fazer o deploy, mas o arquivo que vai ser executado é o dist/server.js ou seja o arquivo que foi buildado no pre-commit ou manualmente, enviando a pasta dist para github e a utilizando no momento do deploy.
+
+Lembrando para que o husky/pre-commit funcione não pode usar o github desktop, todos os comandos do git devem ser a mão git add . e git commit -m "mensagem" e git push origin main
 
 {
   "version": 2,
   "builds": [
     {
-      "src": "dist/index.js",
+      "src": "dist/server.js",
       "use": "@vercel/node",
       "config": { "includeFiles": ["dist/**"] }
     }
@@ -12,7 +14,7 @@ A vercel vai continuar usando o builds para fazer o deploy, mas o arquivo que va
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/index.js"
+      "dest": "dist/server.js"
     }
   ]
 }
@@ -26,10 +28,10 @@ pacakge.json
 
     "build": "rimraf dist && tsc && tsc-alias",
     "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist"
+    "add-build": "git add dist && git commit -m 'build'"
   },
 
-  usando lib pre-commit:
+ // usando lib pre-commit:
 
   "pre-commit": [
     "ts.check",
@@ -48,7 +50,7 @@ pacakge.json
     "start": "nodemon -r tsconfig-paths/register src/server.ts",
     
     "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist"
+    "add-build": "git add dist && git commit -m 'build'"
   },
   "pre-commit": [
     "ts.check",
@@ -56,7 +58,7 @@ pacakge.json
     "add-build"
   ],
 
-  Pode usar a lib husky pra fazer o pre-commit:
+  // ou Pode usar a lib husky pra fazer o pre-commit em vez da pre-commit:
 
     "husky": {
       "hooks": {
@@ -64,3 +66,28 @@ pacakge.json
       }
    },
 
+ou de forma manual sem husky/pre-commit e sem o github desktop:
+
+git add .
+git commit -m "mensagem personalizada"
+npm run precommit
+git push origin main
+
+  "scripts": {
+    "build": "rimraf dist && tsc && tsc-alias",
+
+    "start-local-build": "nodemon dist/server.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts",
+
+    "start": "nodemon -r tsconfig-paths/register src/server.ts",
+
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist && git commit -m 'build'",
+
+    "precommit": "npm run ts.check && npm run build && npm run add-build"
+  },
+
+  .gitignore:
+
+  # dist
+  # dist-ssr

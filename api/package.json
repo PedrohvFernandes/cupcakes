@@ -12,7 +12,6 @@
     "add-build": "git add dist && git commit -m 'build'",
     "precommit": "npm run ts.check && npm run build && npm run add-build"
   },
-
   "keywords": [],
   "author": "",
   "license": "ISC",
