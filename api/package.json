@@ -12,11 +12,13 @@
     "start": "nodemon -r tsconfig-paths/register src/server.ts",
     
     "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist && git commit -m 'build'"
+    "add-build": "git add dist && git commit -m 'build'",
+
+    "precommit": "npm run ts.check && npm run build && npm run add-build"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run ts.check && build && add-build"
+      "pre-commit": "npm run precommit"
     }
   },
   "keywords": [],
