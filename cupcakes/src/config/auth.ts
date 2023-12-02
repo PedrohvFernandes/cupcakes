@@ -6,7 +6,7 @@ export default {
       keys: {
         maps: {
           id: 'google-map-script',
-          key: import.meta.env.VITE_GOOGLE_CLOUD_MAPS_CUPCAKES_API_KEY
+          key: import.meta.env.VITE_GOOGLE_CLOUD_MAPS_CUPCAKES_API_KEY as string
         }
       }
     },
@@ -14,8 +14,8 @@ export default {
       keys: {
         private: {
           key: isDev
-            ? import.meta.env.VITE_STRIPE_CUPCAKES_API_PRIVATE_KEY_TEST
-            : import.meta.env.VITE_STRIPE_CUPCAKES_API_PRIVATE_KEY_LIVE
+            ? import.meta.env.VITE_STRIPE_CUPCAKES_API_PRIVATE_KEY_TEST as string
+            : import.meta.env.VITE_STRIPE_CUPCAKES_API_PRIVATE_KEY_LIVE as string
         },
         public: {
           key: isDev
