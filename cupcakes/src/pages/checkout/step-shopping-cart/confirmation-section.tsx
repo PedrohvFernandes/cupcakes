@@ -8,13 +8,14 @@ import { Check, CornerUpLeft } from '@assets/icons'
 import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
 
 import { ConfigRoutes } from '@config/index'
+import { PayButtonStripe } from '@components/buttons/pay-button-stripe'
 
 // const DELIVERY_PRICE = 3.5
 
 export function ConfirmationSection() {
   // const { cartItems } = useCart()
 
-  const { cleanCart, cartItemsTotal, cartQuantity } = useCart()
+  const { cartItemsTotal, cartQuantity } = useCart()
 
   const navigate = useNavigate()
 
@@ -24,14 +25,6 @@ export function ConfirmationSection() {
   // const formattedCartTotal = formatMoney(cartTotal)
   // const formattedDeliveryPrice = formatMoney(DELIVERY_PRICE)
 
-  function handleConfirmOrder() {
-    // Leva pro stripe com os itens do carrinho
-    // Se o pagamento for confirmado, leva pra tela de checkout finalized
-    // Se o pagamento for recusado, leva pra tela de checkout canceled
-    console.log('stripe')
-    // Limpa o carrinho
-    cleanCart()
-  }
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col sm:flex-row items-center justify-between">
@@ -59,7 +52,7 @@ export function ConfirmationSection() {
         </div>
       </div> */}
 
-      <ButtonDefaultOutline
+      {/* <ButtonDefaultOutline
         variantBgOutline={'success'}
         disabled={cartQuantity <= 0}
         onClick={() => handleConfirmOrder()}
@@ -73,13 +66,28 @@ export function ConfirmationSection() {
             <Check />
           </>
         )}
-      </ButtonDefaultOutline>
+      </ButtonDefaultOutline> */}
+      <PayButtonStripe
+        variantBgOutline={'success'}
+        disabled={cartQuantity <= 0}
+        handlePaymentItemsOrOneItem='handlePaymentItems'
+        className="flex items-center justify-center gap-2"
+      >
+        {cartQuantity <= 0 ? (
+          'Selecione algum produto'
+        ) : (
+          <>
+            Confirmar pedido
+            <Check />
+          </>
+        )}
+      </PayButtonStripe>
 
       <p className="text-center font-semibold text-sm sm:text-base">Ou</p>
 
       <ButtonDefaultOutline
         variantBgOutline={'alert'}
-        onClick={() => navigate(ConfigRoutes.cupcakes.default.source)}
+        onClick={() => navigate(ConfigRoutes.cupcakes.default.source.path)}
         className="flex items-center justify-center gap-2"
       >
         {cartQuantity <= 0 ? 'Volte para a loja' : 'Continuar comprando'}

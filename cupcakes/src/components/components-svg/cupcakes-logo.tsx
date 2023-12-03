@@ -8,7 +8,7 @@ export function CupcakesLogo() {
 
   return (
     <CupcakesLogoSVGVertical
-      onClick={() => navigate(ConfigRoutes.cupcakes.default.source)}
+      onClick={() => navigate(ConfigRoutes.cupcakes.default.source.path)}
       className='cursor-pointer w-28 sm:w-36  md:w-52'
     />
   )

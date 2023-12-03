@@ -212,7 +212,7 @@ export function Location() {
         >
           <ButtonDefaultOutline
             onClick={() => {
-              navigate(ConfigRoutes.cupcakes.default.source)
+              navigate(ConfigRoutes.cupcakes.default.source.path)
             }}
           >
             Voltar para a página inicial

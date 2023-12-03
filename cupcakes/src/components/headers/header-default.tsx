@@ -33,11 +33,11 @@ export function HeaderDefault() {
         </BottomLine>
         <BottomLine
           variantBottom={'bottom10'}
-          path={ConfigRoutes.cupcakes.shoppingCart.path}
+          path={ConfigRoutes.cupcakes.checkout.path}
         >
           <ButtonDefaultOutline
-            path={ConfigRoutes.cupcakes.shoppingCart.path}
-            onClick={() => navigate(ConfigRoutes.cupcakes.shoppingCart.path)}
+            path={ConfigRoutes.cupcakes.checkout.path}
+            onClick={() => navigate(ConfigRoutes.cupcakes.checkout.path)}
             className="w-12 sm:w-14 md:w-16"
           >
             <div className="relative">

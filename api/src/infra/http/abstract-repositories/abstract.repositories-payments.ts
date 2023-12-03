@@ -1,5 +1,7 @@
-import { ICoffeeRequest } from '../interfaces'
+import { ICoffeePaymentRequest } from '../interfaces'
 
 export abstract class AbstractRepositoriesPayment {
-  abstract createPayment(paymentRequest: ICoffeeRequest): Promise<string | null>
+  abstract createPayment(
+    paymentRequest: ICoffeePaymentRequest
+  ): Promise<string | null>
 }

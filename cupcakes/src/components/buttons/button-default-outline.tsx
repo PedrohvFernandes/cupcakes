@@ -22,7 +22,7 @@ const buttonVariants = cva('', {
   }
 })
 
-interface IButtonDefaultOutlineProps
+export interface IButtonDefaultOutlineProps
   extends ButtonProps,
     VariantProps<typeof buttonVariants> {
   path?: string

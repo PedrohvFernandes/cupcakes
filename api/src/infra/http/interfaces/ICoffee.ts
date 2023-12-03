@@ -38,6 +38,7 @@ interface ICoffee {
   name: string
   description: string
   price: number
+  default_price: string
   size: string
   photo: string[]
 }
@@ -47,6 +48,7 @@ interface ICoffeeRequest {
   name: string
   description: string
   default_price: string
+  price: number
   metadata: {
     category: string
     name: string

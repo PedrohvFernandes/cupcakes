@@ -4,6 +4,7 @@ interface ICoffee {
   name: string;
   description: string;
   price: number;
+  default_price: string;
   size: string;
   photo: string[];
 }

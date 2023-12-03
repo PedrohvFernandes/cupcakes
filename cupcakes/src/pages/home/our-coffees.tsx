@@ -10,6 +10,7 @@ import { api } from '@lib/axios'
 
 import { useToast } from '@components/ui/use-toast'
 import { LoaderDefault } from '@components/loaders/loader-default'
+import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
 
 // import { ConfigAuth } from '@config/index'
 
@@ -64,49 +65,52 @@ export function OurCoffees() {
     }
   }, [])
   return (
-    <div className="min-h-[34rem]">
+    <div className="min-h-[34rem] flex flex-col gap-4">
       <h2 className="leading-[130%] font-extrabold text-center md:text-start text-2xl lg:text-4xl  tracking-wide">
         Nossos cafés ☕
       </h2>
 
+      {loading && <LoaderDefault>Carregando os cafés...</LoaderDefault>}
+
       <div className="flex flex-col items-center justify-center md817:grid md817:grid-cols-2 xl:grid-cols-3 gap-8 mt-14">
-        {loading ? (
-          <LoaderDefault>Carregando os cafés...</LoaderDefault>
-        ) : (
+        {!loading && (
           <>
-            {coffeesStripe.length > 0 ? (
-              <>
-                {coffeesStripe.map(coffee => (
-                  // <div
-                  //   className="flex flex-col items-center justify-center gap-4 w-full"
-                  //   key={coffee.id}
-                  // >
-                  //   {/* <img src={coffee.image} alt={coffee.name} className="w-full rounded" /> */}
-                  //   <div className="flex flex-col items-center justify-center gap-2">
-                  //     <h3 className="text-lg font-bold text-center md:text-start">
-                  //       {coffee.name}
-                  //     </h3>
-                  //     <span className="text-sm text-center md:text-start">
-                  //       {coffee.description}
-                  //     </span>
-                  //     <span className="text-sm text-center md:text-start">
-                  //       {coffee.price}
-                  //     </span>
-                  //   </div>
-                  // </div>
-                  <CoffeeCard key={coffee.id} coffee={coffee} />
-                ))}
-              </>
-            ) : (
-              <div>
-                <p className="text-lg font-bold text-center md:text-start">
-                  Não temos cafés no momento
-                </p>
-              </div>
-            )}
+            {coffeesStripe.map(coffee => (
+              // <div
+              //   className="flex flex-col items-center justify-center gap-4 w-full"
+              //   key={coffee.id}
+              // >
+              //   {/* <img src={coffee.image} alt={coffee.name} className="w-full rounded" /> */}
+              //   <div className="flex flex-col items-center justify-center gap-2">
+              //     <h3 className="text-lg font-bold text-center md:text-start">
+              //       {coffee.name}
+              //     </h3>
+              //     <span className="text-sm text-center md:text-start">
+              //       {coffee.description}
+              //     </span>
+              //     <span className="text-sm text-center md:text-start">
+              //       {coffee.price}
+              //     </span>
+              //   </div>
+              // </div>
+              <CoffeeCard key={coffee.id} coffee={coffee} />
+            ))}
           </>
         )}
       </div>
+      {coffeesStripe.length === 0 && !loading && (
+        <div className="flex flex-col items-center justify-center gap-2">
+          <p className="text-lg font-bold text-center md:text-start">
+            Houve um erro ao carregar os cafés
+          </p>
+          <ButtonDefaultOutline
+            variantBgOutline={'success'}
+            onClick={() => window.location.reload()}
+          >
+            Recarregar
+          </ButtonDefaultOutline>
+        </div>
+      )}
     </div>
   )
 }

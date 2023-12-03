@@ -1,6 +1,4 @@
-import { ICoffeeRequest, ICoffee } from "./ICoffee";
+import { ICoffeeRequest, ICoffee } from './ICoffee'
+import { ICoffeePaymentRequest } from './IPayments'
 
-export {
-  ICoffeeRequest,
-  ICoffee
-}
+export { ICoffeeRequest, ICoffee, ICoffeePaymentRequest }

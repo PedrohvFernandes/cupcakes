@@ -21,7 +21,7 @@ export function NotFound() {
           </p>
           <div className="flex flex-col items-center">
             <ButtonDefaultOutline
-              onClick={() => navigate(ConfigRoutes.cupcakes.default.source)}
+              onClick={() => navigate(ConfigRoutes.cupcakes.default.source.path)}
             >
               Voltar para a página inicial
             </ButtonDefaultOutline>

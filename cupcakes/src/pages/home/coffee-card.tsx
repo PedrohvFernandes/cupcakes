@@ -10,6 +10,7 @@ import { ShoppingCart } from '@assets/icons'
 
 import { useToast } from '@components/ui/use-toast'
 import { ICoffeeProps } from './typings'
+import { PayButtonStripe } from '@components/buttons/pay-button-stripe'
 
 export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
   const [quantity, setQuantity] = useState(1)
@@ -43,17 +44,11 @@ export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
     setQuantity(1)
   }
 
-  function handleDirectPurchase() {
-    handleAddToCart()
-    // Levar para o stripe direto
-    console.log('stripe')
-  }
-
   const formattedPrice = formatMoney(coffee.price)
 
   return (
     <div className="w-full bg-accent rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg p-5 pt-0 flex flex-col items-center justify-center">
-      <img src={`${coffee.photo}`} className="w-44 h-60 -mt-5 rounded"/>
+      <img src={`${coffee.photo}`} className="w-44 h-60 -mt-5 rounded" />
       <div className="w-full flex items-center justify-center gap-1 my-4 flex-wrap">
         {coffee.tags.map(tag => (
           <span
@@ -66,7 +61,6 @@ export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
       </div>
       <h3 className="font-bold mb-2">{coffee.name}</h3>
       <p className="text-sm text-center mb-4">{coffee.description}</p>
-
       <div className="w-full flex flex-col sm430:flex-row items-center justify-between gap-2">
         <div className="flex items-center gap-1">
           <span className="leading-3">R$</span>
@@ -87,13 +81,24 @@ export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
               <ShoppingCart />
             </ButtonDefaultOutline>
           </div>
-          <ButtonDefaultOutline
+          {/* <ButtonDefaultOutline
             variantBgOutline={'bgPrimaryForeground'}
             className="w-full hover:bg-primary"
             onClick={() => handleDirectPurchase()}
           >
             Comprar
-          </ButtonDefaultOutline>
+          </ButtonDefaultOutline> */}
+          <PayButtonStripe
+            variantBgOutline={'bgPrimaryForeground'}
+            className="w-full hover:bg-primary"
+            coffeeUnique={{
+              ...coffee,
+              quantity
+            }}
+            handlePaymentItemsOrOneItem="withOneItem"
+          >
+            Comprar
+          </PayButtonStripe>
         </div>
       </div>
     </div>

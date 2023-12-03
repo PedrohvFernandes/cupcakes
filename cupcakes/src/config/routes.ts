@@ -1,7 +1,12 @@
 export default {
   cupcakes: {
     default: {
-      source: '/',
+      source: {
+        path: '/',
+        routeFragment: '/',
+        next: {}
+      
+      },
       notFound: '*'
       // exact: true,
     },
@@ -9,13 +14,13 @@ export default {
       path: '/checkout',
       routeFragment: '/checkout',
       next: {
-        confirm: {
-          path: '/checkout/confirm',
+        success: {
+          path: '/checkout/checkout-success',
           routeFragment: '/checkout',
           next: {}
         },
-        canceled: {
-          path: '/checkout/canceled',
+        cancel: {
+          path: '/checkout/checkout-cancel',
           routeFragment: '/checkout',
           next: {}
         }
@@ -25,11 +30,6 @@ export default {
     location: {
       path: '/location',
       routeFragment: '/location',
-      next: {}
-    },
-    shoppingCart: {
-      path: '/shopping-cart',
-      routeFragment: '/shopping-cart',
       next: {}
     },
   }

@@ -8,10 +8,11 @@ export class ControllerPayments {
     response: Response
   ): Promise<Response> {
     const PaymentsRepositoryStripe = new PaymentRepositoryStripe()
-
+    const { items } = request.body
+    console.log('Request.body: ',request.body)
     const resultPayment = await new CreatePaymentsService(
       PaymentsRepositoryStripe
-    ).execute(request.body)
+    ).execute(items)
 
     if (resultPayment instanceof Error) {
       return response.status(400).json({ error: resultPayment.message })

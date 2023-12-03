@@ -5,4 +5,4 @@ import { Router } from 'express'
 export const routes = Router()
 
 routes.get('/products-all', new ControllerProducts().GetAllProductsController)
-routes.get('/create-checkout-session', new ControllerPayments().CreatePaymentController)
+routes.post('/create-checkout-session', new ControllerPayments().CreatePaymentController)
