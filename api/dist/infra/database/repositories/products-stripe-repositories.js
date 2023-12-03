@@ -10,12 +10,6 @@ class ProductsRepositoryStripe {
         // Basicamente estou inicializando o stripe como um repositório, e passando a chave privada do stripe, ele pode criar, editar, filtrar e etc os produtos, alem de poder realizar pagamentos com ele
         this.StripeRepository = stripe_1.stripe;
     }
-    findOne(id) {
-        throw new Error('Method not implemented.');
-    }
-    findOneBy(name) {
-        throw new Error('Method not implemented.');
-    }
     // Incerto
     async findById(id) {
         const product = await this.StripeRepository.products.retrieve(id);
@@ -27,7 +21,7 @@ class ProductsRepositoryStripe {
         const products = await this.StripeRepository.products.list();
         // A gente filtra os produtos para que ele fique no formato que a gente quer, e ai a gente retorna esse array de produtos filtrados
         const productsFilter = await Promise.all(products.data.map(async (product) => {
-            const price = await stripe_1.stripe.prices.retrieve(product.default_price);
+            const price = await this.StripeRepository.prices.retrieve(product.default_price);
             return {
                 id: product.id,
                 tags: product.metadata.category.split(', '),
@@ -41,7 +35,7 @@ class ProductsRepositoryStripe {
         return productsFilter;
     }
     // Incerto
-    async create(productRequest) {
+    async createProduct(productRequest) {
         await this.StripeRepository.products.create({
             name: productRequest.name,
             description: productRequest.description,

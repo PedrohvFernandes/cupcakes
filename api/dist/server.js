@@ -7,10 +7,11 @@ require("dotenv/config");
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const router_1 = require("./router");
+const config_1 = require("./config");
 // PORT = A porta que a plataforma(vercel) de deploy vai oferecer --> colocar ela so na parte de produção da plataforma
-const PORT = process.env.PORT ?? 3333;
+const PORT = config_1.ConfigBases.cupcakes.baseUrls.port;
 // PRODORDEV = seudominion.com --> colocar ela so na parte de produção da plataforma(vercel)
-const PRODORDEV = process.env.PRODORDEV ?? 'http://127.0.0.1:5173';
+const PRODORDEV = config_1.ConfigBases.cupcakes.baseUrls;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
