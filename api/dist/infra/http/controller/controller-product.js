@@ -11,18 +11,7 @@ class ControllerProducts {
         if (result instanceof Error) {
             return response.status(400).json({ error: result.message });
         }
-        const products = result.data.map(product => {
-            return {
-                id: product.id,
-                tags: product.metadata.category.split(', '),
-                name: product.name,
-                description: product.description,
-                price: product.default_price,
-                size: product.metadata.size,
-                photo: product.images
-            };
-        });
-        return response.status(200).json(products);
+        return response.status(200).json(result);
     }
 }
 exports.ControllerProducts = ControllerProducts;

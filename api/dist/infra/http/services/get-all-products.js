@@ -15,14 +15,14 @@ class GetAllProductsService {
         //   apiVersion: '2023-10-16',
         // })
         // const products = await stripe.products.list()
-        const products = await this.ProductRepository.findAll();
-        if (!products) {
+        const coffees = await this.ProductRepository.findAll();
+        if (!coffees) {
             return new error_1.ProductNotFound();
         }
-        if (products.data.length === 0) {
+        if (coffees.length === 0) {
             return new error_1.ProductLengthNotFound();
         }
-        return products;
+        return coffees;
     }
 }
 exports.GetAllProductsService = GetAllProductsService;
