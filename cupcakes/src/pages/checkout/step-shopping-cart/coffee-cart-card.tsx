@@ -33,7 +33,7 @@ export function CoffeeCartCard({ coffee }: Readonly<ICoffeeCartCardProps>) {
     <>
       <div className="flex flex-col gap-4  md:flex-row items-center justify-between min-h-[8rem]">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <img src={`/coffees/${coffee.photo}`} className="w-16 h-16" />
+          <img src={`${coffee.photo}`} className=" h-28" />
           <div>
             <p className="text-lg font-bold text-center sm398:text-start">
               {coffee.name}

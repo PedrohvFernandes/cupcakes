@@ -1,7 +1,6 @@
-import { IProduct, IProductRequest, IProducts } from "./IProduct";
+import { ICoffeeRequest, ICoffee } from "./ICoffee";
 
 export {
-  IProduct,
-  IProductRequest,
-  IProducts
+  ICoffeeRequest,
+  ICoffee
 }

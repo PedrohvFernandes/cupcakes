@@ -21,11 +21,11 @@ interface ICartContextType {
   addCoffeeToCart: (coffee: ICartItem) => void
   // Aumenta ou diminui a quantidade de um item no carrinho
   changeCartItemQuantity: (
-    cartItemId: number,
+    cartItemId: string,
     type: 'increase' | 'decrease'
   ) => void
   // Remove um item do carrinho
-  removeCartItem: (cartItemId: number) => void
+  removeCartItem: (cartItemId: string) => void
   // Limpa o carrinho
   cleanCart: () => void
 }
@@ -87,7 +87,7 @@ export function CartContextProvider({
 
   // Aumenta ou diminui a quantidade de um item no carrinho com base no id do item
   function changeCartItemQuantity(
-    cartItemId: number,
+    cartItemId: string,
     type: 'increase' | 'decrease'
   ) {
     const newCart = produce(cartItems, draft => {
@@ -105,7 +105,7 @@ export function CartContextProvider({
     setCartItems(newCart)
   }
 
-  function removeCartItem(cartItemId: number) {
+  function removeCartItem(cartItemId: string) {
     // Aqui novamente o produce retorna um novo estado, ou seja, um novo array que é o cartItems. So que no caso a gente remove o item do carrinho com base no id do item.
     const newCart = produce(cartItems, draft => {
       const coffeeExistsInCart = cartItems.findIndex(

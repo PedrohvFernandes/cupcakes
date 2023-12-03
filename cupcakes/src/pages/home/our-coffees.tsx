@@ -1,8 +1,16 @@
+import { useEffect, useState } from 'react'
 // import Stripe from 'stripe'
 // import { useEffect } from 'react'
 
-import { coffees } from '@data/coffees'
+// import { coffees } from '@data/coffees'
 import { CoffeeCard } from './coffee-card'
+import { ICoffee } from './typings'
+
+import { api } from '@lib/axios'
+
+import { useToast } from '@components/ui/use-toast'
+import { LoaderDefault } from '@components/loaders/loader-default'
+
 // import { ConfigAuth } from '@config/index'
 
 export function OurCoffees() {
@@ -20,6 +28,41 @@ export function OurCoffees() {
 
   //   getProducts()
   // })
+
+  const [coffeesStripe, setCoffeesStripe] = useState<ICoffee[]>([])
+  const [loading, setLoading] = useState(false)
+  const controller = new AbortController()
+
+  const { toast } = useToast()
+
+  useEffect(() => {
+    const getCoffees = async () => {
+      try {
+        setLoading(true)
+        const { data } = await api.get('/products-all', {
+          signal: controller.signal
+        })
+
+        setCoffeesStripe(data)
+      } catch (error) {
+        toast({
+          title: 'Erro',
+          description: 'Ocorreu um erro ao carregar os cafés',
+          variant: 'destructive',
+          duration: 5000
+        })
+        console.log(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    getCoffees()
+
+    return () => {
+      controller.abort()
+    }
+  }, [])
   return (
     <div className="min-h-[34rem]">
       <h2 className="leading-[130%] font-extrabold text-center md:text-start text-2xl lg:text-4xl  tracking-wide">
@@ -27,26 +70,42 @@ export function OurCoffees() {
       </h2>
 
       <div className="flex flex-col items-center justify-center md817:grid md817:grid-cols-2 xl:grid-cols-3 gap-8 mt-14">
-        {coffees.map(coffee => (
-          // <div
-          //   className="flex flex-col items-center justify-center gap-4 w-full"
-          //   key={coffee.id}
-          // >
-          //   {/* <img src={coffee.image} alt={coffee.name} className="w-full rounded" /> */}
-          //   <div className="flex flex-col items-center justify-center gap-2">
-          //     <h3 className="text-lg font-bold text-center md:text-start">
-          //       {coffee.name}
-          //     </h3>
-          //     <span className="text-sm text-center md:text-start">
-          //       {coffee.description}
-          //     </span>
-          //     <span className="text-sm text-center md:text-start">
-          //       {coffee.price}
-          //     </span>
-          //   </div>
-          // </div>
-          <CoffeeCard key={coffee.id} coffee={coffee} />
-        ))}
+        {loading ? (
+          <LoaderDefault>Carregando os cafés...</LoaderDefault>
+        ) : (
+          <>
+            {coffeesStripe.length > 0 ? (
+              <>
+                {coffeesStripe.map(coffee => (
+                  // <div
+                  //   className="flex flex-col items-center justify-center gap-4 w-full"
+                  //   key={coffee.id}
+                  // >
+                  //   {/* <img src={coffee.image} alt={coffee.name} className="w-full rounded" /> */}
+                  //   <div className="flex flex-col items-center justify-center gap-2">
+                  //     <h3 className="text-lg font-bold text-center md:text-start">
+                  //       {coffee.name}
+                  //     </h3>
+                  //     <span className="text-sm text-center md:text-start">
+                  //       {coffee.description}
+                  //     </span>
+                  //     <span className="text-sm text-center md:text-start">
+                  //       {coffee.price}
+                  //     </span>
+                  //   </div>
+                  // </div>
+                  <CoffeeCard key={coffee.id} coffee={coffee} />
+                ))}
+              </>
+            ) : (
+              <div>
+                <p className="text-lg font-bold text-center md:text-start">
+                  Não temos cafés no momento
+                </p>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   )

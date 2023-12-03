@@ -1,10 +1,11 @@
 interface ICoffee {
-  id: number;
+  id: string;
   tags: string[];
   name: string;
   description: string;
-  photo: string;
   price: number;
+  size: string;
+  photo: string[];
 }
 
 interface ICoffeeProps {

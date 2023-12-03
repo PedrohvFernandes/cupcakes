@@ -7,7 +7,7 @@ import { routes } from './router'
 // PORT = A porta que a plataforma(vercel) de deploy vai oferecer --> colocar ela so na parte de produção da plataforma
 const PORT = process.env.PORT ?? 3333
 // PRODORDEV = seudominion.com --> colocar ela so na parte de produção da plataforma(vercel)
-const PRODORDEV = process.env.PRODORDEV ?? 'http://localhost:5173'
+const PRODORDEV = process.env.PRODORDEV ?? 'http://127.0.0.1:5173'
 
 const app = express()
 
