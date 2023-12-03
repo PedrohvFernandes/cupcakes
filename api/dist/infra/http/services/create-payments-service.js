@@ -6,8 +6,8 @@ class CreatePaymentsService {
     constructor(PaymentRepository) {
         this.PaymentRepository = PaymentRepository;
     }
-    async execute(CoffeeRequest) {
-        const payment = await this.PaymentRepository.createPayment(CoffeeRequest);
+    async execute(PaymentsCoffee) {
+        const payment = await this.PaymentRepository.createPayment(PaymentsCoffee);
         if (!payment) {
             return new error_on_create_payment_1.ErrorOnCreatePayment();
         }
