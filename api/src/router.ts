@@ -1,4 +1,4 @@
-import { ControllerProducts } from '@infra/controller/controller-product'
+import { ControllerProducts } from '@infra/http/controller/controller-product'
 import { Router } from 'express'
 
 export const routes = Router()
