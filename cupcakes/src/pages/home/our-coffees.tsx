@@ -47,7 +47,7 @@ export function OurCoffees() {
       } catch (error) {
         toast({
           title: 'Erro',
-          description: 'Ocorreu um erro ao carregar os cafés',
+          description: `Ocorreu um erro ao carregar os cafés ${error}`,
           variant: 'destructive',
           duration: 5000
         })

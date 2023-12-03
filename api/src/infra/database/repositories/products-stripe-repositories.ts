@@ -12,14 +12,6 @@ export class ProductsRepositoryStripe implements AbstractRepositoriesProduct {
   // Basicamente estou inicializando o stripe como um repositório, e passando a chave privada do stripe, ele pode criar, editar, filtrar e etc os produtos, alem de poder realizar pagamentos com ele
   private StripeRepository = stripe
 
-  findOne(id: string): Promise<ICoffee | null> {
-    throw new Error('Method not implemented.')
-  }
-
-  findOneBy(name: string): Promise<ICoffee | null> {
-    throw new Error('Method not implemented.')
-  }
-
   // Incerto
   async findById(id: string): Promise<ICoffee | null> {
     const product = await this.StripeRepository.products.retrieve(id)
@@ -32,7 +24,7 @@ export class ProductsRepositoryStripe implements AbstractRepositoriesProduct {
     const products = await this.StripeRepository.products.list()
     // A gente filtra os produtos para que ele fique no formato que a gente quer, e ai a gente retorna esse array de produtos filtrados
     const productsFilter = await Promise.all(products.data.map(async product => {
-      const price = await stripe.prices.retrieve(product.default_price as string);
+      const price = await this.StripeRepository.prices.retrieve(product.default_price as string);
       return {
         id: product.id,
         tags: product.metadata.category.split(', '),
@@ -44,11 +36,11 @@ export class ProductsRepositoryStripe implements AbstractRepositoriesProduct {
       };
     }));
 
-    return productsFilter as unknown as ICoffee[]
+    return productsFilter as ICoffee[]
   }
 
   // Incerto
-  async create(productRequest: ICoffeeRequest): Promise<void> {
+  async createProduct(productRequest: ICoffeeRequest): Promise<void> {
     await this.StripeRepository.products.create({
       name: productRequest.name,
       description: productRequest.description,
@@ -71,7 +63,7 @@ export class ProductsRepositoryStripe implements AbstractRepositoriesProduct {
   async updateProductFindById(coffee: ICoffee): Promise<void> {
     await this.StripeRepository.products.update(
       coffee.id,
-      coffee as unknown as Stripe.ProductUpdateParams
+      coffee as Stripe.ProductUpdateParams
     )
   }
 }

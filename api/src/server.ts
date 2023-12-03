@@ -3,18 +3,19 @@ import 'dotenv/config'
 import cors from 'cors'
 import express from 'express'
 import { routes } from './router'
+import { ConfigBases } from './config'
 
 // PORT = A porta que a plataforma(vercel) de deploy vai oferecer --> colocar ela so na parte de produção da plataforma
-const PORT = process.env.PORT ?? 3333
+const PORT = ConfigBases.cupcakes.baseUrls.port
 // PRODORDEV = seudominion.com --> colocar ela so na parte de produção da plataforma(vercel)
-const PRODORDEV = process.env.PRODORDEV ?? 'http://127.0.0.1:5173'
+const PRODORDEV = ConfigBases.cupcakes.baseUrls
 
 const app = express()
 
 app.use(express.json())
 app.use(
   cors({
-    origin: PRODORDEV,
+    origin: PRODORDEV as unknown as string,
     optionsSuccessStatus: 200,
     methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS']
   })
