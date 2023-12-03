@@ -1,4 +1,4 @@
-const isDev = process.env.REACT_APP_ENVIRONMENT === 'development'
+const isDev = import.meta.env.VITE_ENVIRONMENT === 'development'
 
 export default {
   cupcakes: {
