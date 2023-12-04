@@ -31,7 +31,7 @@ export class ProductsRepositoryStripe implements AbstractRepositoriesProduct {
         return {
           id: product.id,
           tags: product.metadata.category.split(', '),
-          name: product.name,
+          name: product.name ?? product.metadata.name,
           description: product.description,
           price: (price.unit_amount as number) / 100, // O preço vem com 2 casas decimais a mais, então eu divido por 100 para tirar essas casas decimais, ou seja 3000 vira 30,00
           // O default_Price é o id do preço do produto

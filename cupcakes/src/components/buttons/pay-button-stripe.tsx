@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { AxiosError } from 'axios'
 
 import { useCart } from '@hooks/push-item-cart'
 
@@ -30,20 +31,20 @@ export function PayButtonStripe({
   variantBgOutline,
   ...rest
 }: Readonly<IPayButtonStripeProps>) {
-  const { cartItems, addCoffeeToCart } = useCart()
+  const { cartItems, addCoffeeToCart, cartQuantity } = useCart()
 
   const { toast } = useToast()
 
   const [loading, setLoading] = useState(false)
 
   const controller = new AbortController()
-  
+
   // Isso tudo a gente pode ver na hora de criar um link de pagamento no stripe:
-  // Deixar o usuario quiser colocar a quantidade que quiser la no stripe(Possivel)
-  // Inserir dados do cartao e localidade no stripe
   // Apos a compra enviar um email para o usuario
   // É possivel personalizar o email que o usuario recebe, o recibo...
 
+
+  // Ver uma opção pix
   const handlePaymentItems = async () => {
     try {
       setLoading(true)
@@ -61,54 +62,58 @@ export function PayButtonStripe({
           signal: controller.signal
         }
       )
-      toast({
-        title: 'Erro',
-        description: `Compra realizada com sucesso`,
-        variant: 'success',
-        duration: 5000
-      })
-
+      
       location.href = data.url
     } catch (error) {
-      toast({
-        title: 'Erro',
-        description: `Ocorreu um erro ao comprar o café ${error}`,
-        variant: 'destructive',
-        duration: 5000
-      })
-      console.log(error)
+      if (error instanceof AxiosError) {
+        toast({
+          title: 'Erro',
+          description: `Ocorreu um erro ao comprar o café: ${
+            error.response?.data.error === undefined
+              ? error.name + ': ' + error.message
+              : error.response?.data.error
+          }`,
+          variant: 'destructive',
+          duration: 5000
+        })
+      }
     } finally {
       setLoading(false)
     }
   }
 
   const handlePaymentWithOneItem = async () => {
-    console.log(coffeeUnique)
     addCoffeeToCart(coffeeUnique as ICartItem)
     try {
       setLoading(true)
       const { data } = await api.post(
         '/create-checkout-session',
         {
-          items: {
-            quantity: coffeeUnique?.quantity,
-            default_price: coffeeUnique?.default_price
-          }
+          items: [
+            {
+              quantity: coffeeUnique?.quantity,
+              default_price: coffeeUnique?.default_price
+            }
+          ]
         },
         {
           signal: controller.signal
         }
       )
-
       location.href = data.url
     } catch (error) {
-      toast({
-        title: 'Erro',
-        description: `Ocorreu um erro ao comprar o café ${error}`,
-        variant: 'destructive',
-        duration: 5000
-      })
-      console.log(error)
+      if (error instanceof AxiosError) {
+        toast({
+          title: 'Erro',
+          description: `Ocorreu um erro ao comprar o café: ${
+            error.response?.data.error === undefined
+              ? error.name + ': ' + error.message
+              : error.response?.data.error
+          }`,
+          variant: 'destructive',
+          duration: 5000
+        })
+      }
     } finally {
       setLoading(false)
     }
@@ -130,7 +135,11 @@ export function PayButtonStripe({
           : handlePaymentWithOneItem
       }
       variantBgOutline={variantBgOutline}
-      disabled={loading}
+      disabled={
+        (handlePaymentItemsOrOneItem === 'handlePaymentItems' &&
+          cartQuantity <= 0) ||
+        loading
+      }
       {...rest}
     >
       {loading ? 'Carregando...' : children}

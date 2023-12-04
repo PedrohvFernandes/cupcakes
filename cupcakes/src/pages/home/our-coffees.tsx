@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { AxiosError } from 'axios'
 // import Stripe from 'stripe'
 // import { useEffect } from 'react'
 
@@ -46,13 +47,18 @@ export function OurCoffees() {
 
         setCoffeesStripe(data)
       } catch (error) {
-        toast({
-          title: 'Erro',
-          description: `Ocorreu um erro ao carregar os cafés ${error}`,
-          variant: 'destructive',
-          duration: 5000
-        })
-        console.log(error)
+        if (error instanceof AxiosError) {
+          toast({
+            title: 'Erro',
+            description: `Ocorreu um erro ao comprar o café: ${
+              error.response?.data.error === undefined
+                ? error.name + ': ' + error.message
+                : error.response?.data.error
+            }`,
+            variant: 'destructive',
+            duration: 5000
+          })
+        }
       } finally {
         setLoading(false)
       }

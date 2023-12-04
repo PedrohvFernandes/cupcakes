@@ -1,5 +1,5 @@
 export class ProductLengthNotFound extends Error {
   constructor() {
-    super('Length of product not found');
+    super('quantidade de produtos não encontrada');
   }
 }

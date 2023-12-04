@@ -1,5 +1,5 @@
 export class ErrorOnCreatePayment extends Error {
   constructor() {
-    super('Error on create payment');
+    super('serviço de pagamento indisponível');
   }
 }

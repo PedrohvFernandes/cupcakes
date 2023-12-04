@@ -69,7 +69,6 @@ export function ConfirmationSection() {
       </ButtonDefaultOutline> */}
       <PayButtonStripe
         variantBgOutline={'success'}
-        disabled={cartQuantity <= 0}
         handlePaymentItemsOrOneItem='handlePaymentItems'
         className="flex items-center justify-center gap-2"
       >

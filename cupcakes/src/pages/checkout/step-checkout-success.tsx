@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import { useCart } from '@hooks/push-item-cart'
 
@@ -9,14 +10,24 @@ export function CheckoutSuccess() {
   const { cleanCart } = useCart()
   const { toast } = useToast()
 
+  // https://cursos.alura.com.br/forum/topico-duvida-como-passar-e-capturar-mais-de-um-parametro-com-o-hook-useparams-270322
+  const [
+    searchParams
+    // setSearchParams
+  ] = useSearchParams()
+
+  const idSessionCheckout = searchParams.get('session_id')
+
   useEffect(() => {
-    toast({
-      title: 'Sua compra foi realizada com sucesso',
-      description: `Compra realizada com sucesso`,
-      variant: 'success',
-      duration: 5000
-    })
-    cleanCart()
+    if (idSessionCheckout !== null) {
+      toast({
+        title: 'Sua compra foi finalizada',
+        description: `Compra finalizada com sucesso`,
+        variant: 'success',
+        duration: 5000
+      })
+      cleanCart()
+    }
   }, [])
 
   return (
