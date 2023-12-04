@@ -7,7 +7,6 @@ class ControllerPayments {
     async CreatePaymentController(request, response) {
         const PaymentsRepositoryStripe = new payments_stripe_repositories_1.PaymentRepositoryStripe();
         const { items } = request.body;
-        console.log('Request.body: ', request.body);
         const resultPayment = await new create_payments_service_1.CreatePaymentsService(PaymentsRepositoryStripe).execute(items);
         if (resultPayment instanceof Error) {
             return response.status(400).json({ error: resultPayment.message });

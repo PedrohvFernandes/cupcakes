@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductLengthNotFound = void 0;
 class ProductLengthNotFound extends Error {
     constructor() {
-        super('Length of product not found');
+        super('quantidade de produtos não encontrada');
     }
 }
 exports.ProductLengthNotFound = ProductLengthNotFound;
