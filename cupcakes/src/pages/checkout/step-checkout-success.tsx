@@ -289,6 +289,10 @@ export function CheckoutSuccess() {
                                 })}
                               </strong>
                             </div>
+
+                            <strong className="text-sm">
+                              Quantidade: {item.quantity}
+                            </strong>
                           </div>
                           <Separator className="bg-primary" />
                         </div>
