@@ -39,12 +39,6 @@ export function PayButtonStripe({
 
   const controller = new AbortController()
 
-  // Isso tudo a gente pode ver na hora de criar um link de pagamento no stripe:
-  // Apos a compra enviar um email para o usuario
-  // É possivel personalizar o email que o usuario recebe, o recibo...
-
-
-  // Ver uma opção pix
   const handlePaymentItems = async () => {
     try {
       setLoading(true)
@@ -120,7 +114,6 @@ export function PayButtonStripe({
   }
 
   useEffect(() => {
-    // nAO ESTA FUNCIONANDO
     return () => {
       controller.abort()
     }

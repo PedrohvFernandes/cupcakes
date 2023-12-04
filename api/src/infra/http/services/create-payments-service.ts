@@ -1,5 +1,5 @@
 import { AbstractRepositoriesPayment } from '../abstract-repositories'
-import { ErrorOnCreatePayment } from '../error/error-on-create-payment'
+import { ErrorOnCreatePayment } from '../error'
 import { ICoffeePaymentRequest } from '../interfaces'
 
 export class CreatePaymentsService {

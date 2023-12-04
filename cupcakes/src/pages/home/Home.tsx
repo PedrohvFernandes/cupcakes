@@ -136,7 +136,6 @@ export function Home() {
         <OurCoffees />
 
         {/* Mais abaixo vem os produtos de acordo com o search e de acordo com a opção selecionada no menu */}
-        {/* Por enquanto eu quero poder listar os produtos, fazer o search, o menu, levar os itens para o carrinho e levar ja direto pro stripe apos clicar no botao comprar junto com quantidade que o usuario selecionou */}
 
         {/* Posteriormente criar uma tela para cada produto para ter uma descrição mais ampla e com o seus subtipos(small, medium...) como esta no figma */}
       </section>
