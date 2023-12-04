@@ -180,7 +180,7 @@ export function CheckoutSuccess() {
                     Uhuuuu! Seu pedido foi confirmado
                   </h1>
                   <p className="leading-[130%] text-sm md:text-base lg:text-lg text-center tracking-widest bg-accent/50 text-foreground/80 p-2 rounded">
-                    Agora é so aguardar que logo o café chegar até você
+                    Agora é so aguardar que logo o café ira chegar até você
                   </p>
                   <p className="leading-[130%] text-sm md:text-base lg:text-lg text-center tracking-widest bg-accent/50 text-foreground/80 p-2 rounded">
                     Detalhe enviamos uma confirmação do seu pedido para o seu
