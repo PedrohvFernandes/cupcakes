@@ -296,15 +296,6 @@ export function CheckoutSuccess() {
                     }
                   </div>
                 </section>
-                <ButtonDefaultOutline
-                  className="mt-8"
-                  variantBgOutline={'success'}
-                  onClick={() =>
-                    navigate(ConfigRoutes.cupcakes.default.source.path)
-                  }
-                >
-                  Voltar para home
-                </ButtonDefaultOutline>
               </>
             ) : (
               <div className="flex flex-col items-center justify-center gap-2">
@@ -317,6 +308,15 @@ export function CheckoutSuccess() {
                 </p>
               </div>
             )}
+            <ButtonDefaultOutline
+              className="mt-8"
+              variantBgOutline={'success'}
+              onClick={() =>
+                navigate(ConfigRoutes.cupcakes.default.source.path)
+              }
+            >
+              Voltar para home
+            </ButtonDefaultOutline>
           </>
         ) : (
           <div className="flex flex-col items-center justify-center gap-2 min-h-[32rem]">
