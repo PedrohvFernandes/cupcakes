@@ -15,7 +15,7 @@ class PaymentRepositoryStripe {
                 quantity: item.quantity,
                 adjustable_quantity: {
                     enabled: true,
-                    minimum: 1,
+                    // minimum: 1,
                     // maximum: 20,
                 },
             };
@@ -28,6 +28,8 @@ class PaymentRepositoryStripe {
             shipping_address_collection: {
                 allowed_countries: ['BR',],
             },
+            // Aqui eu posso passar o email do cliente, mas se eu não passar, o stripe vai pedir o email do cliente
+            // customer_email: 'pedrohv20fernandes@gmail.com',
             shipping_options: [
                 {
                     shipping_rate_data: {
@@ -99,6 +101,11 @@ class PaymentRepositoryStripe {
             // ],
             phone_number_collection: {
                 enabled: true
+            },
+            custom_text: {
+                submit: {
+                    message: 'Ao pagar você ira receber um email de confirmação com o seu pedido'
+                },
             },
             locale: 'pt-BR',
             mode: 'payment',
