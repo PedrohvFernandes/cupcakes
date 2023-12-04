@@ -39,7 +39,7 @@ export function CoffeeCartCard({ coffee }: Readonly<ICoffeeCartCardProps>) {
               {coffee.name}
             </p>
 
-            <div className="mt-2 flex flex-col sm398:flex-row items-center gap-2">
+            <div className="mt-2 flex flex-col sm430:flex-row items-center gap-2">
               <QuantityInput
                 quantity={coffee.quantity}
                 onIncrease={handleIncrease}
