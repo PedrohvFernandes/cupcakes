@@ -28,12 +28,15 @@ export function TutorialForcedBlock() {
       tutorial: '5 - Depois clicar em "Redefinir permissão" ou "Bloqueado X" ou algo parecido.'
     },
     {
-      tutorial:
-        '6 - E apos isso, reiniciar a pagina clicando no botão de recarregar no centro da pagina ou no botão de recarregar do navegador.'
+      tutorial: '6 - Caso não apareça essa opção após clicar no ícone, clique em "Configurações do site" ou algo parecido. E depois clique em "Redefinir permissão" ou "Bloqueado X" ou algo parecido.'
     },
     {
       tutorial:
-        '7 - Depois irá aparecer a opção de permitir novamente, clique em permitir e apos isso recarregue a pagina novamente.'
+        '7 - E apos isso, reiniciar a pagina clicando no botão de recarregar no centro da pagina ou no botão de recarregar do navegador.'
+    },
+    {
+      tutorial:
+        '8 - Depois irá aparecer a opção de permitir novamente, clique em permitir e apos isso recarregue a pagina novamente.'
     }
   ]
   return (
