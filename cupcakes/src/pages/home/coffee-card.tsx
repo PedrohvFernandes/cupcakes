@@ -59,7 +59,7 @@ export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
           </span>
         ))}
       </div>
-      <h3 className="font-bold mb-2">{coffee.name}</h3>
+      <h3 className="font-bold text-center mb-2">{coffee.name}</h3>
       <p className="text-sm text-center mb-4">{coffee.description}</p>
       <div className="w-full flex flex-col sm430:flex-row items-center justify-between gap-2">
         <div className="flex items-center gap-1">
