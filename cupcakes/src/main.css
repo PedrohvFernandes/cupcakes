@@ -60,4 +60,25 @@
     /* variaveis vindas do tailwind, ex: bg-red nativo do tailwind ou o bg-background feito no tailwind pelo dev/lib no arquivo de config tailwind.config.js usando as variaveis do css root(desse arquivo main), no caso a cor background seria uma cor configurada pelo dev, e nela é usada a variavel feito aqui no css main */
     @apply bg-background text-foreground;
   }
+
+  /* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-foreground rounded
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply rounded bg-accent
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-accent/60
+}
+
 }

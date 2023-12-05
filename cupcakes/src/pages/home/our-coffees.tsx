@@ -277,7 +277,7 @@ export function OurCoffees() {
                 ? `${clickCoffeeFiltering} Filtrar opções`
                 : clickCoffeeFiltering}
             </MenubarTrigger>
-            <MenubarContent className="w-full">
+            <MenubarContent className="w-full h-[30vh] overflow-auto  ">
               {/* {coffeesStripe.map(item => (
                 <>
                   {item.tags.map(tag => (
