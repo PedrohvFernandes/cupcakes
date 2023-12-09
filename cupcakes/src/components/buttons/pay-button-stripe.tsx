@@ -4,9 +4,9 @@ import { AxiosError } from 'axios'
 import { useCart } from '@hooks/push-item-cart'
 
 import {
-  ButtonDefaultOutline,
   IButtonDefaultOutlineProps
 } from './button-default-outline'
+import { ButtonSuccess } from './button-success'
 
 import { useToast } from '@components/ui/use-toast'
 
@@ -120,14 +120,13 @@ export function PayButtonStripe({
   }, [])
 
   return (
-    <ButtonDefaultOutline
+    <ButtonSuccess
       className={clsx(className)}
       onClick={
         handlePaymentItemsOrOneItem === 'handlePaymentItems'
           ? handlePaymentItems
           : handlePaymentWithOneItem
       }
-      variantBgOutline={variantBgOutline}
       disabled={
         (handlePaymentItemsOrOneItem === 'handlePaymentItems' &&
           cartQuantity <= 0) ||
@@ -136,6 +135,6 @@ export function PayButtonStripe({
       {...rest}
     >
       {loading ? 'Carregando...' : children}
-    </ButtonDefaultOutline>
+    </ButtonSuccess>
   )
 }

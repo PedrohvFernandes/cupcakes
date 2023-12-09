@@ -1,14 +1,10 @@
-import { useNavigate } from 'react-router-dom'
-
 import { useCart } from '@hooks/push-item-cart'
 import { formatMoney } from '@utils/format-money'
 
 import { Check, CornerUpLeft } from '@assets/icons'
 
-import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
-
-import { ConfigRoutes } from '@config/index'
 import { PayButtonStripe } from '@components/buttons/pay-button-stripe'
+import { ButtonKeepBuying } from '@components/buttons/button-keep-buying'
 
 // const DELIVERY_PRICE = 3.5
 
@@ -16,8 +12,6 @@ export function ConfirmationSection() {
   // const { cartItems } = useCart()
 
   const { cartItemsTotal, cartQuantity } = useCart()
-
-  const navigate = useNavigate()
 
   // const cartTotal = DELIVERY_PRICE + cartItemsTotal
 
@@ -68,8 +62,7 @@ export function ConfirmationSection() {
         )}
       </ButtonDefaultOutline> */}
       <PayButtonStripe
-        variantBgOutline={'success'}
-        handlePaymentItemsOrOneItem='handlePaymentItems'
+        handlePaymentItemsOrOneItem="handlePaymentItems"
         className="flex items-center justify-center gap-2"
       >
         {cartQuantity <= 0 ? (
@@ -84,14 +77,10 @@ export function ConfirmationSection() {
 
       <p className="text-center font-semibold text-sm sm:text-base">Ou</p>
 
-      <ButtonDefaultOutline
-        variantBgOutline={'alert'}
-        onClick={() => navigate(ConfigRoutes.cupcakes.default.source.path)}
-        className="flex items-center justify-center gap-2"
-      >
+      <ButtonKeepBuying>
         {cartQuantity <= 0 ? 'Volte para a loja' : 'Continuar comprando'}
         <CornerUpLeft />
-      </ButtonDefaultOutline>
+      </ButtonKeepBuying>
     </section>
   )
 }

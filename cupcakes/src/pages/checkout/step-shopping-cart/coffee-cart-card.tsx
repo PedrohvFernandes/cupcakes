@@ -1,6 +1,3 @@
-import { Trash2 } from '@assets/icons'
-
-import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
 import { QuantityInput } from '@components/inputs/quantity-input'
 
 import { useCart } from '@hooks/push-item-cart'
@@ -8,9 +5,10 @@ import { formatMoney } from '@utils/format-money'
 
 import { ICoffeeCartCardProps } from './typings'
 import { Separator } from '@components/ui/separator'
+import { ButtonTrash } from '@components/buttons/button-trash'
 
 export function CoffeeCartCard({ coffee }: Readonly<ICoffeeCartCardProps>) {
-  const { changeCartItemQuantity, removeCartItem } = useCart()
+  const { changeCartItemQuantity } = useCart()
 
   function handleIncrease() {
     changeCartItemQuantity(coffee.id, 'increase')
@@ -20,9 +18,6 @@ export function CoffeeCartCard({ coffee }: Readonly<ICoffeeCartCardProps>) {
     changeCartItemQuantity(coffee.id, 'decrease')
   }
 
-  function handleRemove() {
-    removeCartItem(coffee.id)
-  }
 
   // Total de cada produto
   const coffeesTotal = coffee.price * coffee.quantity
@@ -46,14 +41,7 @@ export function CoffeeCartCard({ coffee }: Readonly<ICoffeeCartCardProps>) {
                 onDecrease={handleDecrease}
               />
 
-              <ButtonDefaultOutline
-                onClick={handleRemove}
-                variantBgOutline={'destructive'}
-                className="flex gap-2"
-              >
-                <Trash2 />
-                REMOVER
-              </ButtonDefaultOutline>
+              <ButtonTrash coffeeId={coffee.id}>REMOVER</ButtonTrash>
             </div>
           </div>
         </div>

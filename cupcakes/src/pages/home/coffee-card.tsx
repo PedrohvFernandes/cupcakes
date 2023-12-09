@@ -89,8 +89,7 @@ export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
             Comprar
           </ButtonDefaultOutline> */}
           <PayButtonStripe
-            variantBgOutline={'bgPrimaryForeground'}
-            className="w-full hover:bg-primary"
+            className="w-full"
             coffeeUnique={{
               ...coffee,
               quantity

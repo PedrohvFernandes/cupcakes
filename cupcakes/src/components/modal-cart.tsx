@@ -11,7 +11,7 @@ import {
   SheetClose
 } from '@components/ui/sheet'
 
-import { Check, CornerUpLeft, ShoppingCart } from '@assets/icons'
+import { Check, ShoppingCart } from '@assets/icons'
 
 import { BottomLine } from './bottom-line'
 import { ButtonDefaultOutline } from './buttons/button-default-outline'
@@ -21,8 +21,13 @@ import { ConfigRoutes } from '@config/index'
 
 import { useCart } from '@hooks/push-item-cart'
 
+import { QuantityInput } from './inputs/quantity-input'
+import { ButtonTrash } from './buttons/button-trash'
+import { ButtonKeepBuying } from './buttons/button-keep-buying'
+import { ButtonSuccess } from './buttons/button-success'
+
 export function ModalCart() {
-  const { cartQuantity, cartItems } = useCart()
+  const { cartQuantity, cartItems, changeCartItemQuantity } = useCart()
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -66,16 +71,7 @@ export function ModalCart() {
           </SheetHeader>
           <SheetFooter className="flex-col sm:flex-col">
             <SheetClose className="flex flex-col gap-2 items-center justify-center">
-              <ButtonDefaultOutline
-                variantBgOutline={'alert'}
-                className="flex items-center justify-center gap-2"
-                onClick={() =>
-                  navigate(ConfigRoutes.cupcakes.default.source.path)
-                }
-              >
-                Continuar comprando
-                <CornerUpLeft />
-              </ButtonDefaultOutline>
+              <ButtonKeepBuying />
             </SheetClose>
           </SheetFooter>
         </SheetContent>
@@ -94,7 +90,20 @@ export function ModalCart() {
                     <strong>{coffee.name}</strong>
                     <p>Qtd: {coffee.quantity}</p>
                   </div>
+                  <div className="flex flex-col  gap-2">
+                    <QuantityInput
+                      onDecrease={() =>
+                        changeCartItemQuantity(coffee.id, 'decrease')
+                      }
+                      onIncrease={() =>
+                        changeCartItemQuantity(coffee.id, 'increase')
+                      }
+                      quantity={coffee.quantity}
+                      className="text-xs"
+                    />
 
+                    <ButtonTrash coffeeId={coffee.id}>REMOVER</ButtonTrash>
+                  </div>
                   <Separator />
                 </div>
               ))}
@@ -102,24 +111,13 @@ export function ModalCart() {
           </SheetHeader>
           <SheetFooter className="flex-col sm:flex-col">
             <SheetClose className="flex flex-col gap-2 items-center justify-center">
-              <ButtonDefaultOutline
-                variantBgOutline={'success'}
-                className="flex items-center justify-center gap-2"
+              <ButtonSuccess
                 onClick={() => navigate(ConfigRoutes.cupcakes.checkout.path)}
               >
                 Confirmar pedido
                 <Check />
-              </ButtonDefaultOutline>
-              <ButtonDefaultOutline
-                variantBgOutline={'alert'}
-                className="flex items-center justify-center gap-2"
-                onClick={() =>
-                  navigate(ConfigRoutes.cupcakes.default.source.path)
-                }
-              >
-                Continuar comprando
-                <CornerUpLeft />
-              </ButtonDefaultOutline>
+              </ButtonSuccess>
+              <ButtonKeepBuying />
             </SheetClose>
           </SheetFooter>
         </SheetContent>
