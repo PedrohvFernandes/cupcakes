@@ -76,7 +76,7 @@ export function ModalCart() {
           </SheetFooter>
         </SheetContent>
       ) : (
-        <SheetContent side={'right'} className="text-white h-screen overflow-auto">
+        <SheetContent side={'right'} className="text-white h-screen overflow-y-auto overflow-x-hidden">
           <SheetHeader>
             <SheetTitle className="text-center">
               Todos os itens do seu carrinho
