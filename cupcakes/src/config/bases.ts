@@ -1,4 +1,4 @@
-const isDev = import.meta.env.VITE_ENVIRONMENT === 'development'
+import { isDev } from "@utils/isDev"
 
 export default {
   cupcakes: {
