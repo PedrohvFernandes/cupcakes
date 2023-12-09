@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { useToast } from '@components/ui/use-toast'
 import { Toaster } from '@components/ui/toaster'
-import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
+import { ButtonSuccess } from '@components/buttons/button-success'
+
 import { ConfigRoutes } from '@config/index'
 
 export function CheckoutCancel() {
@@ -27,13 +28,12 @@ export function CheckoutCancel() {
           Você cancelou o pedido, mas não se preocupe volte para a loja que você
           vera seus itens no carrinho
         </h1>
-        <ButtonDefaultOutline
+        <ButtonSuccess
           onClick={() => navigate(ConfigRoutes.cupcakes.default.source.path)}
-          variantBgOutline={'success'}
           className='md:h-16 w-52'
         >
           Voltar para loja
-        </ButtonDefaultOutline>
+        </ButtonSuccess>
       </div>
     </>
   )

@@ -7,13 +7,13 @@ import { useCart } from '@hooks/push-item-cart'
 
 import { useToast } from '@components/ui/use-toast'
 import { Toaster } from '@components/ui/toaster'
+import { Separator } from '@components/ui/separator'
+import { ButtonSuccess } from '@components/buttons/button-success'
 
 import { stripe } from '@lib/stripe'
 
 import { ConfigRoutes } from '@config/index'
 
-import { ButtonDefaultOutline } from '@components/buttons/button-default-outline'
-import { Separator } from '@components/ui/separator'
 import { formatMoney } from '@utils/format-money'
 
 interface ICheckoutSuccessCustomerProps {
@@ -312,15 +312,14 @@ export function CheckoutSuccess() {
                 </p>
               </div>
             )}
-            <ButtonDefaultOutline
+            <ButtonSuccess
               className="mt-8"
-              variantBgOutline={'success'}
               onClick={() =>
                 navigate(ConfigRoutes.cupcakes.default.source.path)
               }
             >
               Voltar para home
-            </ButtonDefaultOutline>
+            </ButtonSuccess>
           </>
         ) : (
           <div className="flex flex-col items-center justify-center gap-2 min-h-[32rem]">
