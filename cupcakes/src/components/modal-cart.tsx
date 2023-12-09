@@ -76,7 +76,7 @@ export function ModalCart() {
           </SheetFooter>
         </SheetContent>
       ) : (
-        <SheetContent side={'right'} className="text-white">
+        <SheetContent side={'right'} className="text-white h-screen overflow-auto">
           <SheetHeader>
             <SheetTitle className="text-center">
               Todos os itens do seu carrinho
@@ -109,7 +109,7 @@ export function ModalCart() {
               ))}
             </SheetDescription>
           </SheetHeader>
-          <SheetFooter className="flex-col sm:flex-col">
+          <SheetFooter className="flex-col sm:flex-col p-2">
             <SheetClose className="flex flex-col gap-2 items-center justify-center">
               <ButtonSuccess
                 onClick={() => navigate(ConfigRoutes.cupcakes.checkout.path)}
