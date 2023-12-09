@@ -80,55 +80,49 @@ export function ModalCart() {
           </SheetFooter>
         </SheetContent>
       ) : (
-        <>
-          {' '}
-          <SheetContent side={'right'} className="text-white">
-            <SheetHeader>
-              <SheetTitle className="text-center">
-                Todos os itens do seu carrinho
-              </SheetTitle>
-              <SheetDescription className="flex flex-col gap-4 p-2">
-                {cartItems.map(coffee => (
-                  <div
-                    className="flex flex-col gap-2 text-white"
-                    key={coffee.id}
-                  >
-                    <div className="flex gap-2">
-                      <img src={`${coffee.photo}`} className="h-16" />
+        <SheetContent side={'right'} className="text-white">
+          <SheetHeader>
+            <SheetTitle className="text-center">
+              Todos os itens do seu carrinho
+            </SheetTitle>
+            <SheetDescription className="flex flex-col gap-4 p-2">
+              {cartItems.map(coffee => (
+                <div className="flex flex-col gap-2 text-white" key={coffee.id}>
+                  <div className="flex gap-2">
+                    <img src={`${coffee.photo}`} className="h-16" />
 
-                      <strong>{coffee.name}</strong>
-                      <p>Qtd: {coffee.quantity}</p>
-                    </div>
-
-                    <Separator />
+                    <strong>{coffee.name}</strong>
+                    <p>Qtd: {coffee.quantity}</p>
                   </div>
-                ))}
-              </SheetDescription>
-            </SheetHeader>
-            <SheetFooter className="flex-col sm:flex-col">
-              <SheetClose className="flex flex-col gap-2 items-center justify-center">
-                <ButtonDefaultOutline
-                  variantBgOutline={'success'}
-                  className="flex items-center justify-center gap-2"
-                  onClick={() => navigate(ConfigRoutes.cupcakes.checkout.path)}
-                >
-                  Confirmar pedido
-                  <Check />
-                </ButtonDefaultOutline>
-                <ButtonDefaultOutline
-                  variantBgOutline={'alert'}
-                  className="flex items-center justify-center gap-2"
-                  onClick={() =>
-                    navigate(ConfigRoutes.cupcakes.default.source.path)
-                  }
-                >
-                  Continuar comprando
-                  <CornerUpLeft />
-                </ButtonDefaultOutline>
-              </SheetClose>
-            </SheetFooter>
-          </SheetContent>
-        </>
+
+                  <Separator />
+                </div>
+              ))}
+            </SheetDescription>
+          </SheetHeader>
+          <SheetFooter className="flex-col sm:flex-col">
+            <SheetClose className="flex flex-col gap-2 items-center justify-center">
+              <ButtonDefaultOutline
+                variantBgOutline={'success'}
+                className="flex items-center justify-center gap-2"
+                onClick={() => navigate(ConfigRoutes.cupcakes.checkout.path)}
+              >
+                Confirmar pedido
+                <Check />
+              </ButtonDefaultOutline>
+              <ButtonDefaultOutline
+                variantBgOutline={'alert'}
+                className="flex items-center justify-center gap-2"
+                onClick={() =>
+                  navigate(ConfigRoutes.cupcakes.default.source.path)
+                }
+              >
+                Continuar comprando
+                <CornerUpLeft />
+              </ButtonDefaultOutline>
+            </SheetClose>
+          </SheetFooter>
+        </SheetContent>
       )}
     </Sheet>
   )
