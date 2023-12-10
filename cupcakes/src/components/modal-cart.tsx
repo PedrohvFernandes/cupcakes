@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import {
   Sheet,
@@ -8,7 +8,8 @@ import {
   SheetTitle,
   SheetTrigger,
   SheetFooter,
-  SheetClose
+  SheetClose,
+  // SheetOverlay
 } from '@components/ui/sheet'
 
 import { Check, ShoppingCart } from '@assets/icons'
@@ -30,7 +31,6 @@ export function ModalCart() {
   const { cartQuantity, cartItems, changeCartItemQuantity } = useCart()
 
   const navigate = useNavigate()
-  const location = useLocation()
 
   return (
     <Sheet>
@@ -38,10 +38,7 @@ export function ModalCart() {
         variantBottom={'bottom10'}
         path={ConfigRoutes.cupcakes.checkout.path}
       >
-        <SheetTrigger
-          disabled={location.pathname === ConfigRoutes.cupcakes.checkout.path}
-          asChild
-        >
+        <SheetTrigger asChild>
           <ButtonDefaultOutline
             path={ConfigRoutes.cupcakes.checkout.path}
             // onClick={() => navigate(ConfigRoutes.cupcakes.checkout.path)}
@@ -70,7 +67,11 @@ export function ModalCart() {
           </SheetHeader>
           <SheetFooter className="flex-col sm:flex-col">
             <SheetClose asChild>
-              <ButtonKeepBuying />
+              <ButtonKeepBuying
+                onClick={() =>
+                  navigate(ConfigRoutes.cupcakes.default.source.path)
+                }
+              />
             </SheetClose>
           </SheetFooter>
         </SheetContent>
@@ -120,7 +121,11 @@ export function ModalCart() {
               </ButtonSuccess>
             </SheetClose>
             <SheetClose asChild>
-              <ButtonKeepBuying />
+              <ButtonKeepBuying
+                onClick={() =>
+                  navigate(ConfigRoutes.cupcakes.default.source.path)
+                }
+              />
             </SheetClose>
           </SheetFooter>
         </SheetContent>

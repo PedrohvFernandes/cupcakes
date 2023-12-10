@@ -8,7 +8,7 @@ import { ButtonAlert } from './button-alert'
 
 import { CornerUpLeft } from '@assets/icons'
 
-interface IButtonKeepBuyingProps {
+interface IButtonKeepBuyingProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode
 }
 
