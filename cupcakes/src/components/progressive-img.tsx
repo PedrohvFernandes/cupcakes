@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 
 import { cn } from '@lib/utils'
+import { Skeleton } from './ui/skeleton'
 
 interface IProgressiveImgProps
   extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -26,19 +27,27 @@ export function ProgressiveImg({
   }, [src])
 
   return (
-    <img
-      src={`${src}`}
-      alt={alt ?? ''}
-      className={cn(
-        'transition-all duration-500',
-        `${imgSrc ? 'filter-none' : 'filter blur-sm'}`,
-        className
+    <>
+      {imgSrc ? (
+        <img
+          src={`${src}`}
+          alt={alt ?? ''}
+          className={cn(
+            'transition-all duration-500',
+            `${imgSrc ? 'filter-none' : 'filter blur-sm'}`,
+            className
+          )}
+          loading="lazy"
+          // onLoad={e => {
+          //   e.currentTarget.style.filter = 'none' // Remove o efeito de desfoque ao carregar
+          // }}
+          {...rest}
+        />
+      ) : (
+        <Skeleton
+          className={cn('h-64 rounded-full bg-primary-foreground', className)}
+        />
       )}
-      loading="lazy"
-      // onLoad={e => {
-      //   e.currentTarget.style.filter = 'none' // Remove o efeito de desfoque ao carregar
-      // }}
-      {...rest}
-    />
+    </>
   )
 }
