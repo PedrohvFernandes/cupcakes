@@ -38,7 +38,7 @@ export function ProgressiveImg({
         src={`${src}`}
         alt={alt ?? ''}
         className={cn(
-          'transition-all duration-500 bg-primary-foreground',
+          'transition-all duration-500',
           `${imgSrc ? 'filter-none' : 'filter blur-sm'}`,
           className
         )}
