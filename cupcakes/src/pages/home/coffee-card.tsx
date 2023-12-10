@@ -11,7 +11,7 @@ import { ShoppingCart } from '@assets/icons'
 import { useToast } from '@components/ui/use-toast'
 import { ICoffeeProps } from './typings'
 import { PayButtonStripe } from '@components/buttons/pay-button-stripe'
-// import { ProgressiveImg } from '@components/progressive-img'
+import { ProgressiveImg } from '@components/progressive-img'
 
 export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
   const [quantity, setQuantity] = useState(1)
@@ -49,7 +49,7 @@ export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
 
   return (
     <div className="w-full bg-accent rounded-tl-lg rounded-tr-3xl rounded-bl-3xl rounded-br-lg p-5 pt-0 flex flex-col items-center justify-center">
-      <img
+      {/* <img
         src={`${coffee.photo}`}
         className="w-44 -mt-5 rounded"
         loading="lazy"
@@ -57,8 +57,8 @@ export function CoffeeCard({ coffee }: Readonly<ICoffeeProps>) {
         onLoad={e => {
           e.currentTarget.style.filter = 'none' // Remove o efeito de desfoque ao carregar
         }}
-      />
-      {/* <ProgressiveImg src={`${coffee.photo}`} className="w-44 -mt-5 rounded" /> */}
+      /> */}
+      <ProgressiveImg src={`${coffee.photo}`} className="w-44 -mt-5 rounded" />
 
       <div className="w-full flex items-center justify-center gap-1 my-4 flex-wrap">
         {coffee.tags.map(tag => (
