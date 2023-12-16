@@ -8,7 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
   SheetFooter,
-  SheetClose,
+  SheetClose
   // SheetOverlay
 } from '@components/ui/sheet'
 
@@ -26,6 +26,7 @@ import { QuantityInput } from './inputs/quantity-input'
 import { ButtonTrash } from './buttons/button-trash'
 import { ButtonKeepBuying } from './buttons/button-keep-buying'
 import { ButtonSuccess } from './buttons/button-success'
+import { ProgressiveImg } from './progressive-img'
 
 export function ModalCart() {
   const { cartQuantity, cartItems, changeCartItemQuantity } = useCart()
@@ -87,11 +88,16 @@ export function ModalCart() {
 
             {cartItems.map(coffee => (
               <div className="flex flex-col gap-2" key={coffee.id}>
-                <div className="flex gap-2">
-                  <img src={`${coffee.photo}`} className="h-16" />
+                <div className="flex items-center gap-2">
+                  <ProgressiveImg
+                    src={`${coffee.photo}`}
+                    className="h-24 w-36 sm355:w-16 rounded"
+                  />
 
-                  <strong>{coffee.name}</strong>
-                  <p>Qtd: {coffee.quantity}</p>
+                  <strong className="text-xs sm:text-base">
+                    {coffee.name}
+                  </strong>
+                  <p className="text-xs sm:text-base">Qtd: {coffee.quantity}</p>
                 </div>
                 <div className="flex flex-col gap-2">
                   <QuantityInput

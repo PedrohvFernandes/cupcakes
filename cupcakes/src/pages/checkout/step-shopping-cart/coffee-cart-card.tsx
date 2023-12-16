@@ -6,6 +6,7 @@ import { formatMoney } from '@utils/format-money'
 import { ICoffeeCartCardProps } from './typings'
 import { Separator } from '@components/ui/separator'
 import { ButtonTrash } from '@components/buttons/button-trash'
+import { ProgressiveImg } from '@components/progressive-img'
 
 export function CoffeeCartCard({ coffee }: Readonly<ICoffeeCartCardProps>) {
   const { changeCartItemQuantity } = useCart()
@@ -18,7 +19,6 @@ export function CoffeeCartCard({ coffee }: Readonly<ICoffeeCartCardProps>) {
     changeCartItemQuantity(coffee.id, 'decrease')
   }
 
-
   // Total de cada produto
   const coffeesTotal = coffee.price * coffee.quantity
 
@@ -28,7 +28,11 @@ export function CoffeeCartCard({ coffee }: Readonly<ICoffeeCartCardProps>) {
     <>
       <div className="flex flex-col gap-4  md:flex-row items-center justify-between min-h-[8rem]">
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <img src={`${coffee.photo}`} className=" h-28" />
+          <ProgressiveImg
+            src={`${coffee.photo}`}
+            className="h-40 w-28 rounded"
+          />
+
           <div>
             <p className="text-lg font-bold text-center sm398:text-start">
               {coffee.name}
