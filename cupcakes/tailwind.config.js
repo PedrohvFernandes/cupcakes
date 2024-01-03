@@ -88,6 +88,8 @@ module.exports = {
         fontWeight: 'font-weight'
       },
       screens: {
+        'md900': '900px',
+        // => @media (min-width: 900px) { ... }
         'md817': '817px',
         // => @media (min-width: 817px) { ... }
         'sm430': '430px',

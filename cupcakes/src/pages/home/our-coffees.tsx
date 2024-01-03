@@ -317,7 +317,7 @@ export function OurCoffees() {
       </div>
       {loading && <LoaderDefault>Carregando os cafés...</LoaderDefault>}
 
-      <div className="flex flex-col items-center justify-center md817:grid md817:grid-cols-2 xl:grid-cols-3 gap-8 mt-14">
+      <div className="flex flex-col items-center justify-center md900:grid md900:grid-cols-2 xl:grid-cols-3 gap-8 mt-14">
         {!loading && (
           <>
             {filterCoffeesSearch.length > 0
