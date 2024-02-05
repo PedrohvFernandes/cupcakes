@@ -1,4 +1,4 @@
-# Cupcakes <img align='center' width='100px' src='https://github.com/PedrohvFernandes/cupcakes/blob/main/cupcakes/public/favicon_io/android-chrome-192x192.png?raw=true'/>
+# Cupcakes <img align='center' width='50px' src='https://github.com/PedrohvFernandes/cupcakes/blob/main/cupcakes/public/favicon_io/android-chrome-192x192.png?raw=true'/>
 
 ## Sobre:
 
