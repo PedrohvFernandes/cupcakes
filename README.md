@@ -11,16 +11,24 @@
 
 ### Web:
 <div>
-  <img width='800'src='https://github.com/PedrohvFernandes/nlw-ia/blob/main/NLWIATRANSCRIPTIONWEB/public/Web/Sreen1.png'/>
-  <img width='800'src='https://github.com/PedrohvFernandes/nlw-ia/blob/main/NLWIATRANSCRIPTIONWEB/public/Web/Screen2.png'/>
+  <img width='800'src='https://github.com/PedrohvFernandes/cupcakes/blob/main/cupcakes/public/screens/Screen%201.png'/>
+  <img width='800'src='https://github.com/PedrohvFernandes/cupcakes/blob/main/cupcakes/public/screens/Screen%202.png'/>
+  <img width='800'src='https://github.com/PedrohvFernandes/cupcakes/blob/main/cupcakes/public/screens/Screen%203.png'/>
+  <img width='800'src='https://github.com/PedrohvFernandes/cupcakes/blob/main/cupcakes/public/screens/Screen%204.png'/>
+  <img width='800'src='https://github.com/PedrohvFernandes/cupcakes/blob/main/cupcakes/public/screens/Screen%205.png'/>
+  
 </div>
 
 
 
 ### Mobile:
 <div>
-  <img width='800'src='https://github.com/PedrohvFernandes/nlw-ia/blob/main/NLWIATRANSCRIPTIONWEB/public/Web/Sreen1.png'/>
-  <img width='800'src='https://github.com/PedrohvFernandes/nlw-ia/blob/main/NLWIATRANSCRIPTIONWEB/public/Web/Screen2.png'/>
+  <img src='https://github.com/PedrohvFernandes/cupcakes/blob/main/cupcakes/public/screens/Screen%201%20Mobile.png'/>
+  <img src='https://github.com/PedrohvFernandes/cupcakes/blob/main/cupcakes/public/screens/Screen%202%20Mobile.png'/>
+  <img src='https://github.com/PedrohvFernandes/cupcakes/blob/main/cupcakes/public/screens/Screen%203%20Mobile.png'/>
+  <img src='https://github.com/PedrohvFernandes/cupcakes/blob/main/cupcakes/public/screens/Screen%204%20Mobile.png'/>
+  <img src='https://github.com/PedrohvFernandes/cupcakes/blob/main/cupcakes/public/screens/Screen%205%20Mobile.png'/>
+  
 </div>
 
 
