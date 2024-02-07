@@ -4,8 +4,8 @@
 
 ### Precisa de uma aplicação de sistema de e-commerce, com um sistema de pagamento mais seguro e inovador do mercado ? Esse projeto consegue ter tudo isso e mais um pouco
 
-## Conm funciona em termos tecnicos
-#### Como é feito algum pedido ? Basicamente o usuario seleciona os produtos no site, e do site as informações desses produtos selecionadas vão para o back-end padronizado, onde possui o sistema de pagamento, usando o Stripe. Caso o usuario cancele a compra ele é retornado para o site informando que sua compra foi cancelada, caso de tudo certo, é enviado um email para o seu email, que o pedido foi um sucesso e ele é retornado para a pagina informando detalhes do seu pedido
+## Como funciona em termos tecnicos
+#### Como é feito algum pedido ? Basicamente o usuario seleciona os produtos no site, e do site as informações desses produtos selecionadas vão para o back-end padronizado, onde possui o sistema de pagamento, usando o Stripe. Caso o usuario cancele a compra ele é retornado para o site informando que sua compra foi cancelada, caso de tudo certo, é enviado um email para o seu email, que o pedido foi um sucesso e o usuario é retornado para a pagina informando detalhes do seu pedido
 
 ## 🌐 Demonstração do app na web:
 
@@ -57,7 +57,7 @@
 
 - Busca de cafeterias proxima(Geolocalização)
 - Filtragem de busca de cafeterias por região e por estabelecimento
-- Listagem de produtos no cardapio
+- Listagem de produtos do cardapio
 - Sistema de pagamento seguro(Stripe)
   
 ## 🛠️ Futuras Features e Atualizações:
