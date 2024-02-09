@@ -56,7 +56,11 @@ export function CartContextProvider({
   })
 
   // A quantidade de itens no carrinho
-  const cartQuantity = cartItems.length
+  // const cartQuantity = cartItems.length
+  // Acumula o total de cada item no carrinho
+  const cartQuantity = cartItems.reduce((total, cartItem) => {
+    return total + cartItem.quantity
+  }, 0)
 
   // O valor total dos itens no carrinho
   const cartItemsTotal = cartItems.reduce((total, cartItem) => {
